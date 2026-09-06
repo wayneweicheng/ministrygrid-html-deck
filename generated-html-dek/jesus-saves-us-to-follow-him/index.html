@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10242a">
+  <title>Jesus Saves Us to Follow Him | Easter Bonus Session 2</title>
+  <style>
+    :root {
+      --ink: #10242a;
+      --ink-soft: #35545b;
+      --cream: #fff9ed;
+      --cream-2: #f7edd9;
+      --gold: #f1b746;
+      --gold-soft: #ffe4a4;
+      --green: #2f8a68;
+      --green-dark: #1d634d;
+      --green-soft: #d7eee1;
+      --rose: #ca6d78;
+      --rose-soft: #f7dce0;
+      --sky: #b9e7ef;
+      --white: #ffffff;
+      --shadow: 0 1.5rem 3.5rem rgba(8, 27, 30, .22);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #0b1a1f;
+      color: var(--ink);
+      font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+    }
+
+    button { font: inherit; }
+    button:focus-visible {
+      outline: .22rem solid var(--gold);
+      outline-offset: .22rem;
+    }
+
+    .stage-shell {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(241, 183, 70, .12), transparent 20%),
+        radial-gradient(circle at 88% 78%, rgba(47, 138, 104, .13), transparent 24%),
+        #0b1a1f;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      overflow: hidden;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      border: .16rem solid rgba(255, 255, 255, .16);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      padding: clamp(2rem, 5vw, 5.4rem) clamp(2.5rem, 6.3vw, 7.2rem) clamp(3rem, 6vw, 6rem);
+    }
+
+    .slide.active { display: block; }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: .8rem;
+      background: var(--gold);
+      z-index: 10;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      color: var(--green-dark);
+      font-size: clamp(.7rem, 1.15vw, 1.1rem);
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 2rem;
+      height: .22rem;
+      border-radius: 99px;
+      background: var(--gold);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.04em; }
+    h1 {
+      max-width: 8.5ch;
+      margin-bottom: 1.2rem;
+      font-size: clamp(3.3rem, 7.8vw, 8.8rem);
+      line-height: .88;
+    }
+
+    h2 {
+      max-width: 11ch;
+      margin-bottom: 1rem;
+      font-size: clamp(2.7rem, 5.8vw, 6.5rem);
+      line-height: .92;
+    }
+
+    h3 {
+      margin-bottom: .55rem;
+      font-size: clamp(1.35rem, 2.2vw, 2.25rem);
+      line-height: 1;
+    }
+
+    p {
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, 1.75vw, 1.8rem);
+      line-height: 1.24;
+    }
+
+    .source-note {
+      position: absolute;
+      left: clamp(2.5rem, 6.3vw, 7.2rem);
+      bottom: clamp(1.35rem, 2.2vw, 2.3rem);
+      z-index: 12;
+      margin: 0;
+      color: rgba(16, 36, 42, .62);
+      font-size: clamp(.62rem, .82vw, .82rem);
+      letter-spacing: .03em;
+    }
+
+    .hero {
+      background: var(--cream);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 3;
+      width: 50%;
+      min-height: 100%;
+      padding-top: 7%;
+    }
+
+    .hero-copy p { max-width: 28rem; }
+
+    .hero-art {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 56%;
+      overflow: hidden;
+      clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 249, 237, .98) 0%, rgba(255, 249, 237, .1) 30%, rgba(16, 36, 42, .04) 100%);
+    }
+
+    .poster {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-art .poster { object-position: 53% center; }
+
+    .lesson-pill {
+      display: inline-flex;
+      margin-top: 1.15rem;
+      padding: .7rem 1rem;
+      border-radius: 999px;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      font-size: clamp(.75rem, 1.1vw, 1rem);
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .hero-question {
+      position: absolute;
+      left: 7%;
+      bottom: 10%;
+      z-index: 5;
+      width: min(32%, 24rem);
+    }
+
+    .question-button,
+    .bubble-toggle {
+      padding: .85rem 1rem;
+      border-radius: .9rem;
+      border: 0;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--gold-soft);
+      box-shadow: 0 .5rem 0 rgba(185, 127, 28, .25);
+      font-size: clamp(.9rem, 1.3vw, 1.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .question-button:hover,
+    .bubble-toggle:hover,
+    .question-button[aria-expanded="true"],
+    .bubble-toggle[aria-expanded="true"] {
+      transform: translateY(-.14rem);
+      background: #ffd77a;
+      box-shadow: 0 .68rem 0 rgba(185, 127, 28, .27);
+    }
+
+    .question-button {
+      width: 100%;
+      padding: 1rem 1.15rem;
+      border-radius: 1.25rem 1.25rem 1.25rem .25rem;
+      text-align: left;
+      font-size: clamp(1rem, 1.55vw, 1.55rem);
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    .reveal { position: relative; }
+    .bubble-pop {
+      position: relative;
+      z-index: 4;
+      margin-top: .7rem;
+      padding: .85rem 1rem;
+      border: .14rem solid rgba(47, 138, 104, .22);
+      border-radius: 1rem;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .6rem 1.2rem rgba(16, 36, 42, .12);
+      font-size: clamp(.9rem, 1.25vw, 1.18rem);
+      font-weight: 700;
+      line-height: 1.18;
+    }
+
+    .bubble-pop[hidden] { display: none; }
+    .reveal:hover .bubble-pop:not([hidden]) { display: block; }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.5rem, 4vw, 4.5rem);
+      align-items: center;
+      height: 100%;
+    }
+
+    .copy { position: relative; z-index: 3; }
+    .copy > p { max-width: 32rem; }
+
+    .art-panel {
+      position: relative;
+      min-height: 68%;
+      overflow: hidden;
+      border-radius: 2.3rem;
+      background: var(--green-soft);
+      box-shadow: 0 1rem 2rem rgba(16, 36, 42, .15);
+    }
+
+    .art-panel .poster { object-position: 55% center; }
+    .art-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(16, 36, 42, .12), transparent 45%, rgba(16, 36, 42, .18));
+      pointer-events: none;
+    }
+
+    .caption-chip {
+      position: absolute;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      z-index: 2;
+      padding: .65rem .85rem;
+      border-radius: .8rem;
+      color: var(--white);
+      background: rgba(16, 36, 42, .82);
+      font-size: clamp(.72rem, 1vw, .95rem);
+      font-weight: 800;
+    }
+
+    .setting-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 27rem;
+      margin: 1.2rem 0;
+      padding: 1rem 1.15rem;
+      border-radius: 1.25rem;
+      background: var(--green-soft);
+    }
+
+    .icon-circle {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      color: var(--green-dark);
+      background: var(--gold);
+      font-size: 1.65rem;
+      font-weight: 900;
+    }
+
+    .setting-card strong { display: block; font-size: clamp(1rem, 1.35vw, 1.3rem); }
+    .setting-card span { color: var(--ink-soft); font-size: clamp(.85rem, 1.1vw, 1.05rem); }
+
+    .mini-label {
+      margin-bottom: .6rem;
+      color: var(--green-dark);
+      font-size: clamp(.7rem, 1vw, .95rem);
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .colt-card,
+    .contrast-card,
+    .meaning-card {
+      margin: 1.1rem 0 1.25rem;
+      padding: 1.1rem 1.2rem;
+      border-radius: 1.35rem;
+      background: var(--white);
+      box-shadow: 0 .65rem 1.35rem rgba(16, 36, 42, .11);
+    }
+
+    .colt-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--gold-soft);
+    }
+
+    .donkey {
+      position: relative;
+      flex: 0 0 auto;
+      width: 4rem;
+      height: 2.7rem;
+      border-radius: 52% 45% 40% 45%;
+      background: #9b735e;
+    }
+
+    .donkey::before {
+      content: "";
+      position: absolute;
+      left: -1.1rem;
+      top: .38rem;
+      width: 1.7rem;
+      height: 1.85rem;
+      border-radius: 50% 45% 45% 52%;
+      background: #a9826c;
+      transform: rotate(-11deg);
+    }
+
+    .donkey::after {
+      content: "";
+      position: absolute;
+      right: .15rem;
+      top: -.5rem;
+      width: .75rem;
+      height: 1rem;
+      border-radius: 60% 20% 10% 20%;
+      border: .25rem solid #8b634f;
+      border-bottom: 0;
+      transform: rotate(20deg);
+    }
+
+    .colt-card strong { font-size: clamp(1.25rem, 2vw, 2rem); }
+
+    .palm-row {
+      display: flex;
+      gap: .6rem;
+      align-items: end;
+      min-height: 4rem;
+      margin: 1.2rem 0;
+    }
+
+    .palm {
+      position: relative;
+      width: .5rem;
+      height: 3.6rem;
+      border-radius: 99px;
+      background: var(--green);
+      transform: rotate(-8deg);
+    }
+
+    .palm:nth-child(2) { height: 4.3rem; transform: rotate(2deg); background: var(--green-dark); }
+    .palm:nth-child(3) { height: 3.2rem; transform: rotate(12deg); }
+    .palm::before,
+    .palm::after {
+      content: "";
+      position: absolute;
+      left: -.75rem;
+      width: 1.85rem;
+      height: .55rem;
+      border-radius: 100% 0 100% 0;
+      background: var(--green);
+    }
+    .palm::before { top: .2rem; transform: rotate(-34deg); }
+    .palm::after { top: .75rem; transform: rotate(34deg); }
+
+    .loud-word {
+      display: inline-block;
+      margin: .25rem 0 .8rem;
+      color: var(--rose);
+      font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 950;
+      letter-spacing: .03em;
+      line-height: .9;
+      transform: rotate(-3deg);
+    }
+
+    .crowd-panel { min-height: 70%; }
+    .crowd-panel .poster { object-position: 47% center; }
+
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .9rem;
+      max-width: 33rem;
+      margin: 1.3rem 0;
+    }
+
+    .contrast-card { margin: 0; min-height: 8rem; }
+    .contrast-card:first-child { background: #f4e5d7; }
+    .contrast-card:last-child { background: var(--green-soft); }
+    .contrast-card strong { display: block; margin-bottom: .45rem; font-size: clamp(1.05rem, 1.6vw, 1.55rem); }
+    .contrast-card span { color: var(--ink-soft); font-size: clamp(.9rem, 1.2vw, 1.12rem); line-height: 1.15; }
+
+    .stone-field {
+      position: absolute;
+      right: 4%;
+      bottom: -3%;
+      width: 43%;
+      height: 35%;
+      opacity: .18;
+      background:
+        radial-gradient(ellipse at 22% 62%, #7d8d8b 0 7%, transparent 8%),
+        radial-gradient(ellipse at 40% 32%, #7d8d8b 0 9%, transparent 10%),
+        radial-gradient(ellipse at 62% 63%, #7d8d8b 0 8%, transparent 9%),
+        radial-gradient(ellipse at 84% 38%, #7d8d8b 0 7%, transparent 8%);
+      filter: blur(.2rem);
+      transform: rotate(-4deg);
+    }
+
+    .meaning-slide { background: #eff7f0; }
+    .meaning-slide .split { grid-template-columns: .95fr 1.05fr; }
+    .meaning-slide .art-panel { min-height: 70%; }
+    .meaning-slide .art-panel .poster { object-position: 65% center; }
+
+    .meaning-card {
+      max-width: 32rem;
+      border-left: .55rem solid var(--rose);
+      background: var(--white);
+    }
+
+    .meaning-card strong { display: block; margin-bottom: .35rem; font-size: clamp(1.3rem, 2vw, 2rem); }
+    .meaning-card span { color: var(--ink-soft); font-size: clamp(1rem, 1.45vw, 1.35rem); line-height: 1.2; }
+
+    .truth-slide {
+      background:
+        linear-gradient(135deg, rgba(255, 249, 237, .96), rgba(255, 249, 237, .84)),
+        url("assets/session-2-poster.webp") center / cover;
+    }
+
+    .truth-content {
+      position: relative;
+      z-index: 2;
+      width: min(68%, 58rem);
+      padding-top: 4%;
+    }
+
+    .truth-box {
+      max-width: 55rem;
+      margin: 1.5rem 0 1.2rem;
+      padding: 1.4rem 1.7rem;
+      border-radius: 1.5rem;
+      background: rgba(255, 255, 255, .88);
+      box-shadow: 0 .9rem 1.8rem rgba(16, 36, 42, .12);
+    }
+
+    .truth-box .question-line {
+      margin-bottom: .55rem;
+      color: var(--green-dark);
+      font-size: clamp(1.15rem, 2vw, 2rem);
+      font-weight: 900;
+    }
+
+    .truth-box .answer-line {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.65rem, 3.1vw, 3.25rem);
+      font-weight: 900;
+      line-height: 1.02;
+    }
+
+    .story-point {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .8rem 1.1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--rose);
+      font-size: clamp(.82rem, 1.2vw, 1.1rem);
+      font-weight: 900;
+    }
+
+    .key-passage {
+      position: absolute;
+      right: 7%;
+      bottom: 10%;
+      z-index: 3;
+      max-width: 16rem;
+      padding: 1rem 1.1rem;
+      border-radius: 1.2rem;
+      color: var(--green-dark);
+      background: var(--gold-soft);
+      box-shadow: 0 .7rem 1.4rem rgba(16, 36, 42, .14);
+      font-weight: 900;
+    }
+
+    .key-passage small { display: block; margin-bottom: .35rem; font-size: .72em; letter-spacing: .13em; text-transform: uppercase; }
+
+    .questions-slide { background: #fff5e4; }
+    .questions-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; }
+    .questions-head h2 { max-width: 9ch; margin-bottom: .2rem; }
+    .questions-head p { max-width: 20rem; margin-bottom: .6rem; font-weight: 700; }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(.75rem, 1.45vw, 1.4rem);
+      margin-top: 1.5rem;
+    }
+
+    .question-card {
+      min-height: 9.2rem;
+      padding: 1rem 1.1rem;
+      border-radius: 1.2rem;
+      background: var(--white);
+      box-shadow: 0 .55rem 1.1rem rgba(16, 36, 42, .1);
+    }
+
+    .question-card:nth-child(2) { background: var(--green-soft); }
+    .question-card:nth-child(3) { background: var(--rose-soft); }
+    .question-card:nth-child(4) { background: var(--gold-soft); }
+    .question-card .number {
+      display: inline-grid;
+      place-items: center;
+      width: 1.8rem;
+      height: 1.8rem;
+      margin-right: .35rem;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--green-dark);
+      font-size: .9rem;
+      font-weight: 900;
+    }
+
+    .question-card:nth-child(3) .number { background: var(--rose); }
+    .question-card:nth-child(4) .number { color: var(--ink); background: var(--gold); }
+    .question-card h3 { display: inline; font-size: clamp(1.05rem, 1.55vw, 1.5rem); letter-spacing: -.02em; }
+    .question-card .bubble-toggle { margin-top: .8rem; padding: .55rem .75rem; border-radius: .75rem; font-size: clamp(.72rem, 1vw, .95rem); font-weight: 900; }
+    .question-card .bubble-pop { margin-top: .55rem; padding: .65rem .75rem; font-size: clamp(.75rem, 1vw, .95rem); }
+
+    .nav {
+      position: absolute;
+      right: clamp(1.25rem, 2.2vw, 2.8rem);
+      bottom: clamp(1.2rem, 2.2vw, 2.35rem);
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+    }
+
+    .nav button {
+      display: grid;
+      place-items: center;
+      width: clamp(2rem, 3.2vw, 3.25rem);
+      height: clamp(2rem, 3.2vw, 3.25rem);
+      border: .12rem solid rgba(16, 36, 42, .24);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .78);
+      font-size: clamp(1rem, 1.65vw, 1.55rem);
+      font-weight: 900;
+    }
+
+    .nav button:hover { background: var(--gold-soft); }
+    .counter {
+      min-width: 4.3rem;
+      color: rgba(16, 36, 42, .7);
+      font-size: clamp(.7rem, 1vw, .92rem);
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 14;
+      height: .8rem;
+      background: var(--green);
+      transition: width .25s ease;
+    }
+
+    .shortcut {
+      position: absolute;
+      right: clamp(1.4rem, 2.4vw, 3rem);
+      top: clamp(1rem, 2vw, 2rem);
+      z-index: 12;
+      color: rgba(16, 36, 42, .62);
+      font-size: clamp(.6rem, .8vw, .76rem);
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    @media (max-width: 720px) {
+      .slide { padding: 2.2rem 1.5rem 3.5rem; }
+      .split, .meaning-slide .split { grid-template-columns: 1fr; gap: 1rem; align-content: center; }
+      .art-panel { min-height: 32%; max-height: 42%; order: -1; }
+      .copy > p { max-width: 100%; }
+      .hero-copy { width: 72%; padding-top: 12%; }
+      .hero-art { width: 63%; opacity: .72; }
+      .hero-question { left: 7%; width: 49%; bottom: 13%; }
+      .truth-content { width: 100%; padding-top: 8%; }
+      .key-passage { right: 5%; bottom: 15%; }
+      .question-grid { gap: .6rem; margin-top: .8rem; }
+      .question-card { min-height: 8rem; padding: .75rem; }
+      .shortcut { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage-shell">
+    <div class="stage" aria-label="Interactive teaching deck: Jesus Saves Us to Follow Him">
+      <section class="slide hero active" data-slide="1" aria-label="Curiosity hook">
+        <div class="hero-copy">
+          <div class="eyebrow">Easter bonus session 2</div>
+          <h1>Jesus Saves Us to Follow Him</h1>
+          <p>The best news is not only that Jesus died. He rose again.</p>
+          <div class="lesson-pill">Matthew 27–28 · Mark 15–16 · Luke 23–24 · John 19–20</div>
+        </div>
+        <div class="hero-art">
+          <img class="poster" src="assets/session-2-poster.webp" alt="Illustrated sunrise, cross, and empty tomb">
+        </div>
+        <div class="hero-question reveal">
+          <button class="question-button bubble-toggle" aria-expanded="false" aria-controls="hook-answer">What happened after Jesus was buried?</button>
+          <div id="hook-answer" class="bubble-pop" hidden>Jesus rose from the dead. The tomb was empty!</div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids · Easter Bonus Session 2</p>
+      </section>
+
+      <section class="slide" data-slide="2" aria-label="Jesus goes to the cross">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">The story begins</div>
+            <h2>Jesus went to the cross.</h2>
+            <p>Jesus was arrested and crucified, even though He had done nothing wrong.</p>
+            <div class="setting-card">
+              <div class="icon-circle" aria-hidden="true">✦</div>
+              <div><strong>Jesus never sinned.</strong><span>He willingly gave His life to save us.</span></div>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="cross-answer">Why did Jesus go?</button>
+              <div id="cross-answer" class="bubble-pop" hidden>Jesus took the punishment for sin so we can be forgiven.</div>
+            </div>
+          </div>
+          <div class="art-panel">
+            <img class="poster" src="assets/session-2-poster.webp" alt="Illustrated cross beneath a bright sky" style="object-position: 22% center">
+            <span class="caption-chip">The cross · Love</span>
+          </div>
+        </div>
+        <p class="source-note">Source references: Matthew 27; Mark 15; Luke 23; John 19</p>
+      </section>
+
+      <section class="slide" data-slide="3" aria-label="Jesus shows mercy">
+        <div class="split">
+          <div class="art-panel">
+            <img class="poster" src="assets/session-2-poster.webp" alt="Illustrated cross beneath a colorful sky" style="object-position: 52% center">
+            <span class="caption-chip">Mercy · Forgiveness</span>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">A surprising prayer</div>
+            <h2>Jesus showed mercy.</h2>
+            <p>Even while people were crucifying Him, Jesus asked His Father to forgive them.</p>
+            <div class="meaning-card">
+              <strong>Jesus is full of mercy.</strong>
+              <span>He willingly took the punishment for sin.</span>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="mercy-answer">What does this show about Jesus?</button>
+              <div id="mercy-answer" class="bubble-pop" hidden>Jesus loves people and offers forgiveness.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">Luke 23:34 · Jesus' prayer from the cross</p>
+      </section>
+
+      <section class="slide" data-slide="4" aria-label="Jesus is buried">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">The quiet tomb</div>
+            <h2>The story seemed over.</h2>
+            <p>Jesus was buried, and a large stone covered the entrance to the tomb.</p>
+            <div class="colt-card"><div class="donkey" aria-hidden="true"></div><div><div class="mini-label">Pause and wonder</div><strong>What happens next?</strong></div></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="burial-answer">Could the story really be over?</button>
+              <div id="burial-answer" class="bubble-pop" hidden>Not yet! God was about to show His power.</div>
+            </div>
+          </div>
+          <div class="art-panel">
+            <img class="poster" src="assets/session-2-poster.webp" alt="Illustrated sealed tomb with a large stone" style="object-position: 78% center">
+            <span class="caption-chip">A sealed tomb</span>
+          </div>
+        </div>
+        <p class="source-note">Source references: Matthew 27:57–66; Mark 15:42–47; Luke 23:50–56</p>
+      </section>
+
+      <section class="slide" data-slide="5" aria-label="The empty tomb">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">The discovery</div>
+            <h2>The tomb was empty!</h2>
+            <span class="loud-word">ALIVE!</span>
+            <p>On the third day, Jesus rose from the dead. The stone had been moved.</p>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="empty-answer">Why is this good news?</button>
+              <div id="empty-answer" class="bubble-pop" hidden>Jesus is alive. Sin and death were defeated.</div>
+            </div>
+          </div>
+          <div class="art-panel crowd-panel">
+            <img class="poster" src="assets/session-2-poster.webp" alt="Illustrated empty tomb at sunrise" style="object-position: 38% center">
+            <span class="caption-chip">The stone was moved</span>
+          </div>
+        </div>
+        <p class="source-note">Matthew 28:1–10 · Jesus rose again</p>
+      </section>
+
+      <section class="slide meaning-slide" data-slide="6" aria-label="The story point">
+        <div class="split">
+          <div class="art-panel">
+            <img class="poster" src="assets/session-2-poster.webp" alt="Illustrated bright light breaking through darkness" style="object-position: 63% center">
+            <span class="caption-chip">Light wins</span>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">The story point</div>
+            <h2>Jesus defeated sin and death.</h2>
+            <p>Jesus died on the cross and rose again to save people who repent and believe.</p>
+            <div class="meaning-card">
+              <strong>Forgiveness and new life.</strong>
+              <span>Because Jesus is alive, we can follow Him with hope.</span>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="story-point-answer">What did Jesus accomplish?</button>
+              <div id="story-point-answer" class="bubble-pop" hidden>He defeated sin and death and offers forgiveness.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">Story point: Jesus died on the cross and rose again to defeat sin and death.</p>
+      </section>
+
+      <section class="slide truth-slide" data-slide="7" aria-label="Big-picture truth">
+        <div class="truth-content">
+          <div class="eyebrow">Remember the big truth</div>
+          <h2>Who is Jesus?</h2>
+          <div class="truth-box">
+            <div class="question-line">Big-picture question</div>
+            <p class="answer-line">Jesus is the Messiah, the Son of God, who came to earth to save us.</p>
+          </div>
+          <div class="story-point">Jesus saves us so we can follow Him.</div>
+        </div>
+        <div class="key-passage"><small>Christ connection</small>Jesus is alive.<br><span style="font-weight:600">He offers forgiveness and new life.</span></div>
+        <p class="source-note">Big-picture answer and Christ connection from the Easter Bonus Session 2 resources</p>
+      </section>
+
+      <section class="slide" data-slide="8" aria-label="Key passage">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Key passage</div>
+            <h2>God loved the world.</h2>
+            <p>John 3:16 points us to the heart of the gospel: God gave His Son so believers can have eternal life.</p>
+            <div class="meaning-card">
+              <strong>John 3:16</strong>
+              <span>God loved the world and gave His one and only Son.</span>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="passage-answer">What should we remember?</button>
+              <div id="passage-answer" class="bubble-pop" hidden>God loves us, and Jesus saves everyone who repents and believes.</div>
+            </div>
+          </div>
+          <div class="art-panel">
+            <img class="poster" src="assets/session-2-poster.webp" alt="Illustrated heart and gift representing God's love" style="object-position: 86% center">
+            <span class="caption-chip">God's love · John 3:16</span>
+          </div>
+        </div>
+        <p class="source-note">Read the full passage from your Bible in the group's approved translation.</p>
+      </section>
+
+      <section class="slide questions-slide" data-slide="9" aria-label="Discussion questions">
+        <div class="questions-head">
+          <div><div class="eyebrow">Five-minute question time</div><h2>Let's talk about it</h2></div>
+          <p>Tap a question to reveal a short answer cue.</p>
+        </div>
+        <div class="question-grid">
+          <article class="question-card reveal">
+            <div><span class="number">1</span><h3>What happened after Jesus was buried?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q1-answer">Reveal answer cue</button>
+            <div id="q1-answer" class="bubble-pop" hidden>Jesus rose again, and the tomb was empty.</div>
+          </article>
+          <article class="question-card reveal">
+            <div><span class="number">2</span><h3>Why did Jesus go to the cross?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q2-answer">Reveal answer cue</button>
+            <div id="q2-answer" class="bubble-pop" hidden>He took the punishment for sin to save us.</div>
+          </article>
+          <article class="question-card reveal">
+            <div><span class="number">3</span><h3>What does Jesus offer to those who repent and believe?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q3-answer">Reveal answer cue</button>
+            <div id="q3-answer" class="bubble-pop" hidden>Forgiveness and new life with God.</div>
+          </article>
+          <article class="question-card reveal">
+            <div><span class="number">4</span><h3>Who is Jesus?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q4-answer">Reveal answer cue</button>
+            <div id="q4-answer" class="bubble-pop" hidden>Jesus is the Messiah, the Son of God, who came to save us.</div>
+          </article>
+        </div>
+        <p class="source-note">Questions are adapted from the Younger Kids and Older Kids discussion prompts.</p>
+      </section>
+
+      <div class="shortcut" aria-hidden="true">← → navigate · Space next · Home / End</div>
+      <nav class="nav" aria-label="Slide navigation">
+        <button id="prev" type="button" aria-label="Previous slide">←</button>
+        <span class="counter" aria-live="polite">1 / 9</span>
+        <button id="next" type="button" aria-label="Next slide">→</button>
+      </nav>
+      <div class="progress" aria-hidden="true" style="width:11.111%"></div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const previous = document.querySelector("#prev");
+      const next = document.querySelector("#next");
+      const counter = document.querySelector(".counter");
+      const progress = document.querySelector(".progress");
+      let current = 0;
+
+      const closeReveals = (scope = document) => {
+        scope.querySelectorAll(".bubble-toggle[aria-expanded='true']").forEach((button) => {
+          const panel = document.getElementById(button.getAttribute("aria-controls"));
+          button.setAttribute("aria-expanded", "false");
+          if (panel) panel.hidden = true;
+        });
+      };
+
+      const setSlide = (index) => {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === current);
+          slide.setAttribute("aria-hidden", i === current ? "false" : "true");
+        });
+        closeReveals();
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+      };
+
+      const go = (delta) => setSlide(current + delta);
+
+      document.querySelectorAll(".bubble-toggle").forEach((button) => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        if (!panel) return;
+        let hoverOpened = false;
+        const toggle = (open) => {
+          button.setAttribute("aria-expanded", String(open));
+          panel.hidden = !open;
+        };
+        button.addEventListener("click", () => {
+          if (hoverOpened) {
+            hoverOpened = false;
+            toggle(true);
+            return;
+          }
+          toggle(button.getAttribute("aria-expanded") !== "true");
+        });
+        button.addEventListener("mouseenter", () => {
+          if (button.getAttribute("aria-expanded") !== "true") {
+            hoverOpened = true;
+            toggle(true);
+          }
+        });
+        button.addEventListener("mouseleave", () => {
+          if (hoverOpened && document.activeElement !== button) {
+            hoverOpened = false;
+            toggle(false);
+          }
+        });
+      });
+
+      previous.addEventListener("click", () => go(-1));
+      next.addEventListener("click", () => go(1));
+
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        if (target && target.closest && target.closest("input, textarea, select")) return;
+        if ((event.key === "Enter" || event.key === " ") && target && target.closest && target.closest("button")) return;
+        if (event.key === "ArrowLeft") { event.preventDefault(); go(-1); }
+        if (event.key === "ArrowRight" || event.key === " ") { event.preventDefault(); go(1); }
+        if (event.key === "Home") { event.preventDefault(); setSlide(0); }
+        if (event.key === "End") { event.preventDefault(); setSlide(slides.length - 1); }
+      });
+
+      setSlide(0);
+    })();
+  </script>
+</body>
+</html>

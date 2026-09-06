@@ -10,6 +10,6 @@ Codex skill for turning an authenticated Lifeway Ministry Grid curriculum, sessi
 
 ## Use
 
-Invoke the skill with a valid `ministrygrid.lifeway.com` curriculum/session/issue URL. The skill reviews the authenticated lesson, proposes a teaching plan for confirmation, and then creates an offline-friendly deck at `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>.html`.
+Invoke the skill with a valid `ministrygrid.lifeway.com` curriculum/session/issue URL. The skill reviews the authenticated lesson, proposes a teaching plan for confirmation, and then creates an offline-friendly deck at `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>/index.html`, with its README and assets kept in the same lesson folder.
 
 The source lesson must be accessible in the authenticated browser session. Optional source videos are not copied into a deck by default.

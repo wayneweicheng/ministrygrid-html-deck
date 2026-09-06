@@ -81,8 +81,9 @@ Keep the answer cue accurate but brief. If an answer requires nuance, put the nu
 
 The generated output should contain:
 
-- `<lesson-slug>.html` as the entry point;
-- optional lesson-specific supporting assets, with stable relative paths;
+- `<lesson-slug>/index.html` as the entry point;
+- `<lesson-slug>/README.md` with source and launch notes;
+- `<lesson-slug>/assets/` for lesson-specific supporting assets, with stable relative paths;
 - an optional `README.md` containing the lesson source, date reviewed, and launch instructions;
 - no credentials, browser profile data, raw cookies, or unnecessary large media files.
 

@@ -75,7 +75,7 @@ Use fewer slides if the content is very short. State the proposed pacing in seco
 
 ## Build rules after confirmation
 
-After confirmation, create the deck as `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>.html`. Keep any supporting assets in a lesson-specific sibling directory and use relative paths. If the user explicitly asks to replace an existing lesson file, confirm the exact path before deleting or overwriting it.
+After confirmation, create the deck as `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>/index.html`. Keep a lesson-specific `README.md` and an `assets/` directory in that folder, and use relative paths. If the user explicitly asks to replace an existing lesson folder or entry file, confirm the exact path before deleting or overwriting it.
 
 Read `references/deck-architecture.md` before building. Follow these rules:
 
@@ -99,7 +99,7 @@ Read `references/deck-architecture.md` before building. Follow these rules:
 
 Before reporting completion:
 
-1. Inspect `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>.html` and verify that the entry file and every referenced local asset exist.
+1. Inspect `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>/index.html` and verify that the entry file and every referenced local asset exist.
 2. Run a local static server and open the deck in the browser at a TV-like 16:9 viewport. Test first/previous/next/last navigation, keyboard navigation, focus styles, every click/tap reveal, and the question-answer reveals.
 3. Check for console errors, broken images, clipped text, unreadable contrast, accidental external requests, and any visible placeholder such as `TODO` or `TBD`.
 4. Verify every interactive control is at least 44px in both dimensions, has `touch-action: manipulation`, and remains usable with keyboard, pointer, and touch input.
