@@ -1,0 +1,8 @@
+interface:
+  display_name: "Ministry Grid HTML Deck"
+  short_description: "Turn Lifeway lessons into interactive kids decks"
+  brand_color: "#2F6BFF"
+  default_prompt: "Use $ministrygrid-html-deck to read an authenticated Lifeway Ministry Grid lesson, propose a TV-ready HTML deck for my confirmation, then build it under generated-html-deck."
+
+policy:
+  allow_implicit_invocation: true
