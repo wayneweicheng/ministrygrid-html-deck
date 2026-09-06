@@ -171,6 +171,180 @@
       .footer { left: 1.4rem; right: 1.1rem; bottom: .45rem; font-size: .56rem; }
       .nav-button { min-width: 2rem; min-height: 2rem; width: 2rem; height: 2rem; }
     }
+    /* Kid-friendly comic treatment: local vector scenes, speech balloons, and playful panels. */
+    .scene {
+      overflow: hidden;
+      clip-path: none;
+      border: .18rem solid var(--ink);
+      border-radius: 2rem;
+      background-image:
+        radial-gradient(circle at 82% 16%, rgba(255,255,255,.72) 0 8%, transparent 8.5%),
+        linear-gradient(145deg, rgba(255,255,255,.48), rgba(255,255,255,0) 58%),
+        linear-gradient(135deg, #ffe5a7 0%, #bfe9e8 48%, #d7eee1 100%);
+      box-shadow: 0 .7rem 0 rgba(16,36,42,.16), 0 1rem 2rem rgba(16,36,42,.14);
+      transform: rotate(1deg);
+    }
+    .scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: .42;
+      background-image: radial-gradient(rgba(255,255,255,.9) .12rem, transparent .13rem);
+      background-size: 1rem 1rem;
+      pointer-events: none;
+    }
+    .scene::after {
+      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(16,36,42,.08));
+      z-index: 2;
+      pointer-events: none;
+    }
+    .scene svg {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 .28rem .1rem rgba(16,36,42,.12));
+    }
+    .scene-bubble {
+      position: absolute;
+      z-index: 4;
+      max-width: 55%;
+      padding: .8rem 1rem;
+      color: var(--ink);
+      background: #fffdf7;
+      border: .16rem solid var(--ink);
+      font: 900 clamp(.72rem, 1.8vw, 1.35rem)/1.05 "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+      text-align: center;
+      box-shadow: .22rem .28rem 0 rgba(16,36,42,.18);
+    }
+    .talk-bubble {
+      top: 7%;
+      right: 5%;
+      border-radius: 1.25rem 1.25rem 1.25rem .3rem;
+    }
+    .talk-bubble::after {
+      content: "";
+      position: absolute;
+      left: 12%;
+      bottom: -.72rem;
+      width: 1rem;
+      height: 1rem;
+      background: #fffdf7;
+      border-right: .16rem solid var(--ink);
+      border-bottom: .16rem solid var(--ink);
+      transform: skewX(-22deg) rotate(24deg);
+    }
+    .thought-bubble {
+      top: 8%;
+      left: 5%;
+      border-radius: 50%;
+      padding: 1rem 1.1rem;
+    }
+    .thought-bubble::before {
+      content: "";
+      position: absolute;
+      left: 18%;
+      bottom: -.9rem;
+      width: .7rem;
+      height: .7rem;
+      border: .13rem solid var(--ink);
+      border-radius: 50%;
+      background: #fffdf7;
+      box-shadow: -.85rem .72rem 0 -.1rem #fffdf7, -.85rem .72rem 0 .03rem var(--ink);
+    }
+    .scene-bubble em { display: block; margin-bottom: .2rem; color: var(--rose-dark); font-size: .62em; font-style: normal; letter-spacing: .08em; text-transform: uppercase; }
+    .comic-character {
+      position: absolute;
+      left: 6%;
+      bottom: 4%;
+      z-index: 3;
+      width: clamp(3.2rem, 11cqw, 8rem);
+      height: clamp(5.3rem, 23cqh, 14rem);
+      filter: drop-shadow(0 .24rem .08rem rgba(16,36,42,.18));
+    }
+    .comic-character .character-head {
+      position: absolute;
+      top: 0;
+      left: 18%;
+      width: 64%;
+      aspect-ratio: 1;
+      border: .16rem solid var(--ink);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 52%, var(--ink) 0 .13rem, transparent .15rem),
+        radial-gradient(circle at 65% 52%, var(--ink) 0 .13rem, transparent .15rem),
+        #f5d9c9;
+    }
+    .comic-character .character-head::before {
+      content: "";
+      position: absolute;
+      inset: -4% 4% auto;
+      height: 36%;
+      border: .14rem solid var(--ink);
+      border-bottom: 0;
+      border-radius: 60% 60% 20% 20%;
+      background: var(--hair, #7e263c);
+    }
+    .comic-character .character-head::after {
+      content: "";
+      position: absolute;
+      left: 38%;
+      bottom: 20%;
+      width: 24%;
+      height: 12%;
+      border-bottom: .13rem solid var(--ink);
+      border-radius: 50%;
+    }
+    .comic-character .character-body {
+      position: absolute;
+      left: 5%;
+      right: 5%;
+      bottom: 0;
+      height: 57%;
+      border: .16rem solid var(--ink);
+      border-radius: 45% 45% 18% 18%;
+      background: var(--shirt, var(--green));
+    }
+    .comic-character .character-body::before,
+    .comic-character .character-body::after {
+      content: "";
+      position: absolute;
+      top: 20%;
+      width: 22%;
+      height: 54%;
+      border: .13rem solid var(--ink);
+      border-radius: 99px;
+      background: #f5d9c9;
+    }
+    .comic-character .character-body::before { left: -15%; transform: rotate(24deg); }
+    .comic-character .character-body::after { right: -15%; transform: rotate(-24deg); }
+    .comic-character.child { --shirt: var(--green); --hair: #6d4937; }
+    .comic-character.jesus { --shirt: var(--rose); --hair: #3a2925; }
+    .comic-character.angel { --shirt: #fffdf7; --hair: #e2b95e; }
+    .comic-character.angel .character-body { border-radius: 50% 50% 18% 18%; }
+    .comic-character.angel .character-body::before,
+    .comic-character.angel .character-body::after { width: 38%; height: 42%; top: 4%; background: #fffdf7; }
+    .comic-character.angel .character-body::before { left: -28%; transform: rotate(-24deg); }
+    .comic-character.angel .character-body::after { right: -28%; transform: rotate(24deg); }
+    .dark-slide .comic-character .character-head,
+    .dark-slide .comic-character .character-body,
+    .dark-slide .comic-character .character-body::before,
+    .dark-slide .comic-character .character-body::after { border-color: var(--gold-soft); }
+    .title .scene { transform: rotate(0); }
+    .dark-slide .scene { border-color: var(--gold-soft); }
+    .dark-slide .scene-bubble { border-color: var(--gold-soft); }
+    .dark-slide .talk-bubble::after { border-color: var(--gold-soft); }
+    @media (max-width: 720px) {
+      .scene { transform: none; border-radius: 1.4rem; }
+      .scene-bubble { max-width: 62%; font-size: clamp(.8rem, 3.5vw, 1.1rem); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scene { transform: none; }
+      .bubble-toggle { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -178,48 +352,48 @@
     <div class="stage" id="stage">
       <section class="slide title active" data-slide="1" data-notes="Welcome children and invite them to share a piece of good news. Connect their answers to the good news of Jesus' death and resurrection.">
         <div class="slide-head"><div><p class="eyebrow">The Gospel Project: Kids - Easter Bonus Session 2</p><h1 tabindex="-1">Jesus Saves Us to Follow Him</h1><p class="dek">The best news is not only that Jesus died. He rose again.</p></div></div>
-        <div class="scene" aria-label="Illustration of a sunrise over a cross and empty tomb"><svg viewBox="0 0 600 470" role="img"><title>Sunrise, cross, and empty tomb</title><circle cx="465" cy="100" r="72" fill="#f2bf58"/><path d="M0 390 Q150 265 305 365 T600 315 V470 H0Z" fill="#3e786a"/><path d="M315 390 V190 H350 V390 M282 235 H383 V270 H282Z" fill="#7e263c"/><path d="M95 390 Q125 270 245 290 Q325 305 350 390Z" fill="#fffaf2" stroke="#17324d" stroke-width="8"/><path d="M130 390 Q155 335 210 335 Q265 335 294 390" fill="#dff1f4"/><path d="M425 390 Q440 350 480 350 Q520 350 540 390" fill="none" stroke="#f5d9c9" stroke-width="20"/></svg></div>
+        <div class="scene" aria-label="Illustration of a sunrise over a cross and empty tomb"><svg viewBox="0 0 600 470" role="img"><title>Sunrise, cross, and empty tomb</title><circle cx="465" cy="100" r="72" fill="#f2bf58"/><path d="M0 390 Q150 265 305 365 T600 315 V470 H0Z" fill="#3e786a"/><path d="M315 390 V190 H350 V390 M282 235 H383 V270 H282Z" fill="#7e263c"/><path d="M95 390 Q125 270 245 290 Q325 305 350 390Z" fill="#fffaf2" stroke="#17324d" stroke-width="8"/><path d="M130 390 Q155 335 210 335 Q265 335 294 390" fill="#dff1f4"/><path d="M425 390 Q440 350 480 350 Q520 350 540 390" fill="none" stroke="#f5d9c9" stroke-width="20"/></svg><div class="comic-character child" aria-hidden="true"><span class="character-head"></span><span class="character-body"></span></div><div class="scene-bubble talk-bubble"><em>Good news!</em>Jesus is alive!</div></div>
         <div class="footer"><span>Matthew 27-28; Mark 15-16; Luke 23-24; John 19-20</span><span class="slide-count">1 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
       </section>
 
       <section class="slide sky-slide" data-slide="2" data-notes="Set the scene in Jerusalem. Explain that Jesus was arrested and crucified even though He never sinned.">
         <div class="slide-head"><div><p class="eyebrow">The story begins</p><h2>Jesus went to the cross.</h2><p class="dek">Jesus was arrested and crucified. He had done nothing wrong.</p></div></div>
-        <div class="scene" aria-label="Illustration of Jerusalem and a cross"><svg viewBox="0 0 600 470" role="img"><title>Jerusalem and the cross</title><path d="M0 390 Q150 320 300 365 T600 340 V470 H0Z" fill="#f2bf58"/><path d="M70 390 V220 H135 V390 M100 175 L150 220 H50Z M170 390 V250 H245 V390 M207 205 L265 250 H150Z" fill="#a83d52"/><path d="M355 395 V150 H390 V395 M315 205 H430 V240 H315Z" fill="#17324d"/><circle cx="480" cy="105" r="54" fill="#fffaf2" stroke="#f2bf58" stroke-width="16"/></svg></div>
+        <div class="scene" aria-label="Illustration of Jerusalem and a cross"><svg viewBox="0 0 600 470" role="img"><title>Jerusalem and the cross</title><path d="M0 390 Q150 320 300 365 T600 340 V470 H0Z" fill="#f2bf58"/><path d="M70 390 V220 H135 V390 M100 175 L150 220 H50Z M170 390 V250 H245 V390 M207 205 L265 250 H150Z" fill="#a83d52"/><path d="M355 395 V150 H390 V395 M315 205 H430 V240 H315Z" fill="#17324d"/><circle cx="480" cy="105" r="54" fill="#fffaf2" stroke="#f2bf58" stroke-width="16"/></svg><div class="comic-character child" aria-hidden="true"><span class="character-head"></span><span class="character-body"></span></div><div class="scene-bubble thought-bubble"><em>I wonder...</em>Why did Jesus go?</div></div>
         <div class="footer"><span>Jesus never sinned.</span><span class="slide-count">2 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
       </section>
 
       <section class="slide rose-slide" data-slide="3" data-notes="Read or summarize Luke 23:34. Emphasize that Jesus showed mercy while people were hurting Him.">
         <div class="slide-head"><div><p class="eyebrow">A surprising prayer</p><h2>Jesus asked His Father to forgive them.</h2><p class="dek">Even while people were crucifying Him, Jesus showed mercy.</p><button class="bubble-toggle" data-reveal="answer-3" aria-expanded="false" aria-controls="answer-3">What does this show about Jesus?</button><div class="answer" id="answer-3" hidden>Jesus is full of mercy. He willingly took the punishment for sin.</div></div></div>
-        <div class="scene" aria-label="Illustration of a cross with a speech bubble"><svg viewBox="0 0 600 470" role="img"><title>Jesus' prayer of forgiveness</title><path d="M0 400 Q180 320 330 380 T600 360 V470 H0Z" fill="#a83d52"/><path d="M285 405 V150 H320 V405 M245 220 H365 V255 H245Z" fill="#17324d"/><path d="M405 85 Q405 30 480 30 Q560 30 560 95 Q560 155 488 155 H450 L420 185 V145 Q405 125 405 85Z" fill="#fffaf2" stroke="#17324d" stroke-width="7"/><path d="M448 94 Q480 62 520 95" fill="none" stroke="#7e263c" stroke-width="7" stroke-linecap="round"/></svg></div>
+        <div class="scene" aria-label="Illustration of a cross with a speech bubble"><svg viewBox="0 0 600 470" role="img"><title>Jesus' prayer of forgiveness</title><path d="M0 400 Q180 320 330 380 T600 360 V470 H0Z" fill="#a83d52"/><path d="M285 405 V150 H320 V405 M245 220 H365 V255 H245Z" fill="#17324d"/><path d="M405 85 Q405 30 480 30 Q560 30 560 95 Q560 155 488 155 H450 L420 185 V145 Q405 125 405 85Z" fill="#fffaf2" stroke="#17324d" stroke-width="7"/><path d="M448 94 Q480 62 520 95" fill="none" stroke="#7e263c" stroke-width="7" stroke-linecap="round"/></svg><div class="comic-character jesus" aria-hidden="true"><span class="character-head"></span><span class="character-body"></span></div><div class="scene-bubble talk-bubble"><em>Jesus said</em>&ldquo;Father, forgive them.&rdquo;</div></div>
         <div class="footer"><span>Luke 23:34</span><span class="slide-count">3 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div></div>
       </section>
 
       <section class="slide sky-slide" data-slide="4" data-notes="Pause for the children to notice the difference between a sealed tomb and an empty tomb. Keep the focus on the biblical event, not speculation.">
         <div class="slide-head"><div><p class="eyebrow">The quiet tomb</p><h2>Jesus was buried.</h2><p class="dek">A large stone covered the entrance. The story seemed to be over.</p></div></div>
-        <div class="scene" aria-label="Illustration of a sealed tomb"><svg viewBox="0 0 600 470" role="img"><title>Sealed tomb</title><circle cx="470" cy="95" r="55" fill="#f2bf58"/><path d="M0 400 Q160 320 300 370 T600 345 V470 H0Z" fill="#3e786a"/><path d="M120 400 V235 Q120 140 245 140 Q370 140 370 235 V400Z" fill="#17324d"/><circle cx="245" cy="302" r="86" fill="#f2bf58" stroke="#7e263c" stroke-width="12"/><path d="M170 402 Q240 330 320 402" fill="none" stroke="#fffaf2" stroke-width="20"/></svg></div>
+        <div class="scene" aria-label="Illustration of a sealed tomb"><svg viewBox="0 0 600 470" role="img"><title>Sealed tomb</title><circle cx="470" cy="95" r="55" fill="#f2bf58"/><path d="M0 400 Q160 320 300 370 T600 345 V470 H0Z" fill="#3e786a"/><path d="M120 400 V235 Q120 140 245 140 Q370 140 370 235 V400Z" fill="#17324d"/><circle cx="245" cy="302" r="86" fill="#f2bf58" stroke="#7e263c" stroke-width="12"/><path d="M170 402 Q240 330 320 402" fill="none" stroke="#fffaf2" stroke-width="20"/></svg><div class="comic-character child" aria-hidden="true"><span class="character-head"></span><span class="character-body"></span></div><div class="scene-bubble thought-bubble"><em>I wonder...</em>Is the story over?</div></div>
         <div class="footer"><span>Matthew 27:57-66</span><span class="slide-count">4 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
       </section>
 
       <section class="slide title" data-slide="5" data-notes="Tell the resurrection discovery from the Gospel accounts. Invite a prediction before revealing the empty tomb.">
         <div class="slide-head"><div><p class="eyebrow">The discovery</p><h2>The tomb was empty!</h2><p class="dek">On the third day, Jesus rose from the dead. The stone had been moved.</p><button class="bubble-toggle" data-reveal="answer-5" aria-expanded="false" aria-controls="answer-5">Why is this good news?</button><div class="answer" id="answer-5" hidden>Jesus is alive. His resurrection shows that sin and death were defeated.</div></div></div>
-        <div class="scene" aria-label="Illustration of the empty tomb at sunrise"><svg viewBox="0 0 600 470" role="img"><title>Empty tomb at sunrise</title><circle cx="430" cy="100" r="82" fill="#f2bf58"/><path d="M0 410 Q150 305 310 370 T600 330 V470 H0Z" fill="#3e786a"/><path d="M115 410 Q120 190 285 190 Q450 190 455 410Z" fill="#17324d"/><path d="M170 410 Q190 292 285 292 Q380 292 400 410Z" fill="#fffaf2"/><circle cx="460" cy="355" r="53" fill="#a83d52"/><path d="M450 305 Q515 250 555 305" fill="none" stroke="#fffaf2" stroke-width="13" stroke-linecap="round"/></svg></div>
+        <div class="scene" aria-label="Illustration of the empty tomb at sunrise"><svg viewBox="0 0 600 470" role="img"><title>Empty tomb at sunrise</title><circle cx="430" cy="100" r="82" fill="#f2bf58"/><path d="M0 410 Q150 305 310 370 T600 330 V470 H0Z" fill="#3e786a"/><path d="M115 410 Q120 190 285 190 Q450 190 455 410Z" fill="#17324d"/><path d="M170 410 Q190 292 285 292 Q380 292 400 410Z" fill="#fffaf2"/><circle cx="460" cy="355" r="53" fill="#a83d52"/><path d="M450 305 Q515 250 555 305" fill="none" stroke="#fffaf2" stroke-width="13" stroke-linecap="round"/></svg><div class="comic-character angel" aria-hidden="true"><span class="character-head"></span><span class="character-body"></span></div><div class="scene-bubble talk-bubble"><em>The angel said</em>He has risen!</div></div>
         <div class="footer"><span>Matthew 28:1-10</span><span class="slide-count">5 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
       </section>
 
       <section class="slide dark-slide" data-slide="6" data-notes="Connect the story point to the gospel. Avoid implying that Jesus only provided an example; explain that His death and resurrection defeated sin and death and offer forgiveness to those who repent and believe.">
         <div class="slide-head"><div><p class="eyebrow">The story point</p><h2>Jesus died on the cross and rose again to defeat sin and death.</h2><p class="dek">Because Jesus is alive, forgiveness and new life are offered to everyone who repents and believes.</p></div></div>
-        <div class="scene" aria-label="Illustration of light breaking through darkness"><svg viewBox="0 0 600 470" role="img"><title>Light breaking through darkness</title><path d="M0 0 H600 V470 H0Z" fill="#17324d"/><path d="M295 470 V160 H330 V470 M250 225 H375 V260 H250Z" fill="#a83d52"/><path d="M80 390 L515 70 M170 430 L570 155 M20 250 L430 20" stroke="#f2bf58" stroke-width="16" stroke-linecap="round"/><circle cx="450" cy="120" r="57" fill="#fffaf2"/><path d="M425 120 L445 140 L480 95" fill="none" stroke="#3e786a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="scene" aria-label="Illustration of light breaking through darkness"><svg viewBox="0 0 600 470" role="img"><title>Light breaking through darkness</title><path d="M0 0 H600 V470 H0Z" fill="#17324d"/><path d="M295 470 V160 H330 V470 M250 225 H375 V260 H250Z" fill="#a83d52"/><path d="M80 390 L515 70 M170 430 L570 155 M20 250 L430 20" stroke="#f2bf58" stroke-width="16" stroke-linecap="round"/><circle cx="450" cy="120" r="57" fill="#fffaf2"/><path d="M425 120 L445 140 L480 95" fill="none" stroke="#3e786a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="comic-character child" aria-hidden="true"><span class="character-head"></span><span class="character-body"></span></div><div class="scene-bubble talk-bubble"><em>Good news!</em>Jesus saves us!</div></div>
         <div class="footer"><span>Jesus forgives those who repent and believe.</span><span class="slide-count">6 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
       </section>
 
       <section class="slide sky-slide" data-slide="7" data-notes="Ask the big-picture question and let children answer before showing the answer. Reinforce that Jesus is the Messiah, the Son of God, who came to save us.">
-        <div class="split"><div><p class="eyebrow">Big-picture question</p><h2>Who is Jesus?</h2><button class="bubble-toggle" data-reveal="answer-7" aria-expanded="false" aria-controls="answer-7">Reveal the answer</button><div class="answer big-answer" id="answer-7" hidden>Jesus is the Messiah, the Son of God, who came to earth to save us.</div></div><div class="scene" aria-label="Illustration of Jesus as the promised Savior"><svg viewBox="0 0 600 470" role="img"><title>Jesus as Savior</title><circle cx="300" cy="170" r="112" fill="#f2bf58"/><path d="M0 420 Q160 300 300 380 T600 340 V470 H0Z" fill="#3e786a"/><circle cx="300" cy="180" r="62" fill="#f5d9c9"/><path d="M245 170 Q300 88 355 170 Q340 145 300 145 Q260 145 245 170Z" fill="#7e263c"/><path d="M235 260 Q300 215 365 260 L410 420 H190Z" fill="#a83d52"/><path d="M280 180 H290 M320 180 H330" stroke="#17324d" stroke-width="8" stroke-linecap="round"/><path d="M280 215 Q300 232 320 215" fill="none" stroke="#17324d" stroke-width="7" stroke-linecap="round"/></svg></div></div>
+        <div class="split"><div><p class="eyebrow">Big-picture question</p><h2>Who is Jesus?</h2><button class="bubble-toggle" data-reveal="answer-7" aria-expanded="false" aria-controls="answer-7">Reveal the answer</button><div class="answer big-answer" id="answer-7" hidden>Jesus is the Messiah, the Son of God, who came to earth to save us.</div></div><div class="scene" aria-label="Illustration of Jesus as the promised Savior"><svg viewBox="0 0 600 470" role="img"><title>Jesus as Savior</title><circle cx="300" cy="170" r="112" fill="#f2bf58"/><path d="M0 420 Q160 300 300 380 T600 340 V470 H0Z" fill="#3e786a"/><circle cx="300" cy="180" r="62" fill="#f5d9c9"/><path d="M245 170 Q300 88 355 170 Q340 145 300 145 Q260 145 245 170Z" fill="#7e263c"/><path d="M235 260 Q300 215 365 260 L410 420 H190Z" fill="#a83d52"/><path d="M280 180 H290 M320 180 H330" stroke="#17324d" stroke-width="8" stroke-linecap="round"/><path d="M280 215 Q300 232 320 215" fill="none" stroke="#17324d" stroke-width="7" stroke-linecap="round"/></svg><div class="scene-bubble thought-bubble"><em>Big question</em>Who is Jesus?</div></div></div>
         <div class="footer"><span>Jesus is the Messiah, the Son of God.</span><span class="slide-count">7 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div></div>
       </section>
 
       <section class="slide rose-slide" data-slide="8" data-notes="Use John 3:16 as a short memory anchor. Read from the group's approved Bible translation rather than placing a long quotation on screen.">
         <div class="slide-head"><div><p class="eyebrow">Key passage</p><h2>God loved the world.</h2><p class="dek">John 3:16 points us to the heart of the gospel: God gave His Son so that believers can have eternal life.</p><div class="question">John 3:16</div></div></div>
-        <div class="scene" aria-label="Illustration of a gift and a heart"><svg viewBox="0 0 600 470" role="img"><title>Gift of God's Son</title><path d="M0 410 Q150 330 300 380 T600 350 V470 H0Z" fill="#a83d52"/><path d="M300 130 C245 70 145 125 175 210 L300 340 L425 210 C455 125 355 70 300 130Z" fill="#f2bf58" stroke="#17324d" stroke-width="9"/><path d="M235 250 H365 V385 H235Z" fill="#fffaf2" stroke="#17324d" stroke-width="8"/><path d="M300 210 V285 M262 247 H338" stroke="#7e263c" stroke-width="14" stroke-linecap="round"/></svg></div>
+        <div class="scene" aria-label="Illustration of a gift and a heart"><svg viewBox="0 0 600 470" role="img"><title>Gift of God's Son</title><path d="M0 410 Q150 330 300 380 T600 350 V470 H0Z" fill="#a83d52"/><path d="M300 130 C245 70 145 125 175 210 L300 340 L425 210 C455 125 355 70 300 130Z" fill="#f2bf58" stroke="#17324d" stroke-width="9"/><path d="M235 250 H365 V385 H235Z" fill="#fffaf2" stroke="#17324d" stroke-width="8"/><path d="M300 210 V285 M262 247 H338" stroke="#7e263c" stroke-width="14" stroke-linecap="round"/></svg><div class="comic-character child" aria-hidden="true"><span class="character-head"></span><span class="character-body"></span></div><div class="scene-bubble talk-bubble"><em>Remember this</em>God loved the world!</div></div>
         <div class="footer"><span>Read the full passage from your Bible.</span><span class="slide-count">8 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
       </section>
 
@@ -243,7 +417,9 @@
       const total = slides.length;
       const live = document.getElementById('live');
       const notes = document.getElementById('presenter-notes');
-      document.querySelectorAll('.scene').forEach(scene => scene.setAttribute('role', 'img'));
+      // Scenes contain meaningful bubble text as well as artwork, so keep them as groups
+      // instead of hiding their accessible children behind role="img".
+      document.querySelectorAll('.scene').forEach(scene => scene.setAttribute('role', 'group'));
       let current = 1;
       const clamp = value => Math.min(total, Math.max(1, Number.isFinite(value) ? value : 1));
       const hashSlide = () => {
