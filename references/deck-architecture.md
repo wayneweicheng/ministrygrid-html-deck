@@ -26,6 +26,7 @@ Combine or omit rows when the source content does not support them. The teacher'
 - Keep the stage visually calm: one dominant illustration, at most two supporting shapes, and generous margins.
 - Use rounded cards and soft shadows sparingly. Avoid busy patterns behind text.
 - Use local assets and `object-fit: cover`/`contain` intentionally. Give every meaningful image useful alt text; mark decorative shapes `aria-hidden="true"`.
+- Use 3-4 distinct scene assets for the story progression where possible. Prefer local WebP/AVIF and declare stable `width`/`height` dimensions on meaningful images to prevent layout shifts. Do not let one source poster crop carry the visual identity of nearly every slide.
 - Prefer friendly cartoon scenes with clear silhouettes and diverse, non-caricatured children. Do not make a generated image look like a real identifiable person.
 
 ## Interaction contract
@@ -50,7 +51,18 @@ The script should:
 - keep the reveal within the viewport at TV scale;
 - avoid rapid animation and respect `prefers-reduced-motion`.
 
+Controls should be at least 44px by 44px, with 48px preferred, and should set `touch-action: manipulation`. Check actual text and background colors for WCAG AA contrast; white small text on rose is not acceptable below 4.5:1. Replace decorative Unicode interface symbols with small inline SVG icons, and label icon-only buttons for assistive technology.
+
 Navigation should use semantic buttons plus keyboard listeners. Recommended keys are `ArrowLeft`, `ArrowRight`, `Home`, `End`, and `Space`; do not intercept typing inside a focused form control.
+
+Navigation should also:
+
+- read and write a hash in the form `#slide=N`;
+- handle initial load, `hashchange`, browser back/forward, and invalid values by clamping to the available slide range;
+- move focus to the active slide heading after navigation; and
+- update a polite `aria-live` region with the current position, for example "Slide 6 of 9."
+
+An optional presenter mode may be enabled with a documented local control or URL flag. It must be off by default, keep pacing notes, Bible references, and activity suggestions out of the TV-facing slide, and never make the children's view depend on presenter-only content.
 
 ## Content and question design
 
@@ -67,10 +79,10 @@ Keep the answer cue accurate but brief. If an answer requires nuance, put the nu
 
 ## File contract
 
-The lesson folder should contain:
+The generated output should contain:
 
-- `index.html` as the only required entry point;
-- `assets/` for local images, with stable relative paths;
+- `<lesson-slug>.html` as the entry point;
+- optional lesson-specific supporting assets, with stable relative paths;
 - an optional `README.md` containing the lesson source, date reviewed, and launch instructions;
 - no credentials, browser profile data, raw cookies, or unnecessary large media files.
 

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17324d">
+  <title>Jesus Saves Us to Follow Him</title>
+  <style>
+    :root {
+      --ink: #17324d;
+      --muted: #526b7e;
+      --paper: #fffaf2;
+      --sky: #dff1f4;
+      --rose: #a83d52;
+      --rose-dark: #7e263c;
+      --gold: #f2bf58;
+      --green: #3e786a;
+      --line: #d7e0e0;
+      --shadow: 0 18px 40px rgba(23, 50, 77, .16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #c8dfe2; color: var(--ink); font-family: Georgia, 'Times New Roman', serif; }
+    body { display: grid; place-items: center; padding: 1.5rem; }
+    button { font: inherit; }
+    .deck { width: min(100%, 1280px); }
+    .stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper); box-shadow: var(--shadow); border: 1px solid rgba(23,50,77,.12); }
+    .slide { position: absolute; inset: 0; display: none; grid-template-rows: auto 1fr auto; padding: clamp(2rem, 5vw, 5.5rem); background: var(--paper); }
+    .slide.active { display: grid; animation: enter .38s ease-out both; }
+    @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .slide-head { display: flex; align-items: start; justify-content: space-between; gap: 2rem; position: relative; z-index: 2; }
+    .eyebrow { margin: 0 0 .55rem; color: var(--rose-dark); font: 700 clamp(.72rem, 1.2vw, 1rem)/1.2 Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+    h1, h2, p { max-width: 34rem; }
+    h1, h2 { margin: 0; line-height: .98; letter-spacing: 0; }
+    h1 { font-size: clamp(2.5rem, 6vw, 6.2rem); }
+    h2 { font-size: clamp(2.1rem, 5vw, 5rem); }
+    .dek { margin: 1rem 0 0; color: var(--muted); font: 1.15rem/1.4 Arial, sans-serif; max-width: 32rem; }
+    .ref { align-self: end; color: var(--muted); font: .76rem/1.3 Arial, sans-serif; }
+    .scene { position: absolute; right: 3%; bottom: 6%; width: 49%; height: 76%; }
+    .scene svg { width: 100%; height: 100%; display: block; }
+    .split { align-self: center; display: grid; grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); align-items: center; gap: 2rem; }
+    .question { display: inline-block; margin-top: 1.5rem; padding: .9rem 1.1rem; color: white; background: var(--rose-dark); border-radius: 1rem; font: 700 1rem/1.25 Arial, sans-serif; }
+    .answer { margin-top: 1.2rem; padding: 1rem 1.2rem; background: #edf5ed; border-left: .35rem solid var(--green); border-radius: .5rem; font: 1rem/1.45 Arial, sans-serif; }
+    .answer[hidden] { display: none; }
+    .bubble-toggle, .nav-button { min-width: 48px; min-height: 48px; touch-action: manipulation; cursor: pointer; }
+    .bubble-toggle { border: 0; border-radius: 1rem; padding: .9rem 1.1rem; color: white; background: var(--rose-dark); font-weight: 700; text-align: left; }
+    .bubble-toggle:hover, .bubble-toggle:focus-visible { background: #651d31; }
+    button:focus-visible, [tabindex]:focus-visible { outline: 4px solid var(--gold); outline-offset: 4px; }
+    .story-card { align-self: center; max-width: 38rem; padding: clamp(1.4rem, 3vw, 2.4rem); border: 2px solid var(--line); border-radius: 1.25rem; background: rgba(255,255,255,.72); }
+    .story-card p { margin: 0; font: clamp(1.05rem, 2vw, 1.55rem)/1.45 Arial, sans-serif; }
+    .big-answer { margin-top: 1.25rem; font-size: clamp(1.4rem, 3vw, 2.3rem); line-height: 1.15; color: var(--green); }
+    .questions { align-self: center; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-width: 58rem; }
+    .question-card { display: grid; gap: .8rem; align-content: start; min-height: 9rem; padding: 1.2rem; border: 2px solid var(--line); border-radius: .7rem; background: white; }
+    .question-card p { margin: 0; font: 700 1.05rem/1.25 Arial, sans-serif; }
+    .question-card .bubble-toggle { font-size: .9rem; padding: .7rem .85rem; border-radius: .65rem; }
+    .footer { position: absolute; left: clamp(2rem, 5vw, 5.5rem); right: clamp(2rem, 5vw, 5.5rem); bottom: 1.1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--muted); font: .78rem Arial, sans-serif; z-index: 5; }
+    .controls { display: flex; gap: .4rem; }
+    .nav-button { display: inline-grid; place-items: center; border: 1px solid var(--line); border-radius: .6rem; color: var(--ink); background: white; }
+    .nav-button:hover, .nav-button:focus-visible { border-color: var(--rose); color: var(--rose-dark); }
+    .nav-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .presenter { display: none; position: fixed; inset: auto 1rem 1rem auto; width: min(23rem, calc(100% - 2rem)); max-height: 40vh; overflow: auto; padding: 1rem; border: 2px solid var(--gold); border-radius: .7rem; background: #fffdf7; box-shadow: var(--shadow); z-index: 20; font: .9rem/1.4 Arial, sans-serif; }
+    .presenter strong { display: block; margin-bottom: .4rem; color: var(--rose-dark); }
+    body.presenter-mode .presenter { display: block; }
+    body.presenter-mode::before { content: 'Presenter mode'; position: fixed; top: .7rem; right: .7rem; z-index: 30; padding: .35rem .55rem; border-radius: .3rem; color: var(--ink); background: var(--gold); font: 700 .72rem Arial, sans-serif; }
+    .title { background: #f5d9c9; }
+    .title h1 { max-width: 37rem; }
+    .title .scene { right: 0; bottom: 0; width: 52%; height: 92%; }
+    .sky-slide { background: var(--sky); }
+    .rose-slide { background: #f6e2e0; }
+    .dark-slide { color: white; background: var(--ink); }
+    .dark-slide .dek, .dark-slide .ref { color: #d8e5e7; }
+    .dark-slide .eyebrow { color: #ffd47b; }
+    .dark-slide .story-card { border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.08); }
+    .dark-slide .big-answer { color: #9ed4b8; }
+    @media (max-width: 720px) {
+      body { padding: 0; }
+      .stage { width: 100vw; min-height: 100vh; aspect-ratio: auto; }
+      .slide { position: relative; min-height: 100vh; padding: 2rem 1.4rem 5rem; }
+      .slide.active { display: block; }
+      .split { display: block; padding-top: 2rem; }
+      .scene, .title .scene { position: relative; right: auto; bottom: auto; width: 100%; height: 36vh; margin-top: 1.5rem; }
+      .questions { grid-template-columns: 1fr; margin-top: 2rem; }
+      .footer { left: 1.4rem; right: 1.4rem; bottom: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+    /* Visual language shared with the earlier Ministry Grid decks. */
+    :root {
+      --ink: #10242a;
+      --muted: #35545b;
+      --paper: #fff9ed;
+      --sky: #b9e7ef;
+      --rose: #ca6d78;
+      --rose-dark: #8f414e;
+      --gold: #f1b746;
+      --gold-soft: #ffe4a4;
+      --green: #2f8a68;
+      --green-dark: #1d634d;
+      --line: #d7eee1;
+      --shadow: 0 1.5rem 3.5rem rgba(8, 27, 30, .22);
+    }
+    html, body { height: 100%; }
+    body { display: grid; place-items: center; padding: 0; overflow: hidden; background: #0b1a1f; color: var(--ink); font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+    .deck { width: 100vw; height: 100vh; display: grid; place-items: center; }
+    .stage { width: min(100vw, calc(100vh * 16 / 9)); height: min(100vh, calc(100vw * 9 / 16)); aspect-ratio: auto; container-type: size; border: 0; background: var(--paper); box-shadow: var(--shadow); isolation: isolate; }
+    .stage::before { content: ""; position: absolute; inset: 0; z-index: 20; pointer-events: none; border: .16rem solid rgba(255,255,255,.16); }
+    .slide { display: none; padding: clamp(1.5rem, 5cqw, 5.4rem) clamp(1.75rem, 6.3cqw, 7.2rem) clamp(2.25rem, 6cqw, 6rem); background: var(--paper); }
+    .slide.active { display: block; animation: none; }
+    .slide::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: .8rem; background: var(--gold); z-index: 10; }
+    .slide-head { display: block; position: relative; z-index: 3; width: 50%; padding-top: 2%; }
+    .eyebrow { display: inline-flex; align-items: center; gap: .6rem; margin: 0 0 1rem; color: var(--green-dark); font: 800 clamp(.7rem, 1.8cqh, 1.1rem)/1.2 "Avenir Next", "Trebuchet MS", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 2rem; height: .22rem; border-radius: 99px; background: var(--gold); }
+    h1, h2 { max-width: 11ch; margin: 0 0 1rem; color: var(--ink); font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif; font-weight: 900; letter-spacing: -.04em; line-height: .92; }
+    h1 { max-width: 8.5ch; font-size: clamp(1.6rem, 9cqh, 8.8rem); }
+    h2 { font-size: clamp(1.45rem, 7.5cqh, 6.5rem); }
+    .dek { max-width: 28rem; margin: 0; color: var(--muted); font: clamp(.78rem, 2.4cqh, 1.8rem)/1.24 "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+    .scene { right: 0; bottom: 0; width: 56%; height: 86%; overflow: hidden; border-radius: 0; background-color: var(--green-soft, #d7eee1); background-image: url("jesus-saves-us-to-follow-him-assets/session-2-poster.webp"); background-position: center; background-size: cover; box-shadow: none; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%); }
+    .scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,249,237,.98) 0%, rgba(255,249,237,.08) 30%, rgba(16,36,42,.06) 100%); pointer-events: none; }
+    .scene svg { display: none; width: 100%; height: 100%; }
+    .slide[data-slide="1"] .scene { background-position: 50% 42%; }
+    .slide[data-slide="2"] .scene { background-position: 22% 48%; }
+    .slide[data-slide="3"] .scene { background-position: 50% 58%; }
+    .slide[data-slide="4"] .scene { background-position: 78% 42%; }
+    .slide[data-slide="5"] .scene { background-position: 38% 58%; }
+    .slide[data-slide="6"] .scene { background-position: 63% 48%; }
+    .slide[data-slide="7"] .scene { background-position: 28% 42%; }
+    .slide[data-slide="8"] .scene { background-position: 86% 58%; }
+    .title { background: var(--paper); }
+    .title .slide-head { width: 50%; min-height: 100%; padding-top: 7%; }
+    .title .scene { width: 56%; height: 100%; }
+    .sky-slide { background: var(--paper); }
+    .rose-slide { background: #f7dce0; }
+    .dark-slide { background: var(--ink); }
+    .dark-slide .slide-head { width: 58%; padding-top: 5%; }
+    .dark-slide .eyebrow { color: var(--gold-soft); }
+    .dark-slide .dek { color: #d7eee1; }
+    .dark-slide .scene { clip-path: none; width: 48%; height: 80%; right: 3%; bottom: 8%; border-radius: 2.3rem; }
+    .question { display: inline-block; margin-top: 1.15rem; padding: .7rem 1rem; border-radius: 999px; color: var(--green-dark); background: var(--green-soft, #d7eee1); font: 800 clamp(.75rem, 1.1vw, 1rem)/1.1 "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+    .bubble-toggle { padding: .85rem 1rem; border-radius: .9rem .9rem .9rem .25rem; color: var(--ink); background: var(--gold-soft); box-shadow: 0 .5rem 0 rgba(185,127,28,.25); font: 900 clamp(.78rem, 2.1cqh, 1.2rem)/1.1 "Avenir Next", "Trebuchet MS", Arial, sans-serif; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+    .bubble-toggle:hover, .bubble-toggle:focus-visible, .bubble-toggle[aria-expanded="true"] { transform: translateY(-.14rem); background: #ffd77a; box-shadow: 0 .68rem 0 rgba(185,127,28,.27); }
+    .answer { max-width: 27rem; margin-top: .7rem; padding: .85rem 1rem; border: .14rem solid rgba(47,138,104,.22); border-radius: 1rem; color: var(--ink); background: white; box-shadow: 0 .6rem 1.2rem rgba(16,36,42,.12); font: 700 clamp(.9rem, 1.25vw, 1.18rem)/1.18 "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+    .footer { left: clamp(1.75rem, 6.3cqw, 7.2rem); right: clamp(1.25rem, 2.2cqw, 2.8rem); bottom: clamp(1rem, 2.2cqw, 2.35rem); color: rgba(16,36,42,.62); font: 800 clamp(.62rem, 1.3cqh, .82rem)/1.2 "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+    .controls { gap: .55rem; }
+    .nav-button { width: clamp(3rem, 3.2vw, 3.25rem); height: clamp(3rem, 3.2vw, 3.25rem); border: .12rem solid rgba(16,36,42,.24); border-radius: 50%; color: var(--ink); background: rgba(255,255,255,.78); }
+    .nav-button:hover, .nav-button:focus-visible { border-color: var(--gold); background: var(--gold-soft); color: var(--ink); }
+    .questions { max-width: 58rem; margin-top: 1.5rem; }
+    .question-card { min-height: 9.2rem; padding: 1rem 1.1rem; border: 0; border-radius: 1.2rem; background: white; box-shadow: 0 .55rem 1.1rem rgba(16,36,42,.1); }
+    .question-card:nth-child(2) { background: var(--green-soft, #d7eee1); }
+    .question-card:nth-child(3) { background: #f7dce0; }
+    .question-card:nth-child(4) { background: var(--gold-soft); }
+    .question-card p { max-width: none; color: var(--ink); font: 900 clamp(1.05rem, 1.55vw, 1.5rem)/1 "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+    .question-card .bubble-toggle { margin-top: .8rem; padding: .55rem .75rem; border-radius: .75rem; font-size: clamp(.72rem, 1vw, .95rem); }
+    .presenter { font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif; }
+    @media (max-width: 720px) {
+      body { overflow: auto; }
+      .deck { display: block; width: 100vw; height: auto; }
+      .stage { width: 100vw; min-height: 100vh; height: auto; aspect-ratio: auto; }
+      .slide { position: relative; min-height: 100vh; padding: 2.2rem 1.5rem 5rem; }
+      .slide.active { display: block; }
+      .slide-head, .title .slide-head, .dark-slide .slide-head { width: 72%; padding-top: 8%; }
+      .scene, .title .scene, .dark-slide .scene { position: relative; right: auto; bottom: auto; width: 100%; height: 36vh; margin-top: 1.5rem; clip-path: none; border-radius: 1.4rem; }
+      .footer { left: 1.5rem; right: 1.25rem; bottom: 1rem; }
+    }
+    @container (max-height: 300px) {
+      .slide { padding: .8rem 1.4rem 2rem; }
+      .slide-head, .title .slide-head, .dark-slide .slide-head { width: 52%; padding-top: 1%; }
+      .eyebrow { margin-bottom: .35rem; font-size: clamp(.56rem, 1.4cqh, .75rem); }
+      h1 { font-size: clamp(1.2rem, 6.5cqh, 3rem); margin-bottom: .45rem; }
+      h2 { font-size: clamp(1.1rem, 5.4cqh, 2.5rem); margin-bottom: .45rem; }
+      .dek { font-size: clamp(.62rem, 1.8cqh, .9rem); }
+      .footer { left: 1.4rem; right: 1.1rem; bottom: .45rem; font-size: .56rem; }
+      .nav-button { min-width: 2rem; min-height: 2rem; width: 2rem; height: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="Jesus Saves Us to Follow Him teaching deck">
+    <div class="stage" id="stage">
+      <section class="slide title active" data-slide="1" data-notes="Welcome children and invite them to share a piece of good news. Connect their answers to the good news of Jesus' death and resurrection.">
+        <div class="slide-head"><div><p class="eyebrow">The Gospel Project: Kids - Easter Bonus Session 2</p><h1 tabindex="-1">Jesus Saves Us to Follow Him</h1><p class="dek">The best news is not only that Jesus died. He rose again.</p></div></div>
+        <div class="scene" aria-label="Illustration of a sunrise over a cross and empty tomb"><svg viewBox="0 0 600 470" role="img"><title>Sunrise, cross, and empty tomb</title><circle cx="465" cy="100" r="72" fill="#f2bf58"/><path d="M0 390 Q150 265 305 365 T600 315 V470 H0Z" fill="#3e786a"/><path d="M315 390 V190 H350 V390 M282 235 H383 V270 H282Z" fill="#7e263c"/><path d="M95 390 Q125 270 245 290 Q325 305 350 390Z" fill="#fffaf2" stroke="#17324d" stroke-width="8"/><path d="M130 390 Q155 335 210 335 Q265 335 294 390" fill="#dff1f4"/><path d="M425 390 Q440 350 480 350 Q520 350 540 390" fill="none" stroke="#f5d9c9" stroke-width="20"/></svg></div>
+        <div class="footer"><span>Matthew 27-28; Mark 15-16; Luke 23-24; John 19-20</span><span class="slide-count">1 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+
+      <section class="slide sky-slide" data-slide="2" data-notes="Set the scene in Jerusalem. Explain that Jesus was arrested and crucified even though He never sinned.">
+        <div class="slide-head"><div><p class="eyebrow">The story begins</p><h2>Jesus went to the cross.</h2><p class="dek">Jesus was arrested and crucified. He had done nothing wrong.</p></div></div>
+        <div class="scene" aria-label="Illustration of Jerusalem and a cross"><svg viewBox="0 0 600 470" role="img"><title>Jerusalem and the cross</title><path d="M0 390 Q150 320 300 365 T600 340 V470 H0Z" fill="#f2bf58"/><path d="M70 390 V220 H135 V390 M100 175 L150 220 H50Z M170 390 V250 H245 V390 M207 205 L265 250 H150Z" fill="#a83d52"/><path d="M355 395 V150 H390 V395 M315 205 H430 V240 H315Z" fill="#17324d"/><circle cx="480" cy="105" r="54" fill="#fffaf2" stroke="#f2bf58" stroke-width="16"/></svg></div>
+        <div class="footer"><span>Jesus never sinned.</span><span class="slide-count">2 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+
+      <section class="slide rose-slide" data-slide="3" data-notes="Read or summarize Luke 23:34. Emphasize that Jesus showed mercy while people were hurting Him.">
+        <div class="slide-head"><div><p class="eyebrow">A surprising prayer</p><h2>Jesus asked His Father to forgive them.</h2><p class="dek">Even while people were crucifying Him, Jesus showed mercy.</p><button class="bubble-toggle" data-reveal="answer-3" aria-expanded="false" aria-controls="answer-3">What does this show about Jesus?</button><div class="answer" id="answer-3" hidden>Jesus is full of mercy. He willingly took the punishment for sin.</div></div></div>
+        <div class="scene" aria-label="Illustration of a cross with a speech bubble"><svg viewBox="0 0 600 470" role="img"><title>Jesus' prayer of forgiveness</title><path d="M0 400 Q180 320 330 380 T600 360 V470 H0Z" fill="#a83d52"/><path d="M285 405 V150 H320 V405 M245 220 H365 V255 H245Z" fill="#17324d"/><path d="M405 85 Q405 30 480 30 Q560 30 560 95 Q560 155 488 155 H450 L420 185 V145 Q405 125 405 85Z" fill="#fffaf2" stroke="#17324d" stroke-width="7"/><path d="M448 94 Q480 62 520 95" fill="none" stroke="#7e263c" stroke-width="7" stroke-linecap="round"/></svg></div>
+        <div class="footer"><span>Luke 23:34</span><span class="slide-count">3 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div></div>
+      </section>
+
+      <section class="slide sky-slide" data-slide="4" data-notes="Pause for the children to notice the difference between a sealed tomb and an empty tomb. Keep the focus on the biblical event, not speculation.">
+        <div class="slide-head"><div><p class="eyebrow">The quiet tomb</p><h2>Jesus was buried.</h2><p class="dek">A large stone covered the entrance. The story seemed to be over.</p></div></div>
+        <div class="scene" aria-label="Illustration of a sealed tomb"><svg viewBox="0 0 600 470" role="img"><title>Sealed tomb</title><circle cx="470" cy="95" r="55" fill="#f2bf58"/><path d="M0 400 Q160 320 300 370 T600 345 V470 H0Z" fill="#3e786a"/><path d="M120 400 V235 Q120 140 245 140 Q370 140 370 235 V400Z" fill="#17324d"/><circle cx="245" cy="302" r="86" fill="#f2bf58" stroke="#7e263c" stroke-width="12"/><path d="M170 402 Q240 330 320 402" fill="none" stroke="#fffaf2" stroke-width="20"/></svg></div>
+        <div class="footer"><span>Matthew 27:57-66</span><span class="slide-count">4 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+
+      <section class="slide title" data-slide="5" data-notes="Tell the resurrection discovery from the Gospel accounts. Invite a prediction before revealing the empty tomb.">
+        <div class="slide-head"><div><p class="eyebrow">The discovery</p><h2>The tomb was empty!</h2><p class="dek">On the third day, Jesus rose from the dead. The stone had been moved.</p><button class="bubble-toggle" data-reveal="answer-5" aria-expanded="false" aria-controls="answer-5">Why is this good news?</button><div class="answer" id="answer-5" hidden>Jesus is alive. His resurrection shows that sin and death were defeated.</div></div></div>
+        <div class="scene" aria-label="Illustration of the empty tomb at sunrise"><svg viewBox="0 0 600 470" role="img"><title>Empty tomb at sunrise</title><circle cx="430" cy="100" r="82" fill="#f2bf58"/><path d="M0 410 Q150 305 310 370 T600 330 V470 H0Z" fill="#3e786a"/><path d="M115 410 Q120 190 285 190 Q450 190 455 410Z" fill="#17324d"/><path d="M170 410 Q190 292 285 292 Q380 292 400 410Z" fill="#fffaf2"/><circle cx="460" cy="355" r="53" fill="#a83d52"/><path d="M450 305 Q515 250 555 305" fill="none" stroke="#fffaf2" stroke-width="13" stroke-linecap="round"/></svg></div>
+        <div class="footer"><span>Matthew 28:1-10</span><span class="slide-count">5 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+
+      <section class="slide dark-slide" data-slide="6" data-notes="Connect the story point to the gospel. Avoid implying that Jesus only provided an example; explain that His death and resurrection defeated sin and death and offer forgiveness to those who repent and believe.">
+        <div class="slide-head"><div><p class="eyebrow">The story point</p><h2>Jesus died on the cross and rose again to defeat sin and death.</h2><p class="dek">Because Jesus is alive, forgiveness and new life are offered to everyone who repents and believes.</p></div></div>
+        <div class="scene" aria-label="Illustration of light breaking through darkness"><svg viewBox="0 0 600 470" role="img"><title>Light breaking through darkness</title><path d="M0 0 H600 V470 H0Z" fill="#17324d"/><path d="M295 470 V160 H330 V470 M250 225 H375 V260 H250Z" fill="#a83d52"/><path d="M80 390 L515 70 M170 430 L570 155 M20 250 L430 20" stroke="#f2bf58" stroke-width="16" stroke-linecap="round"/><circle cx="450" cy="120" r="57" fill="#fffaf2"/><path d="M425 120 L445 140 L480 95" fill="none" stroke="#3e786a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="footer"><span>Jesus forgives those who repent and believe.</span><span class="slide-count">6 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+
+      <section class="slide sky-slide" data-slide="7" data-notes="Ask the big-picture question and let children answer before showing the answer. Reinforce that Jesus is the Messiah, the Son of God, who came to save us.">
+        <div class="split"><div><p class="eyebrow">Big-picture question</p><h2>Who is Jesus?</h2><button class="bubble-toggle" data-reveal="answer-7" aria-expanded="false" aria-controls="answer-7">Reveal the answer</button><div class="answer big-answer" id="answer-7" hidden>Jesus is the Messiah, the Son of God, who came to earth to save us.</div></div><div class="scene" aria-label="Illustration of Jesus as the promised Savior"><svg viewBox="0 0 600 470" role="img"><title>Jesus as Savior</title><circle cx="300" cy="170" r="112" fill="#f2bf58"/><path d="M0 420 Q160 300 300 380 T600 340 V470 H0Z" fill="#3e786a"/><circle cx="300" cy="180" r="62" fill="#f5d9c9"/><path d="M245 170 Q300 88 355 170 Q340 145 300 145 Q260 145 245 170Z" fill="#7e263c"/><path d="M235 260 Q300 215 365 260 L410 420 H190Z" fill="#a83d52"/><path d="M280 180 H290 M320 180 H330" stroke="#17324d" stroke-width="8" stroke-linecap="round"/><path d="M280 215 Q300 232 320 215" fill="none" stroke="#17324d" stroke-width="7" stroke-linecap="round"/></svg></div></div>
+        <div class="footer"><span>Jesus is the Messiah, the Son of God.</span><span class="slide-count">7 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div></div>
+      </section>
+
+      <section class="slide rose-slide" data-slide="8" data-notes="Use John 3:16 as a short memory anchor. Read from the group's approved Bible translation rather than placing a long quotation on screen.">
+        <div class="slide-head"><div><p class="eyebrow">Key passage</p><h2>God loved the world.</h2><p class="dek">John 3:16 points us to the heart of the gospel: God gave His Son so that believers can have eternal life.</p><div class="question">John 3:16</div></div></div>
+        <div class="scene" aria-label="Illustration of a gift and a heart"><svg viewBox="0 0 600 470" role="img"><title>Gift of God's Son</title><path d="M0 410 Q150 330 300 380 T600 350 V470 H0Z" fill="#a83d52"/><path d="M300 130 C245 70 145 125 175 210 L300 340 L425 210 C455 125 355 70 300 130Z" fill="#f2bf58" stroke="#17324d" stroke-width="9"/><path d="M235 250 H365 V385 H235Z" fill="#fffaf2" stroke="#17324d" stroke-width="8"/><path d="M300 210 V285 M262 247 H338" stroke="#7e263c" stroke-width="14" stroke-linecap="round"/></svg></div>
+        <div class="footer"><span>Read the full passage from your Bible.</span><span class="slide-count">8 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+
+      <section class="slide sky-slide" data-slide="9" data-notes="Use these prompts for the 5-minute question period. Invite observations and honest answers; do not pressure children to perform.">
+        <div class="slide-head"><div><p class="eyebrow">Talk about it</p><h2>What will you remember?</h2></div></div>
+        <div class="questions">
+          <div class="question-card"><p>What happened after Jesus was buried?</p><button class="bubble-toggle" data-reveal="q1" aria-expanded="false" aria-controls="q1">Show answer cue</button><div class="answer" id="q1" hidden>Jesus rose again, and the tomb was empty.</div></div>
+          <div class="question-card"><p>Why did Jesus go to the cross?</p><button class="bubble-toggle" data-reveal="q2" aria-expanded="false" aria-controls="q2">Show answer cue</button><div class="answer" id="q2" hidden>He took the punishment for sin to save us.</div></div>
+          <div class="question-card"><p>What does Jesus offer to those who repent and believe?</p><button class="bubble-toggle" data-reveal="q3" aria-expanded="false" aria-controls="q3">Show answer cue</button><div class="answer" id="q3" hidden>Forgiveness and new life with God.</div></div>
+          <div class="question-card"><p>Who is Jesus?</p><button class="bubble-toggle" data-reveal="q4" aria-expanded="false" aria-controls="q4">Show answer cue</button><div class="answer" id="q4" hidden>Jesus is the Messiah, the Son of God, who came to save us.</div></div>
+        </div>
+        <div class="footer"><span>Jesus is alive.</span><span class="slide-count">9 of 9</span><div class="controls"><button class="nav-button" data-action="previous" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="nav-button" data-action="next" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+    </div>
+    <p class="live" id="live" aria-live="polite" aria-atomic="true"></p>
+  </main>
+  <aside class="presenter" aria-label="Presenter notes"><strong>Presenter notes</strong><div id="presenter-notes"></div><p>Presenter mode is enabled with <code>?presenter=1</code> or the P key.</p></aside>
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const total = slides.length;
+      const live = document.getElementById('live');
+      const notes = document.getElementById('presenter-notes');
+      document.querySelectorAll('.scene').forEach(scene => scene.setAttribute('role', 'img'));
+      let current = 1;
+      const clamp = value => Math.min(total, Math.max(1, Number.isFinite(value) ? value : 1));
+      const hashSlide = () => {
+        const match = location.hash.match(/^#slide=(\d+)$/);
+        return match ? clamp(Number(match[1])) : 1;
+      };
+      const setHash = (number, replace = false) => {
+        const next = `#slide=${number}`;
+        if (replace) history.replaceState(null, '', next);
+        else if (location.hash !== next) location.hash = next;
+      };
+      const update = (number, announce = true) => {
+        current = clamp(number);
+        slides.forEach(slide => slide.classList.toggle('active', Number(slide.dataset.slide) === current));
+        document.querySelectorAll('.slide-count').forEach(counter => counter.textContent = `${current} of ${total}`);
+        const active = slides[current - 1];
+        const heading = active.querySelector('h1, h2');
+        document.querySelectorAll('[data-reveal]').forEach(toggle => {
+          const target = document.getElementById(toggle.dataset.reveal);
+          if (target) target.hidden = true;
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+        if (heading) {
+          heading.setAttribute('tabindex', '-1');
+          requestAnimationFrame(() => heading.focus({ preventScroll: true }));
+        }
+        notes.textContent = active.dataset.notes || '';
+        if (announce) live.textContent = `Slide ${current} of ${total}`;
+      };
+      const navigate = number => { const next = clamp(number); setHash(next); update(next); };
+      document.addEventListener('click', event => {
+        const action = event.target.closest('[data-action]');
+        if (action) navigate(current + (action.dataset.action === 'next' ? 1 : -1));
+        const reveal = event.target.closest('[data-reveal]');
+        if (reveal) {
+          const target = document.getElementById(reveal.dataset.reveal);
+          const open = target.hidden;
+          target.hidden = !open;
+          reveal.setAttribute('aria-expanded', String(open));
+        }
+      });
+      window.addEventListener('hashchange', () => {
+        const next = hashSlide();
+        if (location.hash !== `#slide=${next}`) setHash(next, true);
+        update(next);
+      });
+      document.addEventListener('keydown', event => {
+        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+        if (event.key === 'ArrowRight' || event.key === ' ') { event.preventDefault(); navigate(current + 1); }
+        if (event.key === 'ArrowLeft') { event.preventDefault(); navigate(current - 1); }
+        if (event.key === 'Home') { event.preventDefault(); navigate(1); }
+        if (event.key === 'End') { event.preventDefault(); navigate(total); }
+        if (event.key.toLowerCase() === 'p') document.body.classList.toggle('presenter-mode');
+      });
+      const params = new URLSearchParams(location.search);
+      if (params.get('presenter') === '1') document.body.classList.add('presenter-mode');
+      const initial = hashSlide();
+      if (location.hash !== `#slide=${initial}`) setHash(initial, true);
+      update(initial, false);
+    })();
+  </script>
+</body>
+</html>

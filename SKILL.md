@@ -1,6 +1,6 @@
 ---
 name: ministrygrid-html-deck
-description: Turn an authenticated Lifeway Ministry Grid curriculum/session/issue page into a kid-friendly, interactive HTML teaching deck. Use when a user supplies a ministrygrid.lifeway.com link and wants the lesson content read, a 10-minute teaching plan proposed for confirmation, and then a TV-ready deck generated under generated-html-deck.
+description: Turn an authenticated Lifeway Ministry Grid curriculum/session/issue page into a kid-friendly, interactive HTML teaching deck. Use when a user supplies a ministrygrid.lifeway.com link and wants the lesson content read, a 10-minute teaching plan proposed for confirmation, and then a TV-ready deck generated under generated-html-dek.
 ---
 
 # Ministry Grid HTML Deck
@@ -31,7 +31,7 @@ When the user supplies a Lifeway URL, complete the read-only source review first
 
 End with a direct request for confirmation, for example: “Reply `confirm` to create this deck, or tell me what to change.” Stop there. A vague acknowledgement is not confirmation; revise the proposal and ask again if the user changes the requirements.
 
-Do not create `generated-html-deck`, write HTML, generate images, or download large optional media before confirmation. Read-only temporary downloads needed to inspect the lesson are allowed.
+Do not create `generated-html-dek`, write HTML, generate images, or download large optional media before confirmation. Read-only temporary downloads needed to inspect the lesson are allowed.
 
 ## Source access and authentication
 
@@ -75,12 +75,18 @@ Use fewer slides if the content is very short. State the proposed pacing in seco
 
 ## Build rules after confirmation
 
-After confirmation, create the deck inside `generated-html-deck/`. To avoid overwriting an earlier lesson, use `generated-html-deck/<lesson-slug>/index.html` and keep all assets relative to that folder. If the user explicitly asks to replace an existing lesson folder, confirm the exact folder before deleting or overwriting it.
+After confirmation, create the deck as `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>.html`. Keep any supporting assets in a lesson-specific sibling directory and use relative paths. If the user explicitly asks to replace an existing lesson file, confirm the exact path before deleting or overwriting it.
 
 Read `references/deck-architecture.md` before building. Follow these rules:
 
 - Produce a self-contained, offline-friendly HTML deck with local CSS, JavaScript, and image assets; avoid a CDN or remote font dependency.
 - Use a consistent 16:9 stage that scales down gracefully and remains legible on a TV. Include keyboard navigation, visible focus styles, and a clear slide counter.
+- Use 3-4 distinct scene assets across the deck when the source supports them; avoid reusing one poster crop as the primary visual on most slides. Give meaningful images explicit `width` and `height` attributes and prefer local WebP or AVIF with a practical fallback over large PNG files.
+- Make every interactive control at least 44px by 44px, with 48px preferred for TV/touch use, and apply `touch-action: manipulation`. Use semantic buttons and preserve a strong visible focus state.
+- Verify accent/text combinations against WCAG AA for their actual text size. Do not use white small text on a rose accent below 4.5:1; darken the rose or use dark ink text instead.
+- Support direct slide URLs with a hash such as `#slide=6`. On initial load and hash changes, clamp invalid slide numbers, update the visible counter, move focus to the active slide heading, and announce the position through a polite live region such as "Slide 6 of 9."
+- Include an optional presenter mode that is off by default and absent from the TV-facing layout. When enabled through a documented local control or URL flag, show pacing notes, Bible references, and activity suggestions without changing the clean slide view for children.
+- Replace decorative Unicode symbols used as interface icons with small inline SVGs. Give decorative SVGs `aria-hidden="true"`; provide an accessible label for icon-only buttons.
 - Use cartoon-style scene art or friendly illustrated visuals for the main story beats. Prefer generated or inline/vector artwork when suitable; use source-provided images when they materially help and the user has access to them. If an image-generation tool is available, create only the small set of scene illustrations needed for the approved outline and keep prompts age-appropriate.
 - Do not show “Teacher action,” “Kids' action,” or similar instruction panels unless the user explicitly asks for them. The teacher can narrate from the clean story slides.
 - Make interactive “hover” bubbles work on a TV: each must also respond to click/tap and keyboard focus/Enter/Space. Use buttons with `aria-expanded` and a visible reveal state; never make hover the only way to see important content.
@@ -93,10 +99,13 @@ Read `references/deck-architecture.md` before building. Follow these rules:
 
 Before reporting completion:
 
-1. Inspect the generated folder and verify that the entry file and every referenced local asset exist.
+1. Inspect `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>.html` and verify that the entry file and every referenced local asset exist.
 2. Run a local static server and open the deck in the browser at a TV-like 16:9 viewport. Test first/previous/next/last navigation, keyboard navigation, focus styles, every click/tap reveal, and the question-answer reveals.
 3. Check for console errors, broken images, clipped text, unreadable contrast, accidental external requests, and any visible placeholder such as `TODO` or `TBD`.
-4. Confirm that the deck still works when the browser is offline or when remote network access is unavailable.
-5. Give the user the exact output path, how to open it, the controls (`←`, `→`, `Home`, `End`, `Space`, and click/tap), and a short note about what was included or intentionally omitted.
+4. Verify every interactive control is at least 44px in both dimensions, has `touch-action: manipulation`, and remains usable with keyboard, pointer, and touch input.
+5. Test direct navigation to `#slide=1`, a middle slide, the final slide, an invalid hash, and browser back/forward. Confirm that the active heading receives focus and the live region announces the current slide.
+6. Confirm presenter mode is opt-in, does not appear in the default TV view, and exposes its notes only when enabled.
+7. Confirm that the deck still works when the browser is offline or when remote network access is unavailable.
+8. Give the user the exact output path, how to open it, the controls (`←`, `→`, `Home`, `End`, `Space`, and click/tap), hash navigation format, presenter-mode entry point, and a short note about what was included or intentionally omitted.
 
 If the browser or PDF inspection is unavailable, say exactly what was not verified. Do not claim that the deck was tested when it was only written to disk.
