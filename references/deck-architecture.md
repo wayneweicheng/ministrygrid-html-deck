@@ -22,12 +22,13 @@ Combine or omit rows when the source content does not support them. The teacher'
 
 ## Visual system
 
-- Use a warm, child-friendly palette with strong text contrast: deep ink for body text, a bright accent for questions, and one calm secondary color for answer reveals.
-- Keep the stage visually calm: one dominant illustration, at most two supporting shapes, and generous margins.
-- Use rounded cards and soft shadows sparingly. Avoid busy patterns behind text.
-- Use local assets and `object-fit: cover`/`contain` intentionally. Give every meaningful image useful alt text; mark decorative shapes `aria-hidden="true"`.
-- Use 3-4 distinct scene assets for the story progression where possible. Prefer local WebP/AVIF and declare stable `width`/`height` dimensions on meaningful images to prevent layout shifts. Do not let one source poster crop carry the visual identity of nearly every slide.
-- Prefer friendly cartoon scenes with clear silhouettes and diverse, non-caricatured children. Do not make a generated image look like a real identifiable person.
+- Use a warm, child-friendly palette with strong text contrast: deep teal ink for body text, a gold accent for questions and progress, green for answer cards, rose for emphasis, and cream as the main surface.
+- Follow the established poster-led layout: a centered 16:9 `.stage-shell`/`.stage`, a hero slide with large copy and angled artwork, alternating split copy/art slides, rounded cards, a truth/memory slide, and a four-card discussion slide. Keep generous margins and one dominant visual per slide. Treat `generated-html-dek/jesus-saves-us-to-follow-him/index.html` as the visual reference, copying its structure and styling pattern rather than its lesson content.
+- Keep one coherent style system and a single primary stylesheet; do not append competing CSS override layers. Use rounded cards and soft shadows sparingly. Avoid busy patterns behind text.
+- Use local assets and `object-fit: cover`/`contain` intentionally. Give every meaningful image useful alt text and explicit dimensions; mark decorative shapes `aria-hidden="true"`.
+- When a source story poster or illustration exists, store it in the lesson's `assets/` directory and use it as the main visual in the hero and rounded `.art-panel` elements. Reuse the asset with deliberate `object-position` crops for different story beats, as in the established deck. If no suitable source visual exists, create 3–4 distinct local illustrations instead.
+- Prefer friendly, expressive illustrated scenes with clear silhouettes and diverse, non-caricatured children. Avoid CSS-only character stickers, generic geometric scenes, or busy decorative overlays that compete with the source artwork. Do not make a generated image look like a real identifiable person.
+- Use short, colorful reveal buttons and speech/thought-style bubbles sparingly. Bubbles may show a source-supported short line or an explicitly labeled wondering prompt, but must not invent biblical dialogue.
 
 ## Interaction contract
 
