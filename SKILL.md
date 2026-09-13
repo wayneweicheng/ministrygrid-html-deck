@@ -1,6 +1,6 @@
 ---
 name: ministrygrid-html-deck
-description: Turn an authenticated Lifeway Ministry Grid curriculum/session/issue page into a kid-friendly, interactive HTML teaching deck. Use when a user supplies a ministrygrid.lifeway.com link and wants the lesson content read, a 10-minute teaching plan proposed for confirmation, and then a TV-ready deck generated under generated-html-dek.
+description: Turn an authenticated Lifeway Ministry Grid curriculum/session/issue page into a kid-friendly, interactive HTML teaching deck. Use when a user supplies a ministrygrid.lifeway.com link and wants the lesson content read, a 10-minute teaching plan proposed for confirmation, and then a TV-ready deck generated under generated-html-deck.
 ---
 
 # Ministry Grid HTML Deck
@@ -31,7 +31,7 @@ When the user supplies a Lifeway URL, complete the read-only source review first
 
 End with a direct request for confirmation, for example: “Reply `confirm` to create this deck, or tell me what to change.” Stop there. A vague acknowledgement is not confirmation; revise the proposal and ask again if the user changes the requirements.
 
-Do not create `generated-html-dek`, write HTML, generate images, or download large optional media before confirmation. Read-only temporary downloads needed to inspect the lesson are allowed.
+Do not create `generated-html-deck`, write HTML, generate images, or download large optional media before confirmation. Read-only temporary downloads needed to inspect the lesson are allowed.
 
 ## Source access and authentication
 
@@ -75,13 +75,13 @@ Use fewer slides if the content is very short. State the proposed pacing in seco
 
 ## Build rules after confirmation
 
-After confirmation, create the deck as `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>/index.html`. Keep a lesson-specific `README.md` and an `assets/` directory in that folder, and use relative paths. If the user explicitly asks to replace an existing lesson folder or entry file, confirm the exact path before deleting or overwriting it.
+After confirmation, create the deck as `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-deck/<lesson-slug>/index.html`. Keep a lesson-specific `README.md` and an `assets/` directory in that folder, and use relative paths. If the user explicitly asks to replace an existing lesson folder or entry file, confirm the exact path before deleting or overwriting it.
 
 Read `references/deck-architecture.md` before building. Follow these rules:
 
 - Produce a self-contained, offline-friendly HTML deck with local CSS, JavaScript, and image assets; avoid a CDN or remote font dependency.
-- Organize every deck as `generated-html-dek/<lesson-slug>/index.html`, with a lesson-specific `README.md` and `assets/` directory. Keep the old `<lesson-slug>.html` path only as a lightweight compatibility redirect when an existing shared URL needs to keep working.
-- Follow the established Ministry Grid deck visual language used by `generated-html-dek/jesus-saves-us-to-follow-him/index.html` (copy the structure and styling pattern, not its lesson text): a centered 16:9 `.stage-shell`/`.stage`, warm cream background, deep teal ink, gold progress bar, large bold sans-serif headings, generous whitespace, rounded content cards, split copy/art slides, a hero slide, a truth/memory slide, and a four-card question slide. Keep one coherent style system; do not append competing CSS override layers.
+- Organize every deck as `generated-html-deck/<lesson-slug>/index.html`, with a lesson-specific `README.md` and `assets/` directory. Keep the old `<lesson-slug>.html` path only as a lightweight compatibility redirect when an existing shared URL needs to keep working.
+- Follow the established Ministry Grid deck visual language used by `generated-html-deck/jesus-saves-us-to-follow-him/index.html` (copy the structure and styling pattern, not its lesson text): a centered 16:9 `.stage-shell`/`.stage`, warm cream background, deep teal ink, gold progress bar, large bold sans-serif headings, generous whitespace, rounded content cards, split copy/art slides, a hero slide, a truth/memory slide, and a four-card question slide. Keep one coherent style system; do not append competing CSS override layers.
 - When a source story poster or illustrated visual is available, make it the visual anchor: store it locally in `assets/`, show it in the hero and rounded `.art-panel`/`.hero-art` panels, and use intentional `object-position` crops to vary the story moments. Do not replace the established poster-led layout with CSS-only character stickers, generic geometric scenes, or a decorative overlay that makes the artwork busier. If no suitable source visual exists, create 3–4 distinct local illustrations that follow the same panel-based layout.
 - Use a consistent 16:9 stage that scales down gracefully and remains legible on a TV. Include keyboard navigation, visible focus styles, and a clear slide counter.
 - Make every interactive control at least 44px by 44px, with 48px preferred for TV/touch use, and apply `touch-action: manipulation`. Use semantic buttons and preserve a strong visible focus state.
@@ -102,7 +102,7 @@ Read `references/deck-architecture.md` before building. Follow these rules:
 
 Before reporting completion:
 
-1. Inspect `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-dek/<lesson-slug>/index.html` and verify that the entry file, lesson `README.md`, and every referenced local asset exist.
+1. Inspect `/Users/wayne/Repo/github/commercial/ministrygrid-html-deck/generated-html-deck/<lesson-slug>/index.html` and verify that the entry file, lesson `README.md`, and every referenced local asset exist.
 2. Run a local static server and open the deck in the browser at a TV-like 16:9 viewport. Test first/previous/next/last navigation, keyboard navigation, focus styles, every click/tap reveal, and the question-answer reveals.
 3. Check for console errors, broken images, clipped text, unreadable contrast, accidental external requests, and any visible placeholder such as `TODO` or `TBD`.
 4. Verify every interactive control is at least 44px in both dimensions, has `touch-action: manipulation`, and remains usable with keyboard, pointer, and touch input.

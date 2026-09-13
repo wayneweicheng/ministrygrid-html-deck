@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^ls -R generated-html-deck && echo '---' && python3 -m http\\.server 4173 --directory \\.$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
