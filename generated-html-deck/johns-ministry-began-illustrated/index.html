@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f2942">
+  <title>John's Ministry Began | Unit 20, Session 1</title>
+  <style>
+    :root {
+      --ink: #1f2942;
+      --ink-soft: #48536a;
+      --cream: #fffaf2;
+      --cream-deep: #f7ecd8;
+      --teal: #2a927e;
+      --teal-dark: #176654;
+      --teal-soft: #dcefe9;
+      --coral: #e9806a;
+      --coral-soft: #f8ded5;
+      --yellow: #f3c85b;
+      --yellow-soft: #fff0ba;
+      --plum: #785277;
+      --plum-soft: #eaddea;
+      --white: #ffffff;
+      --shadow: 0 1.25rem 3.5rem rgba(31, 41, 66, .2);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background: #11172a;
+      font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+    }
+
+    button { font: inherit; }
+    button:focus-visible {
+      outline: .24rem solid var(--yellow);
+      outline-offset: .22rem;
+    }
+
+    .stage-shell {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(243, 200, 91, .12), transparent 22%),
+        radial-gradient(circle at 88% 82%, rgba(42, 146, 126, .18), transparent 27%),
+        #11172a;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      z-index: 30;
+      inset: 0;
+      pointer-events: none;
+      border: .14rem solid rgba(255, 255, 255, .2);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      padding: clamp(2rem, 5vw, 5.4rem) clamp(2.5rem, 6.3vw, 7.2rem) clamp(3rem, 6vw, 6rem);
+    }
+
+    .slide.active { display: block; }
+    .slide::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 12;
+      height: .62rem;
+      background: var(--yellow);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.045em; }
+    h1 {
+      max-width: 8ch;
+      margin-bottom: 1.15rem;
+      font-size: clamp(3.7rem, 8vw, 9rem);
+      line-height: .86;
+    }
+    h2 {
+      max-width: 10ch;
+      margin-bottom: 1rem;
+      font-size: clamp(2.9rem, 6vw, 6.8rem);
+      line-height: .9;
+    }
+    h3 {
+      margin-bottom: .5rem;
+      font-size: clamp(1.2rem, 2.05vw, 2.15rem);
+      line-height: 1;
+    }
+    p {
+      color: var(--ink-soft);
+      font-size: clamp(1.06rem, 1.7vw, 1.75rem);
+      line-height: 1.25;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      margin-bottom: .72rem;
+      color: var(--teal-dark);
+      font-size: clamp(.68rem, 1vw, 1rem);
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 2rem;
+      height: .24rem;
+      border-radius: 99px;
+      background: var(--yellow);
+    }
+
+    .source-note {
+      position: absolute;
+      left: clamp(2.5rem, 6.3vw, 7.2rem);
+      bottom: clamp(1.1rem, 2vw, 2rem);
+      z-index: 14;
+      margin: 0;
+      color: rgba(31, 41, 66, .62);
+      font-size: clamp(.6rem, .8vw, .82rem);
+      letter-spacing: .025em;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.5rem, 4vw, 4.6rem);
+      align-items: center;
+      height: 100%;
+    }
+    .copy { position: relative; z-index: 3; }
+    .copy > p { max-width: 33rem; }
+
+    .art-panel {
+      position: relative;
+      min-height: 69%;
+      overflow: hidden;
+      border: .18rem solid rgba(31, 41, 66, .08);
+      border-radius: 2.25rem;
+      background: var(--teal-soft);
+      box-shadow: 0 .9rem 2rem rgba(31, 41, 66, .15);
+    }
+    .art-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(31, 41, 66, .14), transparent 45%, rgba(31, 41, 66, .15));
+    }
+    .poster {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .caption-chip {
+      position: absolute;
+      right: 1.1rem;
+      bottom: 1.1rem;
+      z-index: 2;
+      padding: .62rem .85rem;
+      border-radius: .8rem;
+      color: var(--white);
+      background: rgba(31, 41, 66, .84);
+      font-size: clamp(.7rem, 1vw, .95rem);
+      font-weight: 900;
+    }
+
+    .reveal { position: relative; }
+    .bubble-toggle {
+      min-height: 3.05rem;
+      padding: .78rem 1rem;
+      border: .14rem solid rgba(31, 41, 66, .12);
+      border-radius: 1rem;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--yellow-soft);
+      box-shadow: 0 .42rem 0 rgba(206, 160, 38, .23);
+      font-size: clamp(.88rem, 1.25vw, 1.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-align: left;
+      touch-action: manipulation;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .bubble-toggle:hover,
+    .bubble-toggle[aria-expanded="true"] {
+      transform: translateY(-.12rem);
+      background: #ffe38b;
+      box-shadow: 0 .58rem 0 rgba(206, 160, 38, .26);
+    }
+    .bubble-pop {
+      position: relative;
+      z-index: 4;
+      max-width: 34rem;
+      margin-top: .7rem;
+      padding: .8rem 1rem;
+      border: .14rem solid rgba(42, 146, 126, .2);
+      border-radius: 1rem;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .55rem 1.2rem rgba(31, 41, 66, .12);
+      font-size: clamp(.88rem, 1.2vw, 1.16rem);
+      font-weight: 750;
+      line-height: 1.2;
+    }
+    .bubble-pop[hidden] { display: none; }
+
+    .hero { background: var(--cream); }
+    .hero-copy {
+      position: relative;
+      z-index: 4;
+      width: 50%;
+      min-height: 100%;
+      padding-top: 5%;
+    }
+    .hero-copy p { max-width: 28rem; }
+    .lesson-pill {
+      display: inline-flex;
+      margin-top: 1rem;
+      padding: .7rem 1rem;
+      border-radius: 999px;
+      color: var(--teal-dark);
+      background: var(--teal-soft);
+      font-size: clamp(.72rem, 1vw, 1rem);
+      font-weight: 900;
+      letter-spacing: .03em;
+    }
+    .hero-art {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 60%;
+      overflow: hidden;
+      clip-path: polygon(17% 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 250, 242, 1) 0%, rgba(255, 250, 242, .24) 31%, rgba(31, 41, 66, .05) 100%);
+    }
+    .hero-art .poster { object-position: 70% center; }
+    .hero-road {
+      position: absolute;
+      left: 6%;
+      bottom: 7%;
+      z-index: 3;
+      width: 41%;
+      height: .5rem;
+      border-radius: 99px;
+      background: var(--coral);
+      transform: rotate(-4deg);
+    }
+    .hero-road::after {
+      content: "";
+      position: absolute;
+      right: -.1rem;
+      top: -.55rem;
+      width: 1.3rem;
+      height: 1.3rem;
+      border-top: .5rem solid transparent;
+      border-bottom: .5rem solid transparent;
+      border-left: .8rem solid var(--coral);
+    }
+    .hero-question {
+      position: absolute;
+      left: 7%;
+      bottom: 12%;
+      z-index: 6;
+      width: min(30%, 24rem);
+    }
+    .hero-question .bubble-toggle { width: 100%; border-radius: 1.25rem 1.25rem 1.25rem .25rem; }
+
+    .location-card,
+    .meaning-card,
+    .message-card {
+      max-width: 32rem;
+      margin: 1.15rem 0 1.25rem;
+      padding: 1.1rem 1.2rem;
+      border-radius: 1.35rem;
+      background: var(--white);
+      box-shadow: 0 .6rem 1.3rem rgba(31, 41, 66, .11);
+    }
+    .location-card { display: flex; align-items: center; gap: .9rem; background: var(--teal-soft); }
+    .location-dot {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 3.15rem;
+      height: 3.15rem;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--yellow);
+      font-size: 1.55rem;
+      font-weight: 950;
+    }
+    .location-card strong, .message-card strong, .meaning-card strong { display: block; margin-bottom: .28rem; font-size: clamp(1.2rem, 1.9vw, 1.9rem); }
+    .location-card span, .message-card span, .meaning-card span { color: var(--ink-soft); font-size: clamp(.9rem, 1.25vw, 1.16rem); line-height: 1.18; }
+
+    .menu-slide { background: #fff5e7; }
+    .menu-slide .art-panel { min-height: 72%; }
+    .menu-slide .art-panel .poster { object-position: 77% center; }
+    .menu-badges { display: flex; gap: .8rem; flex-wrap: wrap; margin: 1.2rem 0; }
+    .menu-badge {
+      padding: .82rem 1rem;
+      border-radius: 1rem;
+      color: var(--teal-dark);
+      background: var(--yellow-soft);
+      font-size: clamp(.92rem, 1.4vw, 1.3rem);
+      font-weight: 950;
+    }
+    .menu-badge:nth-child(2) { color: var(--plum); background: var(--plum-soft); }
+
+    .turn-slide { background: #eef8f4; }
+    .turn-slide .art-panel { background: var(--teal-soft); }
+    .turn-slide .art-panel .poster { object-position: 38% center; }
+    .turn-arrow {
+      position: relative;
+      width: min(25rem, 70%);
+      height: 4rem;
+      margin: 1.25rem 0 1.1rem;
+      border-bottom: .55rem solid var(--coral);
+      transform: rotate(-4deg);
+    }
+    .turn-arrow::after {
+      content: "";
+      position: absolute;
+      right: -.1rem;
+      bottom: -.9rem;
+      width: 0;
+      height: 0;
+      border-top: .95rem solid transparent;
+      border-bottom: .95rem solid transparent;
+      border-left: 1.45rem solid var(--coral);
+    }
+    .turn-word { color: var(--coral); font-size: clamp(3.1rem, 6vw, 6.3rem); font-weight: 950; letter-spacing: -.06em; line-height: .82; }
+
+    .messenger-slide { background: #fffaf2; }
+    .messenger-slide .art-panel .poster { object-position: 50% center; }
+    .messenger-slide .split { grid-template-columns: 1.05fr .95fr; }
+    .messenger-card {
+      max-width: 31rem;
+      margin: 1.2rem 0;
+      padding: 1.15rem 1.25rem;
+      border-left: .55rem solid var(--teal);
+      border-radius: 0 1.25rem 1.25rem 0;
+      background: var(--teal-soft);
+    }
+    .messenger-card strong { display: block; margin-bottom: .45rem; font-size: clamp(1.35rem, 2.1vw, 2.1rem); }
+    .messenger-card span { color: var(--ink-soft); font-size: clamp(.95rem, 1.32vw, 1.22rem); line-height: 1.2; }
+    .not-card { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; max-width: 31rem; }
+    .not-card div { padding: .9rem 1rem; border-radius: 1rem; background: var(--coral-soft); }
+    .not-card div:last-child { background: var(--yellow-soft); }
+    .not-card strong { display: block; margin-bottom: .25rem; font-size: clamp(1rem, 1.45vw, 1.35rem); }
+    .not-card span { color: var(--ink-soft); font-size: clamp(.82rem, 1.1vw, 1rem); line-height: 1.15; }
+
+    .greater-slide { background: #f5eff8; }
+    .greater-slide .art-panel { min-height: 73%; }
+    .greater-slide .art-panel .poster { object-position: 19% center; }
+    .greater-line { margin: 1.4rem 0; color: var(--plum); font-size: clamp(2.1rem, 4vw, 4.2rem); font-weight: 950; line-height: .92; }
+    .greater-line span { display: block; color: var(--teal-dark); font-size: .48em; letter-spacing: .01em; }
+
+    .gospel-slide { background: #edf7f4; }
+    .gospel-slide .art-panel { min-height: 71%; background: var(--cream-deep); }
+    .gospel-slide .art-panel .poster { object-position: 64% center; }
+    .gospel-slide .copy { padding-top: 1%; }
+    .meaning-card { border-left: .55rem solid var(--coral); }
+    .meaning-card strong { color: var(--plum); }
+
+    .memory-slide {
+      background:
+        linear-gradient(135deg, rgba(255, 250, 242, .97), rgba(255, 250, 242, .84)),
+        url("assets/big-picture.png") center / cover;
+    }
+    .memory-content { position: relative; z-index: 3; width: min(65%, 58rem); padding-top: 3%; }
+    .memory-box {
+      max-width: 54rem;
+      margin: 1.25rem 0 1.05rem;
+      padding: 1.3rem 1.6rem;
+      border-radius: 1.45rem;
+      background: rgba(255, 255, 255, .9);
+      box-shadow: 0 .75rem 1.6rem rgba(31, 41, 66, .12);
+    }
+    .memory-question { margin-bottom: .45rem; color: var(--teal-dark); font-size: clamp(1.1rem, 1.8vw, 1.8rem); font-weight: 950; }
+    .memory-answer { margin: 0; color: var(--ink); font-size: clamp(1.7rem, 3.2vw, 3.4rem); font-weight: 950; line-height: 1.02; }
+    .story-pill { display: inline-flex; align-items: center; padding: .78rem 1.05rem; border-radius: 999px; color: var(--white); background: var(--plum); font-size: clamp(.82rem, 1.15vw, 1.08rem); font-weight: 950; }
+    .memory-passage { position: absolute; right: 7%; bottom: 11%; z-index: 4; max-width: 17rem; padding: .95rem 1.05rem; border-radius: 1.15rem; color: var(--teal-dark); background: var(--yellow-soft); box-shadow: 0 .6rem 1.3rem rgba(31, 41, 66, .13); font-weight: 900; }
+    .memory-passage small { display: block; margin-bottom: .3rem; font-size: .72em; letter-spacing: .13em; text-transform: uppercase; }
+
+    .questions-slide { background: #fff5e7; }
+    .questions-head { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+    .questions-head h2 { max-width: 9ch; margin-bottom: .15rem; }
+    .questions-head p { max-width: 20rem; margin-bottom: .5rem; font-weight: 800; }
+    .question-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(.75rem, 1.45vw, 1.4rem); margin-top: 1.35rem; }
+    .question-card { min-height: 9.35rem; padding: 1rem 1.1rem; border-radius: 1.2rem; background: var(--white); box-shadow: 0 .5rem 1.1rem rgba(31, 41, 66, .1); }
+    .question-card:nth-child(2) { background: var(--teal-soft); }
+    .question-card:nth-child(3) { background: var(--plum-soft); }
+    .question-card:nth-child(4) { background: var(--yellow-soft); }
+    .question-card .number { display: inline-grid; place-items: center; width: 1.85rem; height: 1.85rem; margin-right: .35rem; border-radius: 50%; color: var(--white); background: var(--teal-dark); font-size: .9rem; font-weight: 950; }
+    .question-card:nth-child(3) .number { background: var(--plum); }
+    .question-card:nth-child(4) .number { color: var(--ink); background: var(--yellow); }
+    .question-card h3 { display: inline; font-size: clamp(1rem, 1.5vw, 1.48rem); letter-spacing: -.02em; }
+    .question-card .bubble-toggle { margin-top: .78rem; min-height: 2.55rem; padding: .55rem .75rem; border-radius: .75rem; font-size: clamp(.7rem, .98vw, .93rem); }
+    .question-card .bubble-pop { margin-top: .52rem; padding: .62rem .75rem; font-size: clamp(.73rem, .98vw, .94rem); }
+
+    .shortcut { position: absolute; top: clamp(1rem, 2vw, 2rem); right: clamp(1.4rem, 2.4vw, 3rem); z-index: 14; color: rgba(31, 41, 66, .6); font-size: clamp(.58rem, .78vw, .76rem); font-weight: 850; letter-spacing: .035em; }
+    .nav { position: absolute; right: clamp(1.25rem, 2.2vw, 2.8rem); bottom: clamp(1rem, 2vw, 2.1rem); z-index: 16; display: flex; align-items: center; gap: .55rem; }
+    .nav button { display: grid; place-items: center; width: clamp(2.05rem, 3.2vw, 3.25rem); height: clamp(2.05rem, 3.2vw, 3.25rem); border: .12rem solid rgba(31, 41, 66, .24); border-radius: 50%; cursor: pointer; color: var(--ink); background: rgba(255, 255, 255, .82); font-size: clamp(1rem, 1.65vw, 1.55rem); font-weight: 950; touch-action: manipulation; }
+    .nav button:hover { background: var(--yellow-soft); }
+    .counter { min-width: 4.3rem; color: rgba(31, 41, 66, .7); font-size: clamp(.7rem, 1vw, .92rem); font-weight: 950; text-align: center; }
+    .progress { position: absolute; left: 0; bottom: 0; z-index: 15; height: .62rem; background: var(--teal); transition: width .25s ease; }
+
+    @media (max-width: 720px) {
+      .slide { padding: 2.2rem 1.5rem 3.4rem; }
+      .split, .messenger-slide .split { grid-template-columns: 1fr; gap: .9rem; align-content: center; }
+      .art-panel { min-height: 32%; max-height: 42%; order: -1; }
+      .copy > p { max-width: 100%; }
+      .hero-copy { width: 72%; padding-top: 11%; }
+      .hero-art { width: 64%; opacity: .72; }
+      .hero-question { left: 7%; width: 50%; bottom: 12%; }
+      .memory-content { width: 100%; padding-top: 7%; }
+      .memory-passage { right: 5%; bottom: 15%; }
+      .question-grid { gap: .6rem; margin-top: .75rem; }
+      .question-card { min-height: 8.1rem; padding: .75rem; }
+      .shortcut { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage-shell">
+    <div class="stage" aria-label="Interactive teaching deck: John's Ministry Began">
+      <section class="slide hero active" data-slide="1" aria-label="Curiosity hook">
+        <div class="hero-copy">
+          <div class="eyebrow">Unit 20 · Session 1</div>
+          <h1>John prepared the way.</h1>
+          <p>Before Jesus began His ministry, God sent John with an important message.</p>
+          <div class="lesson-pill">Matthew 3 · Mark 1 · Luke 3 · John 1</div>
+        </div>
+        <div class="hero-art"><img class="poster" src="assets/john-story.png" alt="John the Baptist speaking to a crowd near the Jordan River"></div>
+        <div class="hero-road" aria-hidden="true"></div>
+        <div class="hero-question reveal">
+          <button class="bubble-toggle" aria-expanded="false" aria-controls="hook-answer">What was John getting people ready for?</button>
+          <div id="hook-answer" class="bubble-pop" hidden>John was preparing people for Jesus—the promised Messiah.</div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids · John's Ministry Began</p>
+      </section>
+
+      <section class="slide" data-slide="2" aria-label="The wilderness and Jordan River">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Picture the setting</div>
+            <h2>Wilderness to Jordan</h2>
+            <p>John lived in the wilderness and preached near the Jordan River. People came from all over Judea to listen.</p>
+            <div class="location-card"><div class="location-dot" aria-hidden="true">✦</div><div><strong>Judea · Jordan River</strong><span>A real place where people heard God's message.</span></div></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="setting-answer">Why did people go to John?</button>
+              <div id="setting-answer" class="bubble-pop" hidden>They wanted to hear what John said and show they were turning away from sin.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-story.png" alt="A diverse crowd gathered with John beside the Jordan River" style="object-position: 18% center"><span class="caption-chip">A crowd came to listen</span></div>
+        </div>
+        <p class="source-note">Source references: Matthew 3; Mark 1; Luke 3; John 1</p>
+      </section>
+
+      <section class="slide menu-slide" data-slide="3" aria-label="John's unusual clothing and food">
+        <div class="split">
+          <div class="art-panel"><img class="poster" src="assets/john-story.png" alt="John the Baptist standing in his wilderness clothing" style="object-position: 79% center"><span class="caption-chip">A messenger with a different style</span></div>
+          <div class="copy">
+            <div class="eyebrow">A surprising messenger</div>
+            <h2>His message mattered most.</h2>
+            <p>John looked and lived differently from most people. But his unusual clothes and food were not the main point.</p>
+            <div class="menu-badges"><span class="menu-badge">Camel hair</span><span class="menu-badge">Locusts + honey</span></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="menu-answer">What was John really there to say?</button>
+              <div id="menu-answer" class="bubble-pop" hidden>“Repent, because the kingdom of heaven has come near!”</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">The food and clothing details are from the Bible story in the leader guides.</p>
+      </section>
+
+      <section class="slide turn-slide" data-slide="4" aria-label="John calls people to repent">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">The big word</div>
+            <h2>Repent means turn around.</h2>
+            <div class="turn-word">TURN</div>
+            <div class="turn-arrow" aria-hidden="true"></div>
+            <p>John called people to turn away from sin and turn toward God.</p>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="repent-answer">What changes when we repent?</button>
+              <div id="repent-answer" class="bubble-pop" hidden>We turn from sinful desires and choose to follow God's commands.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-story.png" alt="People listening to John and responding to his call to turn back to God" style="object-position: 45% center"><span class="caption-chip">A change of direction</span></div>
+        </div>
+        <p class="source-note">Teaching summary adapted from the Younger Kids and Older Kids guides.</p>
+      </section>
+
+      <section class="slide messenger-slide" data-slide="5" aria-label="John prepares the way for Jesus">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">A promise fulfilled</div>
+            <h2>The road points to Jesus.</h2>
+            <div class="messenger-card"><strong>John was God's messenger.</strong><span>Isaiah promised that a voice would call in the wilderness: “Prepare the way for the Lord.”</span></div>
+            <div class="not-card"><div><strong>John was not...</strong><span>the promised Messiah</span></div><div><strong>John was...</strong><span>the one who prepared the way</span></div></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="messenger-answer">Who was John pointing toward?</button>
+              <div id="messenger-answer" class="bubble-pop" hidden>Jesus—the Messiah who was coming to save God's people.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/key-passage-csb.png" alt="Illustrated key passage poster showing John and scenes from Jesus' ministry" style="object-position: 30% center"><span class="caption-chip">Prepare the way</span></div>
+        </div>
+        <p class="source-note">Isaiah 40:3 is cited in the leader guides as a promise about John's role.</p>
+      </section>
+
+      <section class="slide greater-slide" data-slide="6" aria-label="Jesus is greater than John">
+        <div class="split">
+          <div class="art-panel"><img class="poster" src="assets/john-story.png" alt="John standing before the crowd as a greater Savior is promised" style="object-position: 60% center"><span class="caption-chip">Someone greater is coming</span></div>
+          <div class="copy">
+            <div class="eyebrow">John's humble answer</div>
+            <h2>Jesus is greater.</h2>
+            <div class="greater-line">John used water.<span>Jesus gives the Holy Spirit.</span></div>
+            <p>John said he was not worthy even to untie Jesus' sandal straps. Jesus is the powerful Savior John announced.</p>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="greater-answer">What does John's humility teach us?</button>
+              <div id="greater-answer" class="bubble-pop" hidden>Our job is to point people to Jesus, because Jesus is the most important person.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">John 1:26–27; Matthew 3:11 · Paraphrased for teaching.</p>
+      </section>
+
+      <section class="slide gospel-slide" data-slide="7" aria-label="The gospel connection">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Why this story matters</div>
+            <h2>Jesus welcomes turnarounds.</h2>
+            <p>John prepared the way for Jesus by calling people to repent of their sins.</p>
+            <div class="meaning-card"><strong>Turn from sin. Trust Jesus.</strong><span>When we turn away from sin and trust in Jesus, we are saved.</span></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="gospel-answer">What can we do when sin pulls us away?</button>
+              <div id="gospel-answer" class="bubble-pop" hidden>We can turn back to God, trust Jesus, and ask for help to follow Him.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/story-point.png" alt="Story point poster showing John the Baptist and the words John prepared the way for Jesus" style="object-position: 54% center"><span class="caption-chip">John prepared the way</span></div>
+        </div>
+        <p class="source-note">Christ connection from the Younger Kids and Older Kids leader guides.</p>
+      </section>
+
+      <section class="slide memory-slide" data-slide="8" aria-label="Big-picture question and memory anchor">
+        <div class="memory-content">
+          <div class="eyebrow">Remember this truth</div>
+          <h2>Who is Jesus?</h2>
+          <div class="memory-box"><div class="memory-question">Big Picture Question</div><p class="memory-answer">Jesus is fully God and fully human.</p></div>
+          <div class="story-pill">Story point · John prepared the way for Jesus.</div>
+        </div>
+        <div class="memory-passage"><small>Key passage · John 1:14</small>The Word became flesh and dwelt among us.</div>
+        <p class="source-note">Unit 20 visual resources · CSB key-passage wording shown.</p>
+      </section>
+
+      <section class="slide questions-slide" data-slide="9" aria-label="Discussion questions">
+        <div class="questions-head"><div><div class="eyebrow">Five-minute question time</div><h2>Let's talk about it</h2></div><p>Tap a question to reveal a short answer cue.</p></div>
+        <div class="question-grid">
+          <article class="question-card reveal"><div><span class="number">1</span><h3>What message did John preach?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q1-answer">Reveal answer cue</button><div id="q1-answer" class="bubble-pop" hidden>Repent, because the kingdom of heaven has come near.</div></article>
+          <article class="question-card reveal"><div><span class="number">2</span><h3>Why did John baptize people?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q2-answer">Reveal answer cue</button><div id="q2-answer" class="bubble-pop" hidden>It was a sign that they wanted to turn away from sin and turn to God.</div></article>
+          <article class="question-card reveal"><div><span class="number">3</span><h3>Who was John pointing toward?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q3-answer">Reveal answer cue</button><div id="q3-answer" class="bubble-pop" hidden>Jesus, the Messiah. John was God's messenger, not the Messiah.</div></article>
+          <article class="question-card reveal"><div><span class="number">4</span><h3>What does this story teach us about Jesus?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q4-answer">Reveal answer cue</button><div id="q4-answer" class="bubble-pop" hidden>Jesus is fully God and fully human, and He saves people who trust Him.</div></article>
+        </div>
+        <p class="source-note">Questions adapted from the lesson review, gospel discussion, and group discussion prompts.</p>
+      </section>
+
+      <div class="shortcut" aria-hidden="true">← → navigate · Space next · Home / End</div>
+      <nav class="nav" aria-label="Slide navigation"><button id="prev" type="button" aria-label="Previous slide">←</button><span class="counter" aria-live="polite">1 / 9</span><button id="next" type="button" aria-label="Next slide">→</button></nav>
+      <div class="progress" aria-hidden="true" style="width:11.111%"></div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const previous = document.querySelector("#prev");
+      const next = document.querySelector("#next");
+      const counter = document.querySelector(".counter");
+      const progress = document.querySelector(".progress");
+      let current = 0;
+
+      const closeReveals = (scope = document) => {
+        scope.querySelectorAll(".bubble-toggle[aria-expanded='true']").forEach((button) => {
+          const panel = document.getElementById(button.getAttribute("aria-controls"));
+          button.setAttribute("aria-expanded", "false");
+          if (panel) panel.hidden = true;
+        });
+      };
+
+      const setSlide = (index) => {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === current);
+          slide.setAttribute("aria-hidden", i === current ? "false" : "true");
+        });
+        closeReveals();
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+      };
+
+      const go = (delta) => setSlide(current + delta);
+
+      document.querySelectorAll(".bubble-toggle").forEach((button) => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        if (!panel) return;
+        const toggle = (open) => {
+          button.setAttribute("aria-expanded", String(open));
+          panel.hidden = !open;
+        };
+        button.addEventListener("click", () => {
+          toggle(button.getAttribute("aria-expanded") !== "true");
+        });
+      });
+
+      previous.addEventListener("click", () => go(-1));
+      next.addEventListener("click", () => go(1));
+
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        if (target && target.closest && target.closest("input, textarea, select")) return;
+        if ((event.key === "Enter" || event.key === " ") && target && target.closest && target.closest("button")) return;
+        if (event.key === "ArrowLeft") { event.preventDefault(); go(-1); }
+        if (event.key === "ArrowRight" || event.key === " ") { event.preventDefault(); go(1); }
+        if (event.key === "Home") { event.preventDefault(); setSlide(0); }
+        if (event.key === "End") { event.preventDefault(); setSlide(slides.length - 1); }
+      });
+
+      setSlide(0);
+    })();
+  </script>
+</body>
+</html>
