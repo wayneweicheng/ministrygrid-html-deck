@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ministry Grid HTML Decks</title>
+  <style>
+    :root {
+      --ink: #10242a;
+      --cream: #fffaf0;
+      --gold: #f1b746;
+      --green: #2f8a68;
+      --teal: #0b3b45;
+      --shadow: 0 1.5rem 3rem rgba(8, 27, 30, .18);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #eaf5f7 0%, #fffaf0 100%);
+      color: var(--ink);
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+    }
+    .wrap {
+      width: min(1100px, calc(100vw - 2rem));
+      padding: 2rem;
+      border-radius: 2rem;
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--shadow);
+    }
+    h1 { margin: 0 0 1rem; font-size: clamp(2.2rem, 4vw, 4rem); }
+    p { margin: 0 0 2rem; font-size: 1.1rem; }
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      display: block;
+      padding: 1.25rem;
+      border: 2px solid rgba(16,36,42,.08);
+      border-radius: 1.2rem;
+      background: white;
+      text-decoration: none;
+      color: var(--ink);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .badge {
+      display: inline-flex;
+      padding: .5rem .8rem;
+      border-radius: 999px;
+      background: rgba(241,183,70,.14);
+      color: var(--teal);
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .72rem;
+    }
+    h2 { margin: 1rem 0 .5rem; font-size: 1.5rem; }
+    .meta { color: #4a5960; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Ministry Grid Decks</h1>
+    <p>Kid-friendly interactive lessons from Ministry Grid, stored in the repo’s deck output folder.</p>
+    <div class="deck-grid">
+      <a class="card" href="./johns-ministry-began/index.html">
+        <div class="badge">Kids Lesson</div>
+        <h2>John's ministry began</h2>
+        <div class="meta">A 9-slide interactive teaching deck with local artwork and reveal buttons.</div>
+      </a>
+      <a class="card" href="./jesus-saves-us-to-follow-him/index.html">
+        <div class="badge">Easter Bonus</div>
+        <h2>Jesus Saves Us to Follow Him</h2>
+        <div class="meta">The previously published Easter deck kept in the same style system.</div>
+      </a>
+    </div>
+  </main>
+</body>
+</html>

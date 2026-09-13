@@ -1,0 +1,49 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartoon river scene with John the Baptist calling people to repent">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d9f5ff"/>
+      <stop offset="100%" stop-color="#f6f0cf"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#7ad7ea"/>
+      <stop offset="100%" stop-color="#3bb3d1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#sky)"/>
+  <circle cx="920" cy="110" r="62" fill="#ffd56d" opacity="0.9"/>
+  <path d="M0 430 C170 380, 260 390, 390 430 S670 500, 795 440 S1040 390, 1200 440 L1200 675 L0 675 Z" fill="#b8d784"/>
+  <path d="M0 515 C180 480, 330 490, 520 520 S900 560, 1200 520 L1200 675 L0 675 Z" fill="#7fb96d"/>
+  <path d="M0 470 L1200 470 L1200 620 C1050 590, 960 620, 780 635 C590 650, 370 620, 180 635 C90 642, 40 620, 0 610 Z" fill="url(#river)"/>
+  <ellipse cx="990" cy="540" rx="145" ry="35" fill="#cde9ef" opacity="0.8"/>
+  <g transform="translate(690 260)">
+    <rect x="0" y="90" width="94" height="104" rx="36" fill="#6b4a3a"/>
+    <circle cx="48" cy="55" r="34" fill="#f1d0a3"/>
+    <path d="M24 52 C32 18, 66 18, 76 52" fill="#4e362f"/>
+    <path d="M22 54 L0 30 L5 18 L30 34" fill="#4e362f"/>
+    <path d="M75 56 L95 25 L95 12 L74 30" fill="#4e362f"/>
+    <path d="M18 120 L10 200 L52 160 L94 200 L86 120" fill="#4a7d56"/>
+    <path d="M38 115 L50 175 L60 115" fill="#e1b054"/>
+    <path d="M90 112 L118 163 L135 105" fill="#d07e7d"/>
+    <path d="M0 112 L-24 165 L-38 110" fill="#d07e7d"/>
+  </g>
+  <g transform="translate(230 280)">
+    <ellipse cx="90" cy="170" rx="56" ry="14" fill="#8fc1aa"/>
+    <circle cx="90" cy="80" r="36" fill="#f1d0a3"/>
+    <path d="M60 75 C70 35, 110 35, 120 75" fill="#4e362f"/>
+    <path d="M70 105 L40 170 L70 145 L102 170 L88 105" fill="#d06f7e"/>
+    <path d="M45 168 L15 190 L30 213 L57 195" fill="#6d4b3f"/>
+    <path d="M118 168 L148 190 L133 213 L106 195" fill="#6d4b3f"/>
+  </g>
+  <g transform="translate(470 330)">
+    <ellipse cx="80" cy="160" rx="54" ry="14" fill="#8fc1aa"/>
+    <circle cx="80" cy="70" r="34" fill="#f1d0a3"/>
+    <path d="M50 66 C60 30, 100 30, 110 66" fill="#4e362f"/>
+    <path d="M54 96 L30 160 L72 140 L90 160 L108 96" fill="#7a492c"/>
+    <path d="M40 160 L12 182 L25 201 L52 185" fill="#6d4b3f"/>
+    <path d="M102 160 L130 182 L116 201 L90 185" fill="#6d4b3f"/>
+  </g>
+  <g transform="translate(150 165)">
+    <path d="M0 270 C60 235, 120 220, 180 260 C190 310, 160 350, 120 340 C80 330, 30 350, 0 300 Z" fill="#e9f7f1" opacity="0.8"/>
+    <text x="90" y="110" font-size="46" font-family="Avenir Next, Segoe UI, sans-serif" font-weight="800" fill="#224a54">Prepare the way!</text>
+  </g>
+</svg>
