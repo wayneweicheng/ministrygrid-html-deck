@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10242a">
+  <title>Jesus Was Tempted | The Gospel Project for Kids</title>
+  <style>
+    :root {
+      --ink: #10242a;
+      --ink-soft: #35545b;
+      --muted: #405a60;
+      --cream: #fff9ed;
+      --cream-2: #f7edd9;
+      --gold: #f1b746;
+      --gold-soft: #ffe4a4;
+      --green: #2f8a68;
+      --green-dark: #1d634d;
+      --green-soft: #d7eee1;
+      --rose-dark: #8f3547;
+      --rose-soft: #f7dce0;
+      --sky: #b9e7ef;
+      --white: #ffffff;
+      --shadow: 0 1.5rem 3.5rem rgba(8, 27, 30, .22);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #0b1a1f;
+      color: var(--ink);
+      font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+    }
+
+    button { font: inherit; touch-action: manipulation; }
+    button:focus-visible {
+      outline: .22rem solid var(--gold);
+      outline-offset: .22rem;
+    }
+    .slide h1:focus,
+    .slide h2:focus {
+      outline: none;
+      box-shadow: inset 0 -.13rem 0 var(--gold);
+    }
+
+    .stage-shell {
+      display: grid;
+      width: 100vw;
+      height: 100vh;
+      place-items: center;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(241, 183, 70, .12), transparent 20%),
+        radial-gradient(circle at 88% 78%, rgba(47, 138, 104, .13), transparent 24%),
+        #0b1a1f;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .stage::before {
+      position: absolute;
+      z-index: 20;
+      border: .16rem solid rgba(255, 255, 255, .16);
+      content: "";
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .slide {
+      position: absolute;
+      display: none;
+      overflow: hidden;
+      padding: clamp(1.3rem, 4.8vw, 4.8rem) clamp(1.6rem, 5.8vw, 6rem) clamp(4rem, 6vw, 5rem);
+      inset: 0;
+    }
+    .slide.active { display: block; }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.04em; }
+    h1 {
+      max-width: 7.4ch;
+      margin-bottom: 1.15rem;
+      font-size: clamp(2.8rem, 6.65vw, 7rem);
+      line-height: .89;
+    }
+    h2 {
+      max-width: 11ch;
+      margin-bottom: 1rem;
+      font-size: clamp(2.3rem, 4.9vw, 5.1rem);
+      line-height: .93;
+    }
+    h3 {
+      margin-bottom: .55rem;
+      font-size: clamp(1.2rem, 1.9vw, 1.95rem);
+      line-height: 1.03;
+    }
+    p {
+      color: var(--ink-soft);
+      font-size: clamp(1rem, 1.55vw, 1.6rem);
+      line-height: 1.28;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .58rem;
+      margin-bottom: .8rem;
+      color: var(--green-dark);
+      font-size: clamp(.7rem, 1.05vw, 1.03rem);
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      width: 1.8rem;
+      height: .22rem;
+      border-radius: 99px;
+      background: var(--gold);
+      content: "";
+    }
+
+    .source-note {
+      position: absolute;
+      z-index: 12;
+      right: 13rem;
+      bottom: 1.15rem;
+      left: clamp(1.6rem, 5.8vw, 6rem);
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(.62rem, .83vw, .82rem);
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .hero { background: var(--cream); }
+    .hero-copy {
+      position: relative;
+      z-index: 3;
+      width: 49%;
+      min-height: 100%;
+      padding-top: 5.5%;
+    }
+    .hero-copy > p { max-width: 28rem; }
+    .hero-copy h1 { max-width: none; font-size: clamp(2.8rem, 6.15vw, 6.65rem); }
+    .hero-art {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 61%;
+      overflow: hidden;
+      clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .hero-art::after {
+      position: absolute;
+      background: linear-gradient(90deg, rgba(255, 249, 237, .96) 0%, rgba(255, 249, 237, .28) 27%, rgba(16, 36, 42, .02) 65%);
+      content: "";
+      inset: 0;
+      pointer-events: none;
+    }
+    .poster {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-art .poster { object-position: 61% center; }
+    .lesson-pill {
+      display: inline-flex;
+      margin-top: .5rem;
+      padding: .62rem .88rem;
+      border-radius: 999px;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      font-size: clamp(.75rem, 1vw, 1rem);
+      font-weight: 900;
+      letter-spacing: .02em;
+    }
+    .hero-question {
+      position: absolute;
+      z-index: 5;
+      bottom: 9%;
+      left: 6%;
+      width: min(35%, 26rem);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: .98fr 1.02fr;
+      align-items: center;
+      gap: clamp(1.2rem, 3.6vw, 3.8rem);
+      height: 100%;
+    }
+    .split.reverse { grid-template-columns: 1.02fr .98fr; }
+    .copy { position: relative; z-index: 3; }
+    .copy > p { max-width: 34rem; }
+    .art-panel {
+      position: relative;
+      width: 100%;
+      height: 68%;
+      min-height: 17rem;
+      max-height: 31rem;
+      overflow: hidden;
+      border-radius: 2.15rem;
+      background: var(--green-soft);
+      box-shadow: 0 .9rem 1.8rem rgba(16, 36, 42, .15);
+    }
+    .art-panel::after {
+      position: absolute;
+      background: linear-gradient(135deg, rgba(16, 36, 42, .12), transparent 48%, rgba(16, 36, 42, .18));
+      content: "";
+      inset: 0;
+      pointer-events: none;
+    }
+    .caption-chip {
+      position: absolute;
+      z-index: 2;
+      right: 1rem;
+      bottom: 1rem;
+      padding: .6rem .82rem;
+      border-radius: .75rem;
+      color: var(--white);
+      background: rgba(16, 36, 42, .9);
+      font-size: clamp(.72rem, .98vw, .96rem);
+      font-weight: 900;
+    }
+
+    .setting-card,
+    .meaning-card,
+    .truth-box,
+    .promise-card {
+      margin: 1rem 0 1.1rem;
+      padding: 1rem 1.15rem;
+      border-radius: 1.25rem;
+      background: var(--white);
+      box-shadow: 0 .55rem 1.2rem rgba(16, 36, 42, .1);
+    }
+    .setting-card {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      max-width: 30rem;
+      background: var(--green-soft);
+    }
+    .icon-circle {
+      display: grid;
+      width: 3rem;
+      height: 3rem;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--gold);
+      font-size: .86rem;
+      font-weight: 950;
+      letter-spacing: .04em;
+    }
+    .setting-card strong,
+    .meaning-card strong,
+    .promise-card strong { display: block; margin-bottom: .25rem; font-size: clamp(1.1rem, 1.55vw, 1.55rem); }
+    .setting-card span,
+    .meaning-card span,
+    .promise-card span { color: var(--ink-soft); font-size: clamp(.9rem, 1.2vw, 1.2rem); line-height: 1.22; }
+
+    .mini-label {
+      margin-bottom: .5rem;
+      color: var(--green-dark);
+      font-size: clamp(.68rem, .95vw, .91rem);
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .meaning-card { border-left: .48rem solid var(--rose-dark); }
+    .promise-card { background: var(--gold-soft); }
+
+    .reveal { position: relative; z-index: 4; }
+    .bubble-toggle {
+      min-width: 10rem;
+      min-height: 3rem;
+      padding: .78rem 1rem;
+      border: 0;
+      border-radius: .95rem;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--gold-soft);
+      box-shadow: 0 .42rem 0 rgba(185, 127, 28, .25);
+      font-size: clamp(.88rem, 1.16vw, 1.12rem);
+      font-weight: 950;
+      line-height: 1.12;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .bubble-toggle:hover,
+    .bubble-toggle[aria-expanded="true"] {
+      transform: translateY(-.1rem);
+      background: #ffd77a;
+      box-shadow: 0 .55rem 0 rgba(185, 127, 28, .27);
+    }
+    .hero-question .bubble-toggle {
+      width: 100%;
+      padding: .88rem 1rem;
+      border-radius: 1.2rem 1.2rem 1.2rem .25rem;
+      text-align: left;
+      font-size: clamp(.95rem, 1.38vw, 1.38rem);
+    }
+    .bubble-pop {
+      position: relative;
+      z-index: 4;
+      margin-top: .65rem;
+      padding: .78rem .92rem;
+      border: .13rem solid rgba(29, 99, 77, .2);
+      border-radius: .95rem;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .55rem 1rem rgba(16, 36, 42, .12);
+      font-size: clamp(.87rem, 1.13vw, 1.12rem);
+      font-weight: 750;
+      line-height: 1.2;
+    }
+    .bubble-pop[hidden] { display: none; }
+
+    .trinity-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .55rem;
+      max-width: 34rem;
+      margin: 1.1rem 0;
+    }
+    .trinity-list span {
+      display: grid;
+      min-height: 3.4rem;
+      place-items: center;
+      padding: .6rem .45rem;
+      border-radius: .9rem;
+      color: var(--ink);
+      background: var(--gold-soft);
+      font-size: clamp(.82rem, 1.2vw, 1.12rem);
+      font-weight: 900;
+      text-align: center;
+    }
+    .trinity-list span:nth-child(2) { background: var(--green-soft); }
+    .trinity-list span:nth-child(3) { background: var(--sky); }
+
+    .truth-slide { background: #eff7f0; }
+    .truth-slide .split { grid-template-columns: 1.02fr .98fr; }
+    .truth-slide .art-panel { height: 73%; }
+    .truth-box {
+      max-width: 36rem;
+      margin: 1rem 0;
+      padding: 1.25rem 1.35rem;
+      background: rgba(255, 255, 255, .94);
+    }
+    .truth-box .question-line {
+      margin-bottom: .45rem;
+      color: var(--green-dark);
+      font-size: clamp(1rem, 1.5vw, 1.5rem);
+      font-weight: 950;
+    }
+    .truth-box .answer-line {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.65rem, 3vw, 3rem);
+      font-weight: 950;
+      line-height: 1.03;
+    }
+    .story-point {
+      display: inline-flex;
+      align-items: center;
+      max-width: 100%;
+      padding: .74rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--green-dark);
+      font-size: clamp(.82rem, 1.13vw, 1.1rem);
+      font-weight: 950;
+      line-height: 1.1;
+    }
+
+    .gospel-slide { background: #fff4e3; }
+    .gospel-slide .art-panel { height: 74%; }
+    .gospel-step {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      max-width: 35rem;
+      margin: 1rem 0;
+    }
+    .gospel-step article {
+      min-height: 6.2rem;
+      padding: .85rem .95rem;
+      border-radius: 1rem;
+      background: var(--white);
+      box-shadow: 0 .45rem .9rem rgba(16, 36, 42, .08);
+    }
+    .gospel-step article:last-child { background: var(--green-soft); }
+    .gospel-step strong { display: block; margin-bottom: .25rem; font-size: clamp(1rem, 1.45vw, 1.4rem); }
+    .gospel-step span { color: var(--ink-soft); font-size: clamp(.82rem, 1.08vw, 1.06rem); line-height: 1.17; }
+
+    .memory-slide {
+      background: #f5f7ef;
+    }
+    .memory-content {
+      position: relative;
+      z-index: 2;
+      width: min(61%, 53rem);
+      padding-top: 3%;
+    }
+    .memory-art {
+      position: absolute;
+      top: 14%;
+      right: 5%;
+      width: 34%;
+      height: 69%;
+      min-height: 0;
+      max-height: none;
+    }
+    .memory-card {
+      max-width: 54rem;
+      margin: 1.1rem 0 1rem;
+      padding: clamp(1rem, 2vw, 1.8rem);
+      border-left: .55rem solid var(--gold);
+      border-radius: 1.2rem;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 .8rem 1.5rem rgba(16, 36, 42, .12);
+    }
+    .memory-quote {
+      margin: 0 0 .55rem;
+      color: var(--ink);
+      font-size: clamp(1.65rem, 3.2vw, 3.4rem);
+      font-weight: 950;
+      line-height: 1.02;
+    }
+    .memory-reference {
+      margin: 0;
+      color: var(--green-dark);
+      font-size: clamp(.9rem, 1.3vw, 1.25rem);
+      font-weight: 950;
+    }
+    .memory-hint {
+      max-width: 36rem;
+      margin-bottom: 1rem;
+      color: var(--ink-soft);
+      font-size: clamp(.95rem, 1.35vw, 1.35rem);
+    }
+
+    .questions-slide { background: #fff5e4; }
+    .questions-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .questions-head h2 { max-width: 9ch; margin-bottom: .1rem; }
+    .questions-head p { max-width: 20rem; margin-bottom: .45rem; font-weight: 750; }
+    .question-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(.7rem, 1.25vw, 1.15rem);
+      margin-top: 1.15rem;
+    }
+    .question-card {
+      min-height: 8.7rem;
+      padding: .86rem 1rem;
+      border-radius: 1.15rem;
+      background: var(--white);
+      box-shadow: 0 .48rem 1rem rgba(16, 36, 42, .09);
+    }
+    .question-card:nth-child(2) { background: var(--green-soft); }
+    .question-card:nth-child(3) { background: var(--rose-soft); }
+    .question-card:nth-child(4) { background: var(--gold-soft); }
+    .question-card .number {
+      display: inline-grid;
+      width: 1.7rem;
+      height: 1.7rem;
+      margin-right: .35rem;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--green-dark);
+      font-size: .85rem;
+      font-weight: 950;
+    }
+    .question-card:nth-child(3) .number { background: var(--rose-dark); }
+    .question-card:nth-child(4) .number { color: var(--ink); background: var(--gold); }
+    .question-card h3 { display: inline; font-size: clamp(1rem, 1.35vw, 1.35rem); letter-spacing: -.025em; }
+    .question-card .bubble-toggle {
+      min-width: 9rem;
+      min-height: 2.8rem;
+      margin-top: .62rem;
+      padding: .58rem .75rem;
+      border-radius: .75rem;
+      font-size: clamp(.73rem, .96vw, .94rem);
+    }
+    .question-card .bubble-pop {
+      margin-top: .45rem;
+      padding: .58rem .7rem;
+      font-size: clamp(.74rem, .96vw, .94rem);
+    }
+
+    .nav {
+      position: absolute;
+      z-index: 15;
+      right: clamp(1rem, 2vw, 2rem);
+      bottom: .72rem;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+    }
+    .nav button {
+      display: grid;
+      width: 3rem;
+      height: 3rem;
+      min-width: 3rem;
+      min-height: 3rem;
+      place-items: center;
+      border: .12rem solid rgba(16, 36, 42, .28);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .92);
+      transition: background .16s ease, transform .16s ease;
+    }
+    .nav button:hover { transform: translateY(-.08rem); background: var(--gold-soft); }
+    .nav button:disabled { cursor: default; opacity: .48; transform: none; }
+    .nav svg { width: 1.25rem; height: 1.25rem; }
+    .counter {
+      min-width: 4.2rem;
+      color: var(--ink);
+      font-size: clamp(.7rem, .92vw, .9rem);
+      font-weight: 950;
+      text-align: center;
+    }
+    .progress-track {
+      position: absolute;
+      z-index: 14;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: .55rem;
+      background: var(--gold);
+    }
+    .progress {
+      width: 11.111%;
+      height: 100%;
+      background: var(--green-dark);
+      transition: width .24s ease;
+    }
+    .shortcut {
+      position: absolute;
+      z-index: 12;
+      top: 1rem;
+      right: 1.6rem;
+      padding: .38rem .62rem;
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 249, 237, .92);
+      font-size: clamp(.58rem, .75vw, .74rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      clip-path: inset(50%);
+    }
+
+    .presenter-panel {
+      position: fixed;
+      z-index: 40;
+      top: 1rem;
+      right: 1rem;
+      width: min(23rem, calc(100vw - 2rem));
+      max-height: min(52vh, 30rem);
+      overflow: auto;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(255, 255, 255, .24);
+      border-radius: 1rem;
+      color: var(--white);
+      background: rgba(16, 36, 42, .97);
+      box-shadow: 0 .8rem 2rem rgba(0, 0, 0, .28);
+    }
+    .presenter-panel[hidden] { display: none; }
+    .presenter-topline { display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
+    .presenter-panel h2 { max-width: none; margin: 0; color: var(--white); font-size: 1.15rem; line-height: 1.1; }
+    .presenter-panel p { margin: .65rem 0 0; color: #f3f7f4; font-size: .9rem; line-height: 1.3; }
+    .presenter-panel strong { color: #ffe4a4; }
+    .presenter-panel button {
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: .7rem;
+      cursor: pointer;
+      color: var(--white);
+      background: transparent;
+      font-size: .82rem;
+      font-weight: 900;
+    }
+    .presenter-panel button:hover { background: rgba(255, 255, 255, .12); }
+
+    @media (max-width: 760px) {
+      .slide { padding: 1.35rem 1.3rem 3.8rem; }
+      .split, .split.reverse, .truth-slide .split { grid-template-columns: 1fr; gap: .55rem; align-content: center; }
+      .art-panel { order: -1; height: 34%; min-height: 5rem; max-height: 36%; border-radius: 1rem; }
+      .copy > p { max-width: 100%; }
+      .hero-copy { width: 70%; padding-top: 8%; }
+      .hero-art { width: 64%; opacity: .74; }
+      .hero-question { bottom: 11%; left: 6%; width: 50%; }
+      .memory-content { width: 100%; padding-top: 4%; }
+      .memory-art { top: 8%; right: 3%; width: 34%; height: 38%; opacity: .28; }
+      .question-grid { gap: .5rem; margin-top: .5rem; }
+      .question-card { min-height: 6.3rem; padding: .5rem; }
+      .question-card .bubble-toggle { min-height: 2.75rem; margin-top: .35rem; }
+      .question-card .number { width: 1.4rem; height: 1.4rem; }
+      .shortcut { display: none; }
+      .nav { gap: .2rem; }
+      .nav button { width: 2.75rem; height: 2.75rem; min-width: 2.75rem; min-height: 2.75rem; }
+    }
+    @media (max-height: 560px) and (min-width: 761px) {
+      .slide { padding-top: 1rem; padding-bottom: 3.4rem; }
+      h1 { font-size: clamp(2.4rem, 6vw, 4.8rem); }
+      h2 { font-size: clamp(2rem, 4.2vw, 3.8rem); }
+      .art-panel { height: 62%; min-height: 14rem; }
+      .question-grid { margin-top: .45rem; gap: .5rem; }
+      .question-card { min-height: 6rem; padding: .5rem .65rem; }
+      .question-card .bubble-toggle { min-height: 2.5rem; margin-top: .35rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+
+    .temptation-card {
+      max-width: 34rem;
+      margin: 1rem 0 1.05rem;
+      padding: .95rem 1.05rem;
+      border-radius: 1.15rem;
+      color: var(--ink);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 .5rem 1rem rgba(16,36,42,.09);
+    }
+    .temptation-card strong { display: block; margin-bottom: .25rem; font-size: clamp(1.1rem, 1.55vw, 1.55rem); }
+    .temptation-card span { display: block; color: var(--ink-soft); font-size: clamp(.9rem, 1.18vw, 1.18rem); line-height: 1.24; }
+    .temptation-card:nth-of-type(2) { background: var(--rose-soft); }
+    .temptation-card:nth-of-type(3) { background: var(--gold-soft); }
+    .verse-strip {
+      max-width: 34rem;
+      margin: .8rem 0 1rem;
+      padding: .75rem .95rem;
+      border-left: .45rem solid var(--green-dark);
+      border-radius: .8rem;
+      color: var(--ink);
+      background: var(--green-soft);
+      font-size: clamp(.96rem, 1.3vw, 1.25rem);
+      font-weight: 850;
+      line-height: 1.2;
+    }
+    .verse-strip small { display: block; margin-top: .28rem; color: var(--green-dark); font-size: .78em; font-weight: 900; }
+    .truth-slide .art-panel { height: 72%; }
+    .gospel-slide .copy > p { max-width: 34rem; }
+    .memory-slide .memory-card { max-width: 52rem; }
+    .memory-slide .memory-card .memory-quote { font-size: clamp(1.45rem, 2.65vw, 2.9rem); }
+    .memory-art .poster { object-fit: contain; background: #ffffff; }
+  </style>
+</head>
+<body>
+  <main class="stage-shell">
+    <div class="stage" aria-label="Interactive teaching deck: Jesus Was Tempted">
+      <section class="slide hero active" data-slide="1" aria-label="Curiosity hook">
+        <div class="hero-copy">
+          <div class="eyebrow">The Gospel Project for Kids · Unit 20, Session 3</div>
+          <h1 id="heading-1" tabindex="-1">Jesus Was Tempted</h1>
+          <p>He faced real temptation. He never sinned.</p>
+          <div class="lesson-pill">Matthew 4 · Mark 1 · Luke 4</div>
+        </div>
+        <div class="hero-art">
+          <img class="poster" src="assets/jesus-was-tempted-story.png" width="1870" height="1210" alt="Lifeway illustration of Jesus standing on the temple roof during His temptation">
+        </div>
+        <div class="hero-question reveal">
+          <button class="bubble-toggle" aria-expanded="false" aria-controls="hook-answer">What happens when someone is tempted?</button>
+          <div id="hook-answer" class="bubble-pop" hidden>Jesus was tempted—and He never sinned.</div>
+        </div>
+        <p class="source-note">Source artwork: Lifeway Bible Story Picture · Unit 20, Session 3</p>
+      </section>
+
+      <section class="slide" data-slide="2" aria-label="Jesus enters the wilderness">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">A hard beginning</div>
+            <h2 id="heading-2" tabindex="-1">40 days in the wilderness</h2>
+            <p>Right after His baptism, the Holy Spirit led Jesus into the wilderness to be tempted by the devil.</p>
+            <div class="setting-card">
+              <div class="icon-circle" aria-hidden="true">40</div>
+              <div><strong>No food. No crowd.</strong><span>When the 40 days ended, Jesus was very hungry.</span></div>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="setting-answer">What would be hard about this?</button>
+              <div id="setting-answer" class="bubble-pop" hidden>Jesus was truly human. He felt hunger and faced a real test.</div>
+            </div>
+          </div>
+          <div class="art-panel">
+            <img class="poster" src="assets/jesus-was-tempted-story.png" width="1870" height="1210" alt="Jesus above the temple beneath a wide wilderness sky" style="object-position: 42% 26%;">
+            <div class="caption-chip">After His baptism</div>
+          </div>
+        </div>
+        <p class="source-note">Matthew 4:1-2 · Mark 1:12-13 · Luke 4:1-2</p>
+      </section>
+
+      <section class="slide" data-slide="3" aria-label="First temptation">
+        <div class="split reverse">
+          <div class="art-panel">
+            <img class="poster" src="assets/jesus-was-tempted-story.png" width="1870" height="1210" alt="Close crop of the illustrated temple roof and Jesus" style="object-position: 25% 48%;">
+            <div class="caption-chip">Temptation 1</div>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">The first test</div>
+            <h2 id="heading-3" tabindex="-1">“Turn stones into bread.”</h2>
+            <p>Satan questioned Jesus’ identity and offered an easy fix for His hunger.</p>
+            <div class="verse-strip">“Man must not live on bread alone.”<small>Jesus answered with God’s Word.</small></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="bread-answer">What did Jesus choose?</button>
+              <div id="bread-answer" class="bubble-pop" hidden>He trusted His Father instead of using His power for Himself.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">Matthew 4:3-4 · Deuteronomy 8:3</p>
+      </section>
+
+      <section class="slide" data-slide="4" aria-label="Second temptation">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">The second test</div>
+            <h2 id="heading-4" tabindex="-1">“Bow down and worship.”</h2>
+            <p>Satan offered Jesus all the kingdoms of the world if Jesus would worship him.</p>
+            <div class="verse-strip">“Worship the Lord your God, and serve Him only.”<small>God alone deserves our worship.</small></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="kingdom-answer">What did Jesus choose?</button>
+              <div id="kingdom-answer" class="bubble-pop" hidden>Jesus chose worship and obedience to God alone.</div>
+            </div>
+          </div>
+          <div class="art-panel">
+            <img class="poster" src="assets/jesus-was-tempted-story.png" width="1870" height="1210" alt="The golden temple roof glowing against a blue sky" style="object-position: 67% 62%;">
+            <div class="caption-chip">Temptation 2</div>
+          </div>
+        </div>
+        <p class="source-note">Matthew 4:8-10 · Deuteronomy 6:13</p>
+      </section>
+
+      <section class="slide" data-slide="5" aria-label="Third temptation">
+        <div class="split reverse">
+          <div class="art-panel">
+            <img class="poster" src="assets/jesus-was-tempted-story.png" width="1870" height="1210" alt="Jesus standing high on the temple roof" style="object-position: 58% 22%;">
+            <div class="caption-chip">Temptation 3</div>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">The third test</div>
+            <h2 id="heading-5" tabindex="-1">“Jump. Make God prove it.”</h2>
+            <p>Satan twisted Scripture and dared Jesus to jump from the temple.</p>
+            <div class="verse-strip">“Do not test the Lord your God.”<small>God is trustworthy; we do not manipulate Him.</small></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="temple-answer">What did Jesus choose?</button>
+              <div id="temple-answer" class="bubble-pop" hidden>Jesus refused to force God to prove His care.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">Matthew 4:5-7 · Deuteronomy 6:16</p>
+      </section>
+
+      <section class="slide truth-slide" data-slide="6" aria-label="Jesus stands firm">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">The turning point</div>
+            <h2 id="heading-6" tabindex="-1">Jesus stood firm.</h2>
+            <div class="truth-box">
+              <div class="question-line">The story point</div>
+              <p class="answer-line">Jesus was tempted and never sinned.</p>
+            </div>
+            <div class="story-point">God’s Word is true—even when lies sound clever.</div>
+            <div class="reveal" style="margin-top:1rem;">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="firm-answer">Why does this matter?</button>
+              <div id="firm-answer" class="bubble-pop" hidden>Jesus is the only perfect Savior. He overcame every temptation.</div>
+            </div>
+          </div>
+          <div class="art-panel">
+            <img class="poster" src="assets/jesus-was-tempted-story-point.png" width="1870" height="1210" alt="Lifeway Story Point poster showing Jesus above the temple and the words Jesus was tempted and never sinned" style="object-position: 28% center;">
+            <div class="caption-chip">Never sinned</div>
+          </div>
+        </div>
+        <p class="source-note">Story Point Poster · Unit 20, Session 3</p>
+      </section>
+
+      <section class="slide gospel-slide" data-slide="7" aria-label="Christ connection">
+        <div class="split reverse">
+          <div class="art-panel">
+            <img class="poster" src="assets/jesus-was-tempted-story.png" width="1870" height="1210" alt="Jesus on the temple roof in the Lifeway Bible Story Picture" style="object-position: 77% 45%;">
+            <div class="caption-chip">He understands</div>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">Why this is good news</div>
+            <h2 id="heading-7" tabindex="-1">Jesus understands temptation.</h2>
+            <p>He became human and felt what temptation is like. He also remained perfectly obedient.</p>
+            <div class="gospel-step">
+              <article><strong>Like us</strong><span>Jesus experienced hunger, testing, and hardship.</span></article>
+              <article><strong>Unlike us</strong><span>Jesus never sinned.</span></article>
+              <article><strong>For us</strong><span>His perfect life is credited to everyone who trusts Him.</span></article>
+              <article><strong>Our hope</strong><span>We are saved by grace through faith—not by trying to earn it.</span></article>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="gospel-answer">Can our good choices save us?</button>
+              <div id="gospel-answer" class="bubble-pop" hidden>No. Jesus is the perfect Savior. We trust Him.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">Christ Connection · Matthew 4; Mark 1; Luke 4</p>
+      </section>
+
+      <section class="slide memory-slide" data-slide="8" aria-label="Big picture question and key passage">
+        <div class="memory-content">
+          <div class="eyebrow">Remember who Jesus is</div>
+          <h2 id="heading-8" tabindex="-1">God the Son came to live among us.</h2>
+          <div class="memory-card">
+            <p class="memory-quote">Is Jesus God or a human?<br><span style="color:var(--green-dark);">Jesus is fully God and fully human.</span></p>
+            <p class="memory-reference">“The Word became flesh and dwelt among us ... full of grace and truth.” — John 1:14</p>
+          </div>
+          <p class="memory-hint">Jesus was really human, so He knows temptation. Jesus is really God, so He is the only sinless Savior.</p>
+          <div class="reveal">
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="memory-answer">What should we remember?</button>
+            <div id="memory-answer" class="bubble-pop" hidden>Jesus was tempted, but He never sinned—and He can save us.</div>
+          </div>
+        </div>
+        <div class="art-panel memory-art">
+          <img class="poster" src="assets/jesus-was-tempted-big-picture.png" width="1870" height="1210" alt="Lifeway Big Picture Question poster: Jesus is fully God and fully human" style="object-position: 64% center;">
+        </div>
+        <p class="source-note">Big Picture Question and Answer Poster · Key Passage Poster (CSB)</p>
+      </section>
+
+      <section class="slide questions-slide" data-slide="9" aria-label="Five-minute discussion questions">
+        <div class="questions-head">
+          <div>
+            <div class="eyebrow">Talk it through</div>
+            <h2 id="heading-9" tabindex="-1">What do you remember?</h2>
+          </div>
+          <p>Tap a card—or press Enter—to reveal a short answer cue.</p>
+        </div>
+        <div class="question-grid">
+          <article class="question-card">
+            <span class="number">1</span><h3>What were the three temptations?</h3>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q1-answer">Reveal answer cue</button>
+            <div id="q1-answer" class="bubble-pop" hidden>Bread, kingdoms, and testing God at the temple.</div>
+          </article>
+          <article class="question-card">
+            <span class="number">2</span><h3>What did Jesus use to answer Satan?</h3>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q2-answer">Reveal answer cue</button>
+            <div id="q2-answer" class="bubble-pop" hidden>God’s Word—the Scriptures.</div>
+          </article>
+          <article class="question-card">
+            <span class="number">3</span><h3>What does “never sinned” tell us?</h3>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q3-answer">Reveal answer cue</button>
+            <div id="q3-answer" class="bubble-pop" hidden>Jesus is the only perfect Savior.</div>
+          </article>
+          <article class="question-card">
+            <span class="number">4</span><h3>How can God’s Word help us?</h3>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q4-answer">Reveal answer cue</button>
+            <div id="q4-answer" class="bubble-pop" hidden>It shows what is true and helps us resist lies.</div>
+          </article>
+        </div>
+        <p class="source-note">Discussion prompts adapted from the Older and Younger Kids Leader Guides</p>
+      </section>
+
+      <nav class="nav" aria-label="Slide navigation">
+        <button id="first" type="button" aria-label="First slide" title="First slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5v14M18 6l-7 6 7 6M11 6l-7 6 7 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button id="prev" type="button" aria-label="Previous slide" title="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="counter" aria-label="Slide counter">1 / 9</div>
+        <button id="next" type="button" aria-label="Next slide" title="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button id="last" type="button" aria-label="Last slide" title="Last slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5v14M6 6l7 6-7 6M13 6l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </nav>
+      <div class="shortcut">← → navigate · Space next · P notes</div>
+      <div class="progress-track" aria-hidden="true"><div class="progress"></div></div>
+    </div>
+  </main>
+  <div id="slide-announcement" class="sr-only" aria-live="polite"></div>
+  <aside id="presenter-panel" class="presenter-panel" aria-label="Presenter notes" aria-live="polite" hidden>
+    <div class="presenter-topline">
+      <h2>Presenter notes</h2>
+      <button id="hide-presenter" type="button" aria-label="Hide presenter notes">Hide</button>
+    </div>
+    <p><strong id="presenter-slide">Slide 1</strong></p>
+    <p><strong>Pace:</strong> <span id="presenter-pace"></span></p>
+    <p><strong>Bible:</strong> <span id="presenter-reference"></span></p>
+    <p><strong>Pause or activity:</strong> <span id="presenter-activity"></span></p>
+  </aside>
+
+  <script>
+    (() => {
+      "use strict";
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const first = document.querySelector("#first");
+      const previous = document.querySelector("#prev");
+      const next = document.querySelector("#next");
+      const last = document.querySelector("#last");
+      const counter = document.querySelector(".counter");
+      const progress = document.querySelector(".progress");
+      const announcement = document.querySelector("#slide-announcement");
+      const presenterPanel = document.querySelector("#presenter-panel");
+      const hidePresenter = document.querySelector("#hide-presenter");
+      const presenterFields = {
+        slide: document.querySelector("#presenter-slide"),
+        pace: document.querySelector("#presenter-pace"),
+        reference: document.querySelector("#presenter-reference"),
+        activity: document.querySelector("#presenter-activity")
+      };
+      const notes = [
+        { pace: "1 minute", reference: "Matthew 4:1-11; Mark 1:12-13; Luke 4:1-13", activity: "Ask children to predict what might happen when Jesus is hungry and alone." },
+        { pace: "1 minute", reference: "Matthew 4:1-2", activity: "Count 40 days together and connect the setting to Jesus’ real human hunger." },
+        { pace: "1 minute 15 seconds", reference: "Matthew 4:3-4; Deuteronomy 8:3", activity: "Invite children to notice that Jesus answers a tempting shortcut with Scripture." },
+        { pace: "1 minute 15 seconds", reference: "Matthew 4:8-10; Deuteronomy 6:13", activity: "Ask what belongs at the center of worship; point children back to God alone." },
+        { pace: "1 minute 15 seconds", reference: "Matthew 4:5-7; Deuteronomy 6:16", activity: "Explain that Satan quoted Scripture but twisted its meaning; God’s Word must be understood truthfully." },
+        { pace: "1 minute", reference: "Matthew 4:11; Mark 1:13; Luke 4:13", activity: "Repeat the story point together: Jesus was tempted and never sinned." },
+        { pace: "1 minute 30 seconds", reference: "Christ Connection in the leader guides", activity: "Keep salvation clear: Jesus saves us by grace through faith, not by our good works." },
+        { pace: "1 minute 30 seconds", reference: "John 1:14", activity: "Read the full verse from the group’s Bible; use the slide as a memory anchor." },
+        { pace: "5 minutes", reference: "Matthew 4; Mark 1; Luke 4", activity: "Choose the four answer cues that best fit the group’s questions and time." }
+      ];
+      let current = 0;
+      let presenterEnabled = false;
+
+      const closeReveals = (scope = document) => {
+        scope.querySelectorAll(".bubble-toggle[aria-expanded='true']").forEach((button) => {
+          const panel = document.getElementById(button.getAttribute("aria-controls"));
+          button.setAttribute("aria-expanded", "false");
+          if (panel) panel.hidden = true;
+        });
+      };
+      const getSlideHeading = (slide) => slide.querySelector("h1, h2");
+      const writeHash = (slideNumber, replace = false) => {
+        const hash = `#slide=${slideNumber}`;
+        if (window.location.hash === hash) return;
+        if (replace) window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${hash}`);
+        else window.history.pushState(null, "", `${window.location.pathname}${window.location.search}${hash}`);
+      };
+      const slideNumberFromHash = () => {
+        const match = /^#slide=(\d+)$/i.exec(window.location.hash);
+        const requested = match ? Number(match[1]) : 1;
+        const clamped = Math.max(1, Math.min(slides.length, Number.isFinite(requested) ? requested : 1));
+        if (!match || requested !== clamped) writeHash(clamped, true);
+        return clamped - 1;
+      };
+      const updatePresenterNotes = () => {
+        if (!presenterEnabled) return;
+        const note = notes[current];
+        const heading = getSlideHeading(slides[current]);
+        presenterFields.slide.textContent = `Slide ${current + 1} · ${heading ? heading.textContent.trim() : "Discussion"}`;
+        presenterFields.pace.textContent = note.pace;
+        presenterFields.reference.textContent = note.reference;
+        presenterFields.activity.textContent = note.activity;
+      };
+      const setPresenterMode = (enabled) => {
+        presenterEnabled = enabled;
+        presenterPanel.hidden = !enabled;
+        document.body.classList.toggle("presenter-mode", enabled);
+        updatePresenterNotes();
+      };
+      const setSlide = (index, options = {}) => {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => {
+          const active = i === current;
+          slide.classList.toggle("active", active);
+          slide.setAttribute("aria-hidden", String(!active));
+        });
+        closeReveals();
+        const slideNumber = current + 1;
+        const heading = getSlideHeading(slides[current]);
+        const headingText = heading ? heading.textContent.trim() : `Slide ${slideNumber}`;
+        counter.textContent = `${slideNumber} / ${slides.length}`;
+        announcement.textContent = `Slide ${slideNumber} of ${slides.length}: ${headingText}`;
+        progress.style.width = `${(slideNumber / slides.length) * 100}%`;
+        first.disabled = slideNumber === 1;
+        previous.disabled = slideNumber === 1;
+        next.disabled = slideNumber === slides.length;
+        last.disabled = slideNumber === slides.length;
+        if (options.writeHash) writeHash(slideNumber, false);
+        updatePresenterNotes();
+        if (options.focus !== false && heading) heading.focus({ preventScroll: true });
+      };
+      const go = (index) => {
+        const clamped = Math.max(0, Math.min(index, slides.length - 1));
+        if (clamped !== current) setSlide(clamped, { writeHash: true, focus: true });
+      };
+
+      document.querySelectorAll(".bubble-toggle").forEach((button) => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        if (!panel) return;
+        button.addEventListener("click", () => {
+          const opening = button.getAttribute("aria-expanded") !== "true";
+          const activeSlide = button.closest(".slide");
+          if (activeSlide) activeSlide.querySelectorAll(".bubble-toggle").forEach((other) => {
+            if (other !== button) {
+              other.setAttribute("aria-expanded", "false");
+              const otherPanel = document.getElementById(other.getAttribute("aria-controls"));
+              if (otherPanel) otherPanel.hidden = true;
+            }
+          });
+          button.setAttribute("aria-expanded", String(opening));
+          panel.hidden = !opening;
+        });
+      });
+      first.addEventListener("click", () => go(0));
+      previous.addEventListener("click", () => go(current - 1));
+      next.addEventListener("click", () => go(current + 1));
+      last.addEventListener("click", () => go(slides.length - 1));
+      hidePresenter.addEventListener("click", () => setPresenterMode(false));
+      const syncFromHash = () => setSlide(slideNumberFromHash(), { focus: true });
+      window.addEventListener("hashchange", syncFromHash);
+      window.addEventListener("popstate", syncFromHash);
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        if (target && target.closest && target.closest("input, textarea, select, [contenteditable='true']")) return;
+        if (event.key.toLowerCase() === "p" && !event.metaKey && !event.ctrlKey && !event.altKey) { setPresenterMode(!presenterEnabled); return; }
+        if (event.key === "Escape" && presenterEnabled) { setPresenterMode(false); return; }
+        if (event.key === "ArrowLeft") { event.preventDefault(); go(current - 1); }
+        if (event.key === "ArrowRight") { event.preventDefault(); go(current + 1); }
+        if ((event.key === " " || event.code === "Space") && !(target && target.closest && target.closest("button"))) { event.preventDefault(); go(current + 1); }
+        if (event.key === "Home") { event.preventDefault(); go(0); }
+        if (event.key === "End") { event.preventDefault(); go(slides.length - 1); }
+      });
+      setPresenterMode(new URLSearchParams(window.location.search).get("presenter") === "1");
+      setSlide(slideNumberFromHash(), { focus: true });
+    })();
+  </script>
+</body>
+</html>
