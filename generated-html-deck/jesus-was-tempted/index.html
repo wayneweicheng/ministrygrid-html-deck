@@ -548,7 +548,7 @@
       background: var(--gold);
     }
     .progress {
-      width: 11.111%;
+      width: 10%;
       height: 100%;
       background: var(--green-dark);
       transition: width .24s ease;
@@ -672,6 +672,32 @@
     .memory-slide .memory-card { max-width: 52rem; }
     .memory-slide .memory-card .memory-quote { font-size: clamp(1.45rem, 2.65vw, 2.9rem); }
     .memory-art .poster { object-fit: contain; background: #ffffff; }
+    .prayer-slide { background: #eaf5f1; }
+    .prayer-card {
+      max-width: 51rem;
+      margin: 1rem 0 1.05rem;
+      padding: clamp(1rem, 2vw, 1.65rem) clamp(1.1rem, 2.2vw, 1.85rem);
+      border-left: .55rem solid var(--gold);
+      border-radius: 1.25rem;
+      background: rgba(255,255,255,.95);
+      box-shadow: 0 .75rem 1.4rem rgba(16,36,42,.1);
+    }
+    .prayer-cue {
+      margin-bottom: .65rem;
+      color: var(--green-dark);
+      font-size: clamp(.85rem, 1.15vw, 1.12rem);
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .prayer-text {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.25rem, 2.15vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.18;
+    }
+    .prayer-slide .art-panel { height: 74%; }
   </style>
 </head>
 <body>
@@ -878,10 +904,29 @@
         <p class="source-note">Discussion prompts adapted from the Older and Younger Kids Leader Guides</p>
       </section>
 
+      <section class="slide prayer-slide" data-slide="10" aria-label="Closing prayer">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Close together</div>
+            <h2 id="heading-10" tabindex="-1">Let’s pray together.</h2>
+            <div class="prayer-card">
+              <div class="prayer-cue">Read this prayer with the children</div>
+              <p class="prayer-text">God our Father, thank You for sending Jesus, Your Son. Thank You that Jesus knows temptation but never sinned. Help us listen to Your Word, worship You alone, and trust Jesus to save us. Give us strength to say no to sin and follow You. In Jesus’ name, amen.</p>
+            </div>
+            <div class="story-point">Jesus was tempted and never sinned.</div>
+          </div>
+          <div class="art-panel">
+            <img class="poster" src="assets/jesus-was-tempted-story-point.png" width="1870" height="1210" alt="Lifeway Story Point poster showing Jesus was tempted and never sinned" style="object-position: 26% center;">
+            <div class="caption-chip">Amen</div>
+          </div>
+        </div>
+        <p class="source-note">Closing prayer grounded in Matthew 4; Mark 1; Luke 4; John 1:14</p>
+      </section>
+
       <nav class="nav" aria-label="Slide navigation">
         <button id="first" type="button" aria-label="First slide" title="First slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5v14M18 6l-7 6 7 6M11 6l-7 6 7 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button id="prev" type="button" aria-label="Previous slide" title="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="counter" aria-label="Slide counter">1 / 9</div>
+        <div class="counter" aria-label="Slide counter">1 / 10</div>
         <button id="next" type="button" aria-label="Next slide" title="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button id="last" type="button" aria-label="Last slide" title="Last slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5v14M6 6l7 6-7 6M13 6l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </nav>
@@ -929,7 +974,8 @@
         { pace: "1 minute", reference: "Matthew 4:11; Mark 1:13; Luke 4:13", activity: "Repeat the story point together: Jesus was tempted and never sinned." },
         { pace: "1 minute 30 seconds", reference: "Christ Connection in the leader guides", activity: "Keep salvation clear: Jesus saves us by grace through faith, not by our good works." },
         { pace: "1 minute 30 seconds", reference: "John 1:14", activity: "Read the full verse from the group’s Bible; use the slide as a memory anchor." },
-        { pace: "5 minutes", reference: "Matthew 4; Mark 1; Luke 4", activity: "Choose the four answer cues that best fit the group’s questions and time." }
+        { pace: "5 minutes", reference: "Matthew 4; Mark 1; Luke 4", activity: "Choose the four answer cues that best fit the group’s questions and time." },
+        { pace: "1–2 minutes", reference: "Matthew 4; Mark 1; Luke 4; John 1:14", activity: "Read the prayer slowly with the children. Invite everyone to say amen together." }
       ];
       let current = 0;
       let presenterEnabled = false;

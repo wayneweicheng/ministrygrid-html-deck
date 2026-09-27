@@ -20,10 +20,11 @@ The source Bible Story Video, Questions from Kids Video, and activity pages are 
 Open `index.html` directly in a browser, or serve the repository root with `python3 -m http.server 8000` and visit `/generated-html-deck/jesus-was-tempted/`.
 
 - Use `←` / `→` for previous and next, `Home` / `End` for first and last, and `Space` for next when a button is not focused. The on-screen navigation buttons also support click and touch.
-- Jump directly to a slide with `#slide=1` through `#slide=9`; invalid values are clamped. Browser back and forward follow slide history.
+- Jump directly to a slide with `#slide=1` through `#slide=10`; invalid values are clamped. Browser back and forward follow slide history.
 - Presenter notes are off by default. Add `?presenter=1` to the URL or press `P` to show them; press `P` or `Escape` to hide them.
 - On the final slide, tap/click or keyboard-activate a question button to reveal its answer cue.
+- The final slide is a visible read-aloud prayer for the leader to pray with the children.
 
 ## Teaching flow
 
-Eight story and memory slides pace the teaching for about 10 minutes. The final slide holds four discussion prompts for the separate 5-minute question period. The presentation distinguishes Jesus’ real human temptation from sin and keeps salvation grounded in Jesus’ perfect obedience and grace through faith.
+Eight story and memory slides pace the teaching for about 10 minutes. Slide 9 holds four discussion prompts for the separate 5-minute question period. Slide 10 closes with a visible prayer grounded in Jesus’ perfect obedience, God’s Word, and grace through faith. The presentation distinguishes Jesus’ real human temptation from sin and keeps salvation grounded in His perfect obedience.

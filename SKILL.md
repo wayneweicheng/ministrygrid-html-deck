@@ -59,7 +59,7 @@ Keep facts faithful to the source. If the story involves a child being “lost,�
 
 ## Deck proposal defaults
 
-Unless the user requests another structure, propose 8–10 short slides:
+Unless the user requests another structure, propose 9–10 short slides. Always reserve the last slide for a prayer that the leader can read aloud with the children:
 
 1. Curiosity hook and lesson title.
 2. Where and when the story happens.
@@ -70,8 +70,9 @@ Unless the user requests another structure, propose 8–10 short slides:
 7. The story point and Christ connection.
 8. Big-picture question, key passage, or memorable takeaway.
 9. Interactive question cards for the 5-minute discussion.
+10. A final read-aloud prayer based on the lesson's truth, Christ connection, and response.
 
-Use fewer slides if the content is very short. State the proposed pacing in seconds or minutes so the user can judge whether it fits 10 minutes. Keep question answers hidden until a teacher click/tap or keyboard action reveals them.
+If the teaching content is short, combine story beats while keeping the prayer as the final slide. State the proposed pacing in seconds or minutes so the user can judge whether it fits 10 minutes plus the discussion and prayer. Keep question answers hidden until a teacher click/tap or keyboard action reveals them.
 
 ## Build rules after confirmation
 
@@ -96,6 +97,7 @@ Read `references/deck-architecture.md` before building. Follow these rules:
 - Make interactive “hover” bubbles work on a TV: each must also respond to click/tap and keyboard focus/Enter/Space. Use buttons with `aria-expanded` and a visible reveal state; never make hover the only way to see important content.
 - Keep one idea per slide. Favor a short headline, one or two short sentences, and a visual or question. Put source references in a small footer rather than crowding the main message.
 - Include a final discussion slide with 3–4 questions and tap-to-reveal answer cues. Do not reveal every answer immediately.
+- Always end the deck with a dedicated prayer slide after the discussion slide. Make it the last slide in the deck, give it a clear heading such as “Let’s pray,” and show a short, child-readable prayer that is grounded in the lesson’s Scripture, story point, and Christ connection. The prayer must be readable without presenter mode and suitable for the leader to pray aloud together with the children; do not hide it behind a reveal or require an interaction to read it.
 - Do not add invented historical details, doctrine, dialogue, or claims that are absent from the source without labeling them as an illustration or inference.
 - Avoid frightening imagery, shame-based language, or competition that could embarrass a child. Use warm, inclusive language suitable for 3–5 children.
 
@@ -109,7 +111,8 @@ Before reporting completion:
 4. Verify every interactive control is at least 44px in both dimensions, has `touch-action: manipulation`, and remains usable with keyboard, pointer, and touch input.
 5. Test direct navigation to `#slide=1`, a middle slide, the final slide, an invalid hash, and browser back/forward. Confirm that the active heading receives focus and the live region announces the current slide.
 6. Confirm presenter mode is opt-in, does not appear in the default TV view, and exposes its notes only when enabled.
-7. Confirm that the deck still works when the browser is offline or when remote network access is unavailable.
-8. Give the user the exact output path, how to open it, the controls (`←`, `→`, `Home`, `End`, `Space`, and click/tap), hash navigation format, presenter-mode entry point, and a short note about what was included or intentionally omitted.
+7. Confirm the last slide is the read-aloud prayer, that its text is visible in the default TV view, and that it is grounded in the lesson rather than generic filler.
+8. Confirm that the deck still works when the browser is offline or when remote network access is unavailable.
+9. Give the user the exact output path, how to open it, the controls (`←`, `→`, `Home`, `End`, `Space`, and click/tap), hash navigation format, presenter-mode entry point, and a short note about what was included or intentionally omitted.
 
 If the browser or PDF inspection is unavailable, say exactly what was not verified. Do not claim that the deck was tested when it was only written to disk.
