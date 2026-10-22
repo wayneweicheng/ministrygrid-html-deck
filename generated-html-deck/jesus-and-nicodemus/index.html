@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10242a">
+  <title>Jesus and Nicodemus | The Gospel Project: Kids</title>
+  <style>
+    :root {
+      --ink: #10242a;
+      --ink-soft: #35545b;
+      --cream: #fff9ed;
+      --cream-2: #f7edd9;
+      --gold: #f1b746;
+      --gold-soft: #ffe4a4;
+      --green: #2f8a68;
+      --green-dark: #1d634d;
+      --green-soft: #d7eee1;
+      --rose: #b84f61;
+      --rose-soft: #f7dce0;
+      --sky: #d9f0f3;
+      --white: #ffffff;
+      --shadow: 0 1.5rem 3.5rem rgba(8, 27, 30, .22);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #0b1a1f;
+      color: var(--ink);
+      font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+    }
+
+    button { font: inherit; touch-action: manipulation; }
+    button:focus-visible,
+    a:focus-visible {
+      outline: .22rem solid var(--green-dark);
+      outline-offset: .22rem;
+      box-shadow: 0 0 0 .42rem rgba(241, 183, 70, .72);
+    }
+
+    .stage-shell {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(241, 183, 70, .12), transparent 20%),
+        radial-gradient(circle at 88% 78%, rgba(47, 138, 104, .13), transparent 24%),
+        #0b1a1f;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc((100vh - var(--notes-height, 0px)) * 16 / 9));
+      height: min(calc(100vh - var(--notes-height, 0px)), calc(100vw * 9 / 16));
+      overflow: hidden;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      border: .16rem solid rgba(255, 255, 255, .16);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      padding: clamp(2rem, 4.3vw, 4.3rem) clamp(2.3rem, 5.4vw, 6rem) clamp(4rem, 5.2vw, 5.2rem);
+    }
+
+    .slide.active { display: block; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .8rem;
+      color: var(--green-dark);
+      font-size: clamp(.7rem, 1.05vw, 1rem);
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 1.8rem;
+      height: .22rem;
+      border-radius: 99px;
+      background: var(--gold);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.04em; }
+    h1, h2 { scroll-margin: 1rem; }
+    h1:focus, h2:focus { outline: none; }
+
+    h1 {
+      max-width: 8ch;
+      margin-bottom: 1.1rem;
+      font-size: clamp(3.1rem, 7.2vw, 7rem);
+      line-height: .88;
+    }
+
+    h2 {
+      max-width: 10ch;
+      margin-bottom: 1rem;
+      font-size: clamp(2.55rem, 5.5vw, 5.5rem);
+      line-height: .94;
+    }
+
+    h3 {
+      margin-bottom: .45rem;
+      font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+      line-height: 1.05;
+    }
+
+    p {
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, 1.75vw, 1.65rem);
+      line-height: 1.25;
+    }
+
+    .source-note {
+      position: absolute;
+      left: clamp(2.3rem, 5.4vw, 6rem);
+      bottom: clamp(1.3rem, 2.15vw, 2.1rem);
+      z-index: 12;
+      max-width: 55%;
+      margin: 0;
+      color: rgba(16, 36, 42, .68);
+      font-size: clamp(.62rem, .82vw, .82rem);
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .hero { background: var(--cream); }
+    .hero-copy {
+      position: relative;
+      z-index: 3;
+      width: 50%;
+      min-height: 100%;
+      padding-top: 5%;
+    }
+
+    .hero-copy p { max-width: 27rem; }
+
+    .hero-art {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 59%;
+      overflow: hidden;
+      clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 249, 237, .98) 0%, rgba(255, 249, 237, .10) 31%, rgba(16, 36, 42, .05) 100%);
+      pointer-events: none;
+    }
+
+    .poster {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-art .poster { object-position: 50% center; }
+
+    .lesson-pill {
+      display: inline-flex;
+      margin-top: .6rem;
+      padding: .65rem .95rem;
+      border-radius: 999px;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      font-size: clamp(.72rem, 1vw, .96rem);
+      font-weight: 900;
+      letter-spacing: .03em;
+    }
+
+    .hero-question {
+      position: absolute;
+      left: 6%;
+      bottom: 9%;
+      z-index: 5;
+      width: min(34%, 25rem);
+    }
+
+    .question-button,
+    .bubble-toggle {
+      min-width: 48px;
+      min-height: 48px;
+      padding: .82rem 1rem;
+      border: 0;
+      border-radius: .9rem;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--gold-soft);
+      box-shadow: 0 .48rem 0 rgba(185, 127, 28, .22);
+      font-size: clamp(.88rem, 1.22vw, 1.15rem);
+      font-weight: 900;
+      line-height: 1.12;
+      text-align: left;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .question-button:hover,
+    .bubble-toggle:hover,
+    .question-button[aria-expanded="true"],
+    .bubble-toggle[aria-expanded="true"] {
+      transform: translateY(-.12rem);
+      background: #ffd77a;
+      box-shadow: 0 .62rem 0 rgba(185, 127, 28, .24);
+    }
+
+    .question-button {
+      width: 100%;
+      padding: .95rem 1.05rem;
+      border-radius: 1.15rem 1.15rem 1.15rem .25rem;
+      font-size: clamp(1rem, 1.45vw, 1.4rem);
+      line-height: 1.08;
+    }
+
+    .reveal { position: relative; }
+    .bubble-pop {
+      position: relative;
+      z-index: 4;
+      margin-top: .65rem;
+      padding: .82rem .95rem;
+      border: .14rem solid rgba(47, 138, 104, .24);
+      border-radius: 1rem;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .6rem 1.2rem rgba(16, 36, 42, .12);
+      font-size: clamp(.86rem, 1.15vw, 1.08rem);
+      font-weight: 750;
+      line-height: 1.18;
+    }
+
+    .bubble-pop[hidden] { display: none; }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.4rem, 3.6vw, 4rem);
+      align-items: center;
+      height: 100%;
+    }
+
+    .copy { position: relative; z-index: 3; }
+    .copy > p { max-width: 33rem; }
+
+    .art-panel {
+      position: relative;
+      height: min(100%, 31rem);
+      min-height: 17rem;
+      overflow: hidden;
+      border-radius: 2rem;
+      background: var(--green-soft);
+      box-shadow: 0 1rem 2rem rgba(16, 36, 42, .15);
+    }
+
+    .art-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(16, 36, 42, .08), transparent 45%, rgba(16, 36, 42, .16));
+      pointer-events: none;
+    }
+
+    .art-panel .poster { object-position: 55% center; }
+    .art-panel.nicodemus .poster { object-position: 28% center; }
+    .art-panel.jesus .poster { object-position: 70% center; }
+    .art-panel.conversation .poster { object-position: 50% center; }
+
+    .caption-chip {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 2;
+      max-width: 75%;
+      padding: .6rem .8rem;
+      border-radius: .75rem;
+      color: var(--white);
+      background: rgba(16, 36, 42, .86);
+      font-size: clamp(.7rem, .95vw, .9rem);
+      font-weight: 850;
+    }
+
+    .setting-card,
+    .meaning-card {
+      max-width: 32rem;
+      margin: 1.1rem 0 1.15rem;
+      padding: 1rem 1.15rem;
+      border-radius: 1.25rem;
+      background: var(--white);
+      box-shadow: 0 .6rem 1.25rem rgba(16, 36, 42, .1);
+    }
+
+    .setting-card {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      background: var(--green-soft);
+    }
+
+    .setting-card strong,
+    .meaning-card strong {
+      display: block;
+      margin-bottom: .3rem;
+      font-size: clamp(1.05rem, 1.5vw, 1.45rem);
+      line-height: 1.1;
+    }
+
+    .setting-card span,
+    .meaning-card span {
+      color: var(--ink-soft);
+      font-size: clamp(.88rem, 1.12vw, 1.08rem);
+      line-height: 1.22;
+    }
+
+    .icon-circle {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 3.1rem;
+      height: 3.1rem;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--gold);
+    }
+
+    .quote-card {
+      max-width: 34rem;
+      margin: 1.2rem 0 1.4rem;
+      padding: 1.15rem 1.35rem;
+      border-left: .5rem solid var(--gold);
+      border-radius: 0 1.15rem 1.15rem 0;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .65rem 1.3rem rgba(16, 36, 42, .1);
+      font-size: clamp(1.25rem, 2.1vw, 2rem);
+      font-weight: 900;
+      line-height: 1.12;
+    }
+
+    .meaning-card { border-left: .5rem solid var(--rose); }
+
+    .story-pill {
+      display: inline-flex;
+      align-items: center;
+      margin: .25rem 0 1.1rem;
+      padding: .7rem .95rem;
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--gold-soft);
+      font-size: clamp(.8rem, 1.06vw, 1rem);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .new-life-slide { background: #eff7f0; }
+    .new-life-slide .art-panel { min-height: 70%; }
+
+    .truth-slide {
+      background:
+        linear-gradient(135deg, rgba(255, 249, 237, .96), rgba(255, 249, 237, .86)),
+        url("assets/jesus-and-nicodemus-story.jpg") center / cover;
+    }
+
+    .truth-content {
+      position: relative;
+      z-index: 2;
+      width: min(70%, 58rem);
+      padding-top: 3%;
+    }
+
+    .truth-box {
+      max-width: 55rem;
+      margin: 1.2rem 0 1rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 1.45rem;
+      background: rgba(255, 255, 255, .91);
+      box-shadow: 0 .9rem 1.8rem rgba(16, 36, 42, .12);
+    }
+
+    .truth-box .question-line {
+      margin-bottom: .45rem;
+      color: var(--green-dark);
+      font-size: clamp(1.05rem, 1.8vw, 1.7rem);
+      font-weight: 900;
+    }
+
+    .truth-box .answer-line {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.55rem, 3vw, 3rem);
+      font-weight: 950;
+      line-height: 1.02;
+    }
+
+    .key-passage {
+      display: inline-flex;
+      align-items: baseline;
+      gap: .55rem;
+      margin-top: .25rem;
+      padding: .65rem .9rem;
+      border-radius: .9rem;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      font-size: clamp(.92rem, 1.25vw, 1.2rem);
+      font-weight: 850;
+    }
+
+    .key-passage small {
+      color: var(--ink-soft);
+      font-size: .82em;
+      font-weight: 800;
+    }
+
+    .questions-slide { background: #fff5e4; }
+    .questions-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 1rem;
+      min-height: 4.8rem;
+    }
+
+    .questions-head h2 {
+      max-width: none;
+      margin-bottom: .15rem;
+      font-size: clamp(2.1rem, 4.35vw, 4.25rem);
+    }
+    .questions-head p { max-width: 22rem; margin-bottom: .35rem; font-weight: 750; }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: clamp(.75rem, 1.4vw, 1.3rem);
+      height: calc(100% - 8.8rem);
+      margin-top: .5rem;
+    }
+
+    .question-card {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: .9rem 1rem;
+      border-radius: 1.2rem;
+      background: var(--white);
+      box-shadow: 0 .55rem 1.1rem rgba(16, 36, 42, .1);
+    }
+
+    .question-card:nth-child(2) { background: var(--green-soft); }
+    .question-card:nth-child(3) { background: var(--rose-soft); }
+    .question-card:nth-child(4) { background: var(--gold-soft); }
+    .question-card .question-copy {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+    }
+
+    .question-card .number {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--green-dark);
+      font-size: .9rem;
+      font-weight: 900;
+    }
+
+    .question-card:nth-child(3) .number { background: #963849; }
+    .question-card:nth-child(4) .number { color: var(--ink); background: var(--gold); }
+    .question-card h3 {
+      display: inline;
+      margin: .05rem 0 0;
+      font-size: clamp(1rem, 1.48vw, 1.42rem);
+      letter-spacing: -.025em;
+    }
+
+    .question-card .bubble-toggle {
+      min-height: 48px;
+      margin-top: auto;
+      padding: .58rem .75rem;
+      border-radius: .75rem;
+      font-size: clamp(.88rem, 1.05vw, 1rem);
+    }
+
+    .question-card .bubble-pop {
+      width: 100%;
+      margin-top: .5rem;
+      padding: .58rem .7rem;
+      font-size: clamp(.88rem, 1.05vw, 1rem);
+    }
+
+    .prayer-slide {
+      place-items: center;
+      background:
+        radial-gradient(circle at 83% 18%, rgba(241, 183, 70, .22), transparent 23%),
+        linear-gradient(135deg, var(--cream), #f2f8ed);
+    }
+
+    .slide.active.prayer-slide { display: grid; }
+
+    .prayer-content {
+      width: min(78%, 60rem);
+      padding: clamp(1.5rem, 3vw, 3rem);
+      border-radius: 2rem;
+      background: rgba(255, 255, 255, .88);
+      box-shadow: 0 1rem 2.2rem rgba(16, 36, 42, .12);
+      text-align: center;
+    }
+
+    .prayer-content h2 { max-width: none; margin-bottom: .8rem; }
+    .prayer-content p {
+      margin: 0 auto;
+      max-width: 48rem;
+      color: var(--ink);
+      font-size: clamp(1.25rem, 2.1vw, 2rem);
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .nav {
+      position: absolute;
+      right: clamp(1.1rem, 2.2vw, 2.5rem);
+      bottom: clamp(1rem, 1.9vw, 2rem);
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+    }
+
+    .nav button {
+      display: grid;
+      place-items: center;
+      width: clamp(48px, 3.4vw, 60px);
+      height: clamp(48px, 3.4vw, 60px);
+      min-width: 48px;
+      min-height: 48px;
+      padding: 0;
+      border: .12rem solid rgba(16, 36, 42, .24);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .9);
+    }
+
+    .nav button:hover:not(:disabled) { background: var(--gold-soft); }
+    .nav button:disabled { cursor: default; opacity: .46; }
+    .nav svg { width: 1.4rem; height: 1.4rem; }
+
+    .counter {
+      min-width: 4.6rem;
+      color: rgba(16, 36, 42, .78);
+      font-size: clamp(.72rem, .98vw, .92rem);
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 14;
+      width: 10%;
+      height: .6rem;
+      background: var(--gold);
+      transition: width .24s ease;
+    }
+
+    .shortcut {
+      position: absolute;
+      right: clamp(1.3rem, 2.3vw, 2.7rem);
+      top: clamp(.9rem, 1.8vw, 1.8rem);
+      z-index: 12;
+      color: rgba(16, 36, 42, .67);
+      font-size: clamp(.6rem, .78vw, .75rem);
+      font-weight: 850;
+      letter-spacing: .03em;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .presenter-notes {
+      display: none;
+      height: var(--notes-height, 0px);
+      padding: .8rem clamp(1rem, 3vw, 3rem);
+      color: var(--cream);
+      background: #10242a;
+      grid-template-columns: minmax(7rem, .7fr) minmax(9rem, .9fr) minmax(18rem, 3fr);
+      align-items: center;
+      gap: 1rem;
+      font-size: clamp(.78rem, 1.1vw, 1rem);
+      line-height: 1.28;
+    }
+
+    .presenter-notes strong {
+      display: block;
+      margin-bottom: .2rem;
+      color: var(--gold-soft);
+      font-size: .76em;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .presenter-notes p { margin: 0; color: var(--cream); font-size: inherit; }
+    body.presenter-mode { --notes-height: clamp(7.5rem, 13vh, 9.5rem); }
+    body.presenter-mode .stage-shell { height: calc(100vh - var(--notes-height)); }
+    body.presenter-mode .presenter-notes { display: grid; }
+
+    @media (max-width: 720px) {
+      .slide { padding: 1.3rem 1.25rem 3.5rem; }
+      h1 { font-size: clamp(2.2rem, 9vw, 3.6rem); }
+      h2 { font-size: clamp(1.75rem, 6vw, 2.8rem); }
+      p { font-size: clamp(.82rem, 2.6vw, 1.05rem); }
+      .split { gap: .8rem; }
+      .art-panel { min-height: 55%; height: 60%; border-radius: 1rem; }
+      .hero-copy { width: 61%; padding-top: 10%; }
+      .hero-art { width: 62%; opacity: .92; }
+      .hero-question { left: 6%; width: 48%; bottom: 12%; }
+      .truth-content { width: 100%; padding-top: 5%; }
+      .truth-box { padding: .8rem; }
+      .key-passage { gap: .25rem; }
+      .questions-head { min-height: 4.6rem; }
+      .questions-head p { display: none; }
+      .question-grid { height: calc(100% - 5.2rem); gap: .5rem; margin-top: .55rem; }
+      .question-card { padding: .55rem; }
+      .question-card h3 { font-size: clamp(.74rem, 2.4vw, 1rem); }
+      .question-card .bubble-toggle { min-height: 44px; padding: .42rem; font-size: .68rem; }
+      .question-card .bubble-pop { padding: .45rem; font-size: .68rem; }
+      .presenter-notes { grid-template-columns: .8fr 1fr 2fr; gap: .45rem; }
+      .source-note { max-width: 50%; }
+      .shortcut { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage-shell">
+    <div class="stage" role="region" aria-label="Interactive teaching deck: Jesus and Nicodemus">
+      <section class="slide hero active" data-slide="1" data-pacing="45 seconds" data-reference="John 3:1-2" data-note="Invite the children to wonder why Nicodemus came to Jesus at night. The guide says he came because he had questions after seeing Jesus' signs." aria-label="Curiosity hook">
+        <div class="hero-copy">
+          <div class="eyebrow">The Gospel Project: Kids | Unit 21, Session 3</div>
+          <h1 tabindex="-1">Jesus and Nicodemus</h1>
+          <p>A nighttime visit. A surprising question. A new kind of life.</p>
+          <div class="lesson-pill">John 3 | A conversation with Jesus</div>
+        </div>
+        <div class="hero-art">
+          <img class="poster" src="assets/jesus-and-nicodemus-story.jpg" alt="Illustration of Jesus speaking with Nicodemus by a fire under a night sky" width="1800" height="1165">
+        </div>
+        <div class="hero-question reveal">
+          <button class="question-button bubble-toggle" aria-expanded="false" aria-controls="hook-answer">Why might a respected teacher visit Jesus at night?</button>
+          <div id="hook-answer" class="bubble-pop" hidden>Nicodemus had questions. He wanted to learn from Jesus.</div>
+        </div>
+        <p class="source-note">Story artwork: Lifeway | The Gospel Project: Kids</p>
+      </section>
+
+      <section class="slide" data-slide="2" data-pacing="1 minute" data-reference="John 3:1-2" data-note="Nicodemus was a religious leader. He recognized that Jesus' signs showed God was with Him. Keep the focus on the question Nicodemus brought." aria-label="Nicodemus visits Jesus">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">A visitor after dark</div>
+            <h2>Nicodemus came to Jesus.</h2>
+            <p>He was a religious leader who had seen the things Jesus did. He believed Jesus had come from God.</p>
+            <div class="setting-card">
+              <div class="icon-circle" aria-hidden="true">
+                <svg viewBox="0 0 40 40" width="28" height="28">
+                  <path d="M20 3 23.5 15.5 36 20l-12.5 3.5L20 36l-3.5-12.5L4 20l12.5-4.5L20 3Z" fill="currentColor"/>
+                  <circle cx="31.5" cy="8.5" r="2" fill="currentColor"/>
+                </svg>
+              </div>
+              <div><strong>He was looking for answers.</strong><span>John tells us Nicodemus came at night.</span></div>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="visit-answer">What did Nicodemus notice?</button>
+              <div id="visit-answer" class="bubble-pop" hidden>He saw Jesus' signs and believed God was with Him.</div>
+            </div>
+          </div>
+          <div class="art-panel nicodemus">
+            <img class="poster" src="assets/jesus-and-nicodemus-story.jpg" alt="Nicodemus listens to Jesus in the nighttime scene" width="1800" height="1165" loading="lazy">
+            <span class="caption-chip">John 3:1-2</span>
+          </div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids | John 3:1-2</p>
+      </section>
+
+      <section class="slide" data-slide="3" data-pacing="1 minute, 10 seconds" data-reference="John 3:3" data-note="Pause after the phrase 'born again.' Let a child offer a wondering question before explaining the meaning on the next slides." aria-label="Jesus says born again">
+        <div class="split">
+          <div class="art-panel jesus">
+            <img class="poster" src="assets/jesus-and-nicodemus-story.jpg" alt="Jesus speaking with Nicodemus at night" width="1800" height="1165" loading="lazy">
+            <span class="caption-chip">Jesus teaches Nicodemus</span>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">A surprising answer</div>
+            <h2>“You must be born again.”</h2>
+            <p>Jesus said a person must be born again to enter the kingdom of God.</p>
+            <div class="quote-card">What do you think Jesus meant by “born again”?</div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="born-answer">Show a clue</button>
+              <div id="born-answer" class="bubble-pop" hidden>Jesus was teaching about new life from the Holy Spirit.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids | John 3:3</p>
+      </section>
+
+      <section class="slide" data-slide="4" data-pacing="1 minute, 10 seconds" data-reference="John 3:4-8" data-note="Nicodemus thought about physical birth. Clarify gently: Jesus meant new life from God's Spirit, not becoming a baby again." aria-label="Nicodemus is puzzled">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Nicodemus was puzzled</div>
+            <h2>“How can that happen?”</h2>
+            <p>Nicodemus wondered how an older person could be born again. He was thinking about a baby being born.</p>
+            <div class="meaning-card">
+              <strong>Jesus meant something new.</strong>
+              <span>He was talking about new life from the Holy Spirit.</span>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="puzzled-answer">Did Jesus mean becoming a baby again?</button>
+              <div id="puzzled-answer" class="bubble-pop" hidden>No. Jesus meant that God's Spirit gives a person new life with God.</div>
+            </div>
+          </div>
+          <div class="art-panel conversation">
+            <img class="poster" src="assets/jesus-and-nicodemus-story.jpg" alt="Nicodemus asks Jesus a question during their nighttime conversation" width="1800" height="1165" loading="lazy">
+            <span class="caption-chip">A real question</span>
+          </div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids | John 3:4-8</p>
+      </section>
+
+      <section class="slide new-life-slide" data-slide="5" data-pacing="1 minute, 20 seconds" data-reference="John 3:5-8" data-note="Jesus compared the Spirit's work to the wind. Optional: invite children to notice a breeze or air moving, then say the comparison helps us picture the Spirit's work; it is not a science lesson." aria-label="The Spirit gives new life">
+        <div class="split">
+          <div class="art-panel jesus">
+            <img class="poster" src="assets/jesus-and-nicodemus-story.jpg" alt="Jesus explains the Spirit's work to Nicodemus" width="1800" height="1165" loading="lazy">
+            <span class="caption-chip">The Spirit gives new life</span>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">Like the wind</div>
+            <h2>New life comes from God's Spirit.</h2>
+            <p>Jesus compared the Spirit's work to the wind. We cannot see where the wind comes from or where it goes.</p>
+            <div class="story-pill">Jesus taught that people must be born again to enter God's kingdom.</div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="wind-answer">What did Jesus want Nicodemus to understand?</button>
+              <div id="wind-answer" class="bubble-pop" hidden>The Holy Spirit gives people new life with God.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids | John 3:5-8</p>
+      </section>
+
+      <section class="slide" data-slide="6" data-pacing="1 minute, 40 seconds" data-reference="John 3:14-15; Numbers 21:4-9" data-note="Jesus pointed Nicodemus to the Old Testament story of Moses lifting up the snake. The guide explains Jesus was pointing ahead to the cross. Do not dwell on frightening details; focus on Jesus' promise of eternal life for everyone who believes." aria-label="Jesus points to the cross">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">A picture from Scripture</div>
+            <h2>Jesus pointed ahead to the cross.</h2>
+            <p>Jesus said the Son of Man would be lifted up so everyone who believes in Him may have eternal life.</p>
+            <div class="meaning-card">
+              <strong>Jesus was talking about His future.</strong>
+              <span>He would be lifted up on a cross to save people from sin.</span>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="cross-answer">What good news did Jesus give?</button>
+              <div id="cross-answer" class="bubble-pop" hidden>Everyone who believes in Jesus may have eternal life.</div>
+            </div>
+          </div>
+          <div class="art-panel jesus">
+            <img class="poster" src="assets/jesus-and-nicodemus-story.jpg" alt="Jesus speaks with Nicodemus beside a fire at night" width="1800" height="1165" loading="lazy">
+            <span class="caption-chip">Jesus gives life</span>
+          </div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids | John 3:14-15; see Numbers 21:4-9</p>
+      </section>
+
+      <section class="slide" data-slide="7" data-pacing="1 minute, 30 seconds" data-reference="John 3:16-17" data-note="Keep the emphasis on God's love and Jesus' saving mission. The guide says God sent His Son to save the world; believers receive new life and eternal life through Jesus." aria-label="God sent Jesus to save">
+        <div class="split">
+          <div class="art-panel conversation">
+            <img class="poster" src="assets/jesus-and-nicodemus-story.jpg" alt="Jesus and Nicodemus talk by fire in the dark" width="1800" height="1165" loading="lazy">
+            <span class="caption-chip">God loves the world</span>
+          </div>
+          <div class="copy">
+            <div class="eyebrow">God's great love</div>
+            <h2>God sent Jesus to save.</h2>
+            <p>God loved the world and gave His Son. Everyone who believes in Jesus may have eternal life.</p>
+            <div class="setting-card">
+              <div class="icon-circle" aria-hidden="true">
+                <svg viewBox="0 0 40 40" width="28" height="28">
+                  <path d="M20 34S5 25.5 5 14.8C5 9.3 11.9 6.4 16 11l4 4.1 4-4.1c4.1-4.6 11-1.7 11 3.8C35 25.5 20 34 20 34Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div><strong>Jesus came to save the world.</strong><span>God gives new life through His Son.</span></div>
+            </div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="love-answer">How did God show His love?</button>
+              <div id="love-answer" class="bubble-pop" hidden>He sent Jesus so everyone who believes may have eternal life.</div>
+            </div>
+          </div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids | John 3:16-17</p>
+      </section>
+
+      <section class="slide truth-slide" data-slide="8" data-pacing="1 minute, 25 seconds" data-reference="1 John 3:5" data-note="Repeat the big-picture question and answer together. Read the short CSB key-passage phrase from 1 John 3:5, then let children say the story truth once more." aria-label="Big-picture truth and key passage">
+        <div class="truth-content">
+          <div class="eyebrow">Remember the big truth</div>
+          <h2>Jesus never sinned.</h2>
+          <div class="truth-box">
+            <div class="question-line">Did Jesus ever sin?</div>
+            <p class="answer-line">No. Jesus never sinned.</p>
+          </div>
+          <div class="key-passage"><span>“There is no sin in him.”</span><small>1 John 3:5 | CSB</small></div>
+        </div>
+        <p class="source-note">Big Picture Question and Key Passage | The Gospel Project: Kids, Unit 21</p>
+      </section>
+
+      <section class="slide questions-slide" data-slide="9" data-pacing="5 minutes" data-reference="John 3" data-note="Give each question time for children to answer in their own words. Tap or focus a card's reveal button for a short leader cue. Make room for questions about trusting Jesus without pressuring children to share personal decisions." aria-label="Five-minute discussion questions">
+        <div class="questions-head">
+          <div><div class="eyebrow">Five-minute question time</div><h2>Let's talk about it</h2></div>
+          <p>Choose a question. Tap to reveal a short answer cue.</p>
+        </div>
+        <div class="question-grid">
+          <article class="question-card">
+            <div class="question-copy"><span class="number">1</span><h3>Why did Nicodemus visit Jesus?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q1-answer">Reveal answer cue</button>
+            <div id="q1-answer" class="bubble-pop" hidden>He had questions and believed Jesus had come from God.</div>
+          </article>
+          <article class="question-card">
+            <div class="question-copy"><span class="number">2</span><h3>What did Jesus mean by “born again”?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q2-answer">Reveal answer cue</button>
+            <div id="q2-answer" class="bubble-pop" hidden>The Holy Spirit gives a person new life with God.</div>
+          </article>
+          <article class="question-card">
+            <div class="question-copy"><span class="number">3</span><h3>Can we earn our way into God's kingdom?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q3-answer">Reveal answer cue</button>
+            <div id="q3-answer" class="bubble-pop" hidden>No. We receive new life by trusting Jesus; we cannot earn salvation.</div>
+          </article>
+          <article class="question-card">
+            <div class="question-copy"><span class="number">4</span><h3>How did God show love for the world?</h3></div>
+            <button class="bubble-toggle" aria-expanded="false" aria-controls="q4-answer">Reveal answer cue</button>
+            <div id="q4-answer" class="bubble-pop" hidden>He sent Jesus to save us and give eternal life to everyone who believes.</div>
+          </article>
+        </div>
+        <p class="source-note">Discussion cues adapted from the Younger Kids Leader Guide | John 3</p>
+      </section>
+
+      <section class="slide prayer-slide" data-slide="10" data-pacing="30 seconds" data-reference="John 3:16-17; 1 John 3:5" data-note="Read the prayer aloud slowly and invite children to say amen. The prayer is visible on screen and does not require an interaction." aria-label="Closing prayer">
+        <div class="prayer-content">
+          <div class="eyebrow">Our closing prayer</div>
+          <h2 tabindex="-1">Let's pray</h2>
+          <p>God, thank You for loving the world and sending Jesus to save us. Thank You that Jesus never sinned and gives eternal life to everyone who believes. Help us trust You and follow the new life Your Spirit gives. Amen.</p>
+        </div>
+        <p class="source-note">Prayer based on John 3 and the lesson's Christ connection</p>
+      </section>
+
+      <div class="shortcut" aria-hidden="true">Left / Right | Space | Home / End</div>
+      <nav class="nav" aria-label="Slide navigation">
+        <button id="first" type="button" aria-label="First slide" title="First slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5 10 12l8 7M5 5v14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="prev" type="button" aria-label="Previous slide" title="Previous slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-8 7 8 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="counter" aria-hidden="true">1 / 10</span>
+        <button id="next" type="button" aria-label="Next slide" title="Next slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 8 7-8 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="last" type="button" aria-label="Last slide" title="Last slide">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 5 8 7-8 7m13-14v14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </nav>
+      <div class="progress" aria-hidden="true"></div>
+      <div id="slide-announcement" class="sr-only" aria-live="polite" aria-atomic="true">Slide 1 of 10</div>
+    </div>
+  </main>
+
+  <aside id="presenter-notes" class="presenter-notes" aria-label="Presenter notes" hidden>
+    <div><strong>Pacing</strong><p id="presenter-pacing"></p></div>
+    <div><strong>Bible reference</strong><p id="presenter-reference"></p></div>
+    <div><strong>Leader note</strong><p id="presenter-note"></p></div>
+  </aside>
+
+  <script>
+    (() => {
+      "use strict";
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const first = document.querySelector("#first");
+      const previous = document.querySelector("#prev");
+      const next = document.querySelector("#next");
+      const last = document.querySelector("#last");
+      const counter = document.querySelector(".counter");
+      const progress = document.querySelector(".progress");
+      const announcement = document.querySelector("#slide-announcement");
+      const presenterPanel = document.querySelector("#presenter-notes");
+      const presenterPacing = document.querySelector("#presenter-pacing");
+      const presenterReference = document.querySelector("#presenter-reference");
+      const presenterNote = document.querySelector("#presenter-note");
+      const total = slides.length;
+      let current = 0;
+
+      if (new URLSearchParams(window.location.search).get("presenter") === "1") {
+        document.body.classList.add("presenter-mode");
+        presenterPanel.hidden = false;
+      }
+
+      const closeReveals = () => {
+        document.querySelectorAll(".bubble-toggle[aria-expanded='true']").forEach((button) => {
+          const panel = document.getElementById(button.getAttribute("aria-controls"));
+          button.setAttribute("aria-expanded", "false");
+          button.dataset.hoverOpened = "false";
+          if (panel) panel.hidden = true;
+        });
+      };
+
+      const updatePresenter = (slide) => {
+        presenterPacing.textContent = slide.dataset.pacing || "";
+        presenterReference.textContent = slide.dataset.reference || "";
+        presenterNote.textContent = slide.dataset.note || "";
+      };
+
+      const renderSlide = (index) => {
+        current = Math.max(0, Math.min(index, total - 1));
+        slides.forEach((slide, slideIndex) => {
+          const isActive = slideIndex === current;
+          slide.classList.toggle("active", isActive);
+          slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+        });
+        closeReveals();
+        counter.textContent = (current + 1) + " / " + total;
+        progress.style.width = (((current + 1) / total) * 100) + "%";
+        announcement.textContent = "Slide " + (current + 1) + " of " + total;
+        updatePresenter(slides[current]);
+        const heading = slides[current].querySelector("h1, h2");
+        if (heading) heading.focus({ preventScroll: true });
+        first.disabled = current === 0;
+        previous.disabled = current === 0;
+        next.disabled = current === total - 1;
+        last.disabled = current === total - 1;
+      };
+
+      const readLocation = () => {
+        const match = window.location.hash.match(/(?:^#|&)slide=([^&]+)/);
+        const parsed = match ? Number(match[1]) : 1;
+        const requested = Number.isFinite(parsed) ? Math.floor(parsed) : 1;
+        const slideNumber = Math.max(1, Math.min(requested, total));
+        const normalizedHash = "#slide=" + slideNumber;
+        if (window.location.hash !== normalizedHash) {
+          window.history.replaceState(null, "", normalizedHash);
+        }
+        renderSlide(slideNumber - 1);
+      };
+
+      const navigate = (index) => {
+        const target = Math.max(0, Math.min(index, total - 1));
+        const targetHash = "#slide=" + (target + 1);
+        if (window.location.hash !== targetHash) {
+          window.history.pushState(null, "", targetHash);
+        }
+        renderSlide(target);
+      };
+
+      const toggleReveal = (button, open) => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        if (!panel) return;
+        button.setAttribute("aria-expanded", String(open));
+        panel.hidden = !open;
+      };
+
+      document.querySelectorAll(".bubble-toggle").forEach((button) => {
+        button.dataset.hoverOpened = "false";
+        button.addEventListener("click", () => {
+          if (button.dataset.hoverOpened === "true") {
+            button.dataset.hoverOpened = "false";
+            toggleReveal(button, true);
+            return;
+          }
+          toggleReveal(button, button.getAttribute("aria-expanded") !== "true");
+        });
+        button.addEventListener("pointerenter", (event) => {
+          if (event.pointerType === "mouse" && button.getAttribute("aria-expanded") !== "true") {
+            button.dataset.hoverOpened = "true";
+            toggleReveal(button, true);
+          }
+        });
+        button.addEventListener("pointerleave", (event) => {
+          if (event.pointerType === "mouse" && button.dataset.hoverOpened === "true" && document.activeElement !== button) {
+            button.dataset.hoverOpened = "false";
+            toggleReveal(button, false);
+          }
+        });
+        button.addEventListener("blur", () => {
+          if (button.dataset.hoverOpened === "true") {
+            button.dataset.hoverOpened = "false";
+            toggleReveal(button, false);
+          }
+        });
+      });
+
+      first.addEventListener("click", () => navigate(0));
+      previous.addEventListener("click", () => navigate(current - 1));
+      next.addEventListener("click", () => navigate(current + 1));
+      last.addEventListener("click", () => navigate(total - 1));
+
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        if (target && target.closest && target.closest("input, textarea, select, [contenteditable='true']")) return;
+        if ((event.key === "Enter" || event.key === " ") && target && target.closest && target.closest("button")) return;
+        if (event.key === "ArrowLeft") { event.preventDefault(); navigate(current - 1); }
+        if (event.key === "ArrowRight" || event.key === " ") { event.preventDefault(); navigate(current + 1); }
+        if (event.key === "Home") { event.preventDefault(); navigate(0); }
+        if (event.key === "End") { event.preventDefault(); navigate(total - 1); }
+      });
+
+      window.addEventListener("hashchange", readLocation);
+      window.addEventListener("popstate", readLocation);
+      readLocation();
+    })();
+  </script>
+</body>
+</html>
