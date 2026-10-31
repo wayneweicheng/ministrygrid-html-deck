@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10242a">
+  <meta name="description" content="A child-friendly, interactive lesson deck about John pointing people to Jesus as the Messiah.">
+  <title>John Pointed to Jesus | Ministry Grid Kids Deck</title>
+  <style>
+    :root {
+      --ink: #10242a;
+      --ink-soft: #36545a;
+      --cream: #fff9ed;
+      --cream-deep: #f3e8d2;
+      --gold: #f1b746;
+      --gold-soft: #ffe4a4;
+      --green: #2f8a68;
+      --green-deep: #1d634d;
+      --green-soft: #d7eee1;
+      --teal: #0b3b45;
+      --teal-soft: #dceff0;
+      --rose: #9d4652;
+      --rose-soft: #f7dce0;
+      --white: #ffffff;
+      --shadow: 0 1.5rem 3.5rem rgba(8, 27, 30, .22);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #0b1a1f;
+      color: var(--ink);
+      font-family: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+    }
+    button { font: inherit; }
+    button:focus-visible {
+      outline: .24rem solid var(--teal);
+      outline-offset: .2rem;
+    }
+    .slide h1:focus-visible,
+    .slide h2:focus-visible {
+      outline: .18rem solid var(--teal);
+      outline-offset: .3rem;
+      border-radius: .25rem;
+    }
+    [hidden] { display: none !important; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .stage-shell {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(241, 183, 70, .12), transparent 20%),
+        radial-gradient(circle at 88% 78%, rgba(47, 138, 104, .13), transparent 24%),
+        #0b1a1f;
+    }
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      overflow: hidden;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      border: .16rem solid rgba(255, 255, 255, .18);
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      padding: clamp(2rem, 5vw, 5.4rem) clamp(2.4rem, 6.2vw, 7rem) clamp(3.1rem, 5.8vw, 6rem);
+    }
+    .slide.active { display: block; }
+    .slide::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      height: .72rem;
+      background: var(--gold);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.04em; }
+    h1 {
+      max-width: 8.5ch;
+      margin-bottom: 1.1rem;
+      font-size: clamp(3.2rem, 7.3vw, 8rem);
+      line-height: .9;
+    }
+    h2 {
+      max-width: 12ch;
+      margin-bottom: 1rem;
+      font-size: clamp(2.65rem, 5.7vw, 6.1rem);
+      line-height: .94;
+    }
+    h3 {
+      margin-bottom: .55rem;
+      font-size: clamp(1.25rem, 2vw, 2.1rem);
+      line-height: 1.05;
+    }
+    p {
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, 1.72vw, 1.8rem);
+      line-height: 1.25;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: 1rem;
+      color: var(--green-deep);
+      font-size: clamp(.72rem, 1.05vw, 1rem);
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 1.8rem;
+      height: .22rem;
+      border-radius: 99px;
+      background: var(--gold);
+    }
+    .source-note {
+      position: absolute;
+      left: clamp(2.4rem, 6.2vw, 7rem);
+      bottom: clamp(1.1rem, 1.9vw, 2rem);
+      z-index: 12;
+      max-width: 65%;
+      margin: 0;
+      color: #4c6368;
+      font-size: clamp(.62rem, .82vw, .82rem);
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .hero { background: var(--cream); }
+    .hero-copy {
+      position: relative;
+      z-index: 4;
+      width: 52%;
+      min-height: 100%;
+      padding-top: 6%;
+    }
+    .hero-copy p { max-width: 29rem; }
+    .lesson-pill {
+      display: inline-flex;
+      margin-top: .5rem;
+      padding: .7rem 1rem;
+      border-radius: 999px;
+      color: var(--green-deep);
+      background: var(--green-soft);
+      font-size: clamp(.78rem, 1.1vw, 1rem);
+      font-weight: 900;
+      letter-spacing: .03em;
+    }
+    .hero-art {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 59%;
+      overflow: hidden;
+      clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 249, 237, .98) 0%, rgba(255, 249, 237, .18) 30%, rgba(16, 36, 42, .04) 100%);
+    }
+    .poster {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-art .poster { object-position: 56% center; }
+    .reveal { position: relative; }
+    .hero-question {
+      position: absolute;
+      left: 6.5%;
+      bottom: 11%;
+      z-index: 6;
+      width: min(36%, 29rem);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(1.8rem, 4.4vw, 5rem);
+      min-height: 100%;
+    }
+    .copy { position: relative; z-index: 3; }
+    .copy > p { max-width: 34rem; }
+    .art-panel {
+      position: relative;
+      min-height: 60%;
+      height: min(67vh, 41rem);
+      overflow: hidden;
+      border-radius: 2rem;
+      background: var(--cream-deep);
+      box-shadow: 0 .8rem 1.8rem rgba(16, 36, 42, .14);
+    }
+    .art-panel::after {
+      content: "";
+      position: absolute;
+      inset: 52% 0 0;
+      background: linear-gradient(transparent, rgba(16, 36, 42, .26));
+      pointer-events: none;
+    }
+    .caption-chip {
+      position: absolute;
+      right: 1.1rem;
+      bottom: 1.1rem;
+      z-index: 2;
+      max-width: 75%;
+      padding: .62rem .85rem;
+      border-radius: .8rem;
+      color: var(--white);
+      background: rgba(16, 36, 42, .86);
+      font-size: clamp(.75rem, 1vw, .95rem);
+      font-weight: 900;
+    }
+    .fact-card {
+      max-width: 34rem;
+      margin: 1.2rem 0 1.25rem;
+      padding: 1rem 1.2rem;
+      border-radius: 1.25rem;
+      background: var(--white);
+      box-shadow: 0 .55rem 1.2rem rgba(16, 36, 42, .1);
+    }
+    .fact-card strong {
+      display: block;
+      margin-bottom: .25rem;
+      color: var(--teal);
+      font-size: clamp(1.25rem, 2vw, 2rem);
+    }
+    .fact-card span {
+      color: var(--ink-soft);
+      font-size: clamp(.95rem, 1.35vw, 1.25rem);
+      line-height: 1.2;
+    }
+    .scene-slide { background: #fff5e7; }
+    .scene-slide .art-panel .poster { object-position: 50% center; }
+    .message-slide { background: #edf7f4; }
+    .message-slide .art-panel { background: var(--teal-soft); }
+    .message-slide .art-panel .poster { object-position: 69% center; }
+    .messiah-slide { background: #f5eff8; }
+    .messiah-slide .art-panel .poster { object-position: 61% center; }
+    .belief-slide { background: #fffaf2; }
+    .belief-slide .art-panel .poster { object-position: 76% center; }
+    .sharing-slide { background: #edf7f4; }
+    .sharing-slide .art-panel .poster { object-position: 30% center; }
+    .application-slide { background: #fff5e7; }
+    .application-slide .art-panel .poster { object-position: 46% center; }
+
+    .truth-slide { background: var(--teal); color: var(--white); }
+    .truth-slide .eyebrow { color: #d7eee1; }
+    .truth-slide h2, .truth-slide p { color: var(--white); }
+    .truth-slide .split { grid-template-columns: 1.05fr .95fr; }
+    .truth-card {
+      max-width: 42rem;
+      margin: 1.2rem 0 0;
+      padding: 1.35rem 1.5rem;
+      border-left: .55rem solid var(--gold);
+      border-radius: 0 1.2rem 1.2rem 0;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .7rem 1.4rem rgba(0, 0, 0, .16);
+    }
+    .truth-card small {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--green-deep);
+      font-size: clamp(.75rem, 1vw, .96rem);
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .truth-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(1.5rem, 2.8vw, 3rem);
+      line-height: 1.02;
+    }
+    .truth-slide .art-panel { border: .3rem solid rgba(255, 255, 255, .24); }
+    .truth-slide .art-panel .poster { object-position: 55% center; }
+
+    .questions-slide { background: #fff5e7; }
+    .questions-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1.2rem;
+    }
+    .questions-head h2 { max-width: 10ch; margin-bottom: .1rem; }
+    .questions-head p { max-width: 23rem; margin-bottom: .5rem; font-weight: 800; }
+    .question-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(.75rem, 1.35vw, 1.3rem);
+      margin-top: 1.2rem;
+    }
+    .question-card {
+      min-height: 10rem;
+      padding: 1rem 1.1rem;
+      border-radius: 1.2rem;
+      background: var(--white);
+      box-shadow: 0 .5rem 1.1rem rgba(16, 36, 42, .1);
+    }
+    .question-card:nth-child(2) { background: var(--teal-soft); }
+    .question-card:nth-child(3) { background: var(--rose-soft); }
+    .question-card:nth-child(4) { background: var(--gold-soft); }
+    .question-card .number {
+      display: inline-grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      margin-right: .4rem;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--green-deep);
+      font-size: .95rem;
+      font-weight: 950;
+      vertical-align: .15em;
+    }
+    .question-card:nth-child(3) .number { background: var(--rose); }
+    .question-card:nth-child(4) .number { color: var(--ink); background: var(--gold); }
+    .question-card h3 { display: inline; font-size: clamp(1.05rem, 1.55vw, 1.5rem); letter-spacing: -.02em; }
+    .question-card .bubble-toggle { margin-top: .72rem; min-height: 3rem; padding: .6rem .8rem; border-radius: .75rem; font-size: clamp(.74rem, 1vw, .95rem); }
+    .question-card .bubble-pop { margin-top: .5rem; padding: .62rem .75rem; font-size: clamp(.78rem, 1.05vw, 1rem); }
+
+    .prayer-slide { background: #eff7f0; }
+    .prayer-slide .split { grid-template-columns: 1.05fr .95fr; }
+    .prayer-slide .art-panel .poster { object-position: 55% center; }
+    .prayer-card {
+      max-width: 42rem;
+      margin: 1rem 0 0;
+      padding: 1.3rem 1.5rem;
+      border-radius: 1.35rem;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .7rem 1.5rem rgba(16, 36, 42, .13);
+    }
+    .prayer-card p {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.15rem, 1.9vw, 1.9rem);
+      font-weight: 700;
+      line-height: 1.28;
+    }
+
+    .shortcut {
+      position: absolute;
+      top: clamp(1rem, 1.8vw, 1.8rem);
+      right: clamp(1.35rem, 2.3vw, 2.7rem);
+      z-index: 14;
+      color: #52686d;
+      font-size: clamp(.62rem, .78vw, .76rem);
+      font-weight: 850;
+      letter-spacing: .035em;
+    }
+    .nav {
+      position: absolute;
+      right: clamp(1.1rem, 2.2vw, 2.6rem);
+      bottom: clamp(.95rem, 1.8vw, 1.9rem);
+      z-index: 16;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+    }
+    .nav button {
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      min-width: 48px;
+      height: 3rem;
+      min-height: 48px;
+      border: .12rem solid rgba(16, 36, 42, .25);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .92);
+      touch-action: manipulation;
+    }
+    .nav button:hover { background: var(--gold-soft); }
+    .nav svg { width: 1.25rem; height: 1.25rem; }
+    .counter { min-width: 4.2rem; color: #40595e; font-size: clamp(.75rem, .95vw, .9rem); font-weight: 950; text-align: center; }
+    .progress { position: absolute; left: 0; bottom: 0; z-index: 15; height: .62rem; background: var(--gold); transition: width .25s ease; }
+
+    .bubble-toggle {
+      min-width: 48px;
+      min-height: 3rem;
+      padding: .8rem 1rem;
+      border: .12rem solid rgba(16, 36, 42, .13);
+      border-radius: 1rem;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--gold-soft);
+      box-shadow: 0 .42rem 0 rgba(185, 127, 28, .23);
+      font-size: clamp(.9rem, 1.24vw, 1.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      text-align: left;
+      touch-action: manipulation;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .bubble-toggle:hover,
+    .bubble-toggle[aria-expanded="true"] {
+      transform: translateY(-.1rem);
+      background: #ffd77a;
+      box-shadow: 0 .55rem 0 rgba(185, 127, 28, .27);
+    }
+    .bubble-pop {
+      position: relative;
+      z-index: 4;
+      max-width: 34rem;
+      margin-top: .65rem;
+      padding: .85rem 1rem;
+      border: .14rem solid rgba(47, 138, 104, .22);
+      border-radius: 1rem;
+      color: var(--ink);
+      background: var(--white);
+      box-shadow: 0 .55rem 1.2rem rgba(16, 36, 42, .12);
+      font-size: clamp(.9rem, 1.2vw, 1.18rem);
+      font-weight: 750;
+      line-height: 1.22;
+    }
+
+    .presenter-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 24;
+      min-width: 48px;
+      min-height: 48px;
+      padding: .65rem .9rem;
+      border: 2px solid rgba(16, 36, 42, .25);
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--white);
+      font-size: .9rem;
+      font-weight: 900;
+      touch-action: manipulation;
+    }
+    .presenter-panel {
+      position: absolute;
+      top: 4.6rem;
+      right: 1rem;
+      z-index: 25;
+      width: min(30rem, 42%);
+      max-height: 76%;
+      overflow: auto;
+      padding: 1.2rem 1.3rem;
+      border: 2px solid rgba(241, 183, 70, .75);
+      border-radius: 1.25rem;
+      color: var(--white);
+      background: rgba(11, 59, 69, .97);
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, .25);
+      overscroll-behavior: contain;
+    }
+    .presenter-panel h2 { max-width: none; margin-bottom: .7rem; color: var(--white); font-size: 1.55rem; letter-spacing: -.02em; }
+    .presenter-panel h3 { margin: .8rem 0 .25rem; color: #ffe4a4; font-size: 1rem; letter-spacing: 0; }
+    .presenter-panel p, .presenter-panel li { color: #f2f7f5; font-size: .95rem; line-height: 1.35; }
+    .presenter-panel p { margin-bottom: .5rem; }
+    .presenter-panel ul { margin: .2rem 0 .6rem; padding-left: 1.2rem; }
+    .presenter-close {
+      min-width: 48px;
+      min-height: 48px;
+      margin: .6rem 0 0;
+      padding: .55rem .8rem;
+      border: 0;
+      border-radius: .8rem;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--gold-soft);
+      font-weight: 900;
+      touch-action: manipulation;
+    }
+    .presenter-note[hidden] { display: none; }
+
+    @media (max-width: 760px) {
+      .slide { padding: 1.5rem 1.2rem 3.4rem; }
+      h1 { max-width: 8ch; font-size: clamp(2.5rem, 8.5vw, 4rem); }
+      h2 { font-size: clamp(2rem, 6.7vw, 3.4rem); }
+      p { font-size: clamp(.95rem, 2.4vw, 1.2rem); }
+      .split, .truth-slide .split, .prayer-slide .split { grid-template-columns: 1fr; gap: .65rem; align-content: center; }
+      .art-panel { min-height: 0; height: 36%; max-height: 15rem; order: -1; }
+      .hero-copy { width: 76%; padding-top: 9%; }
+      .hero-art { width: 67%; opacity: .8; }
+      .hero-question { left: 5%; bottom: 14%; width: 55%; }
+      .questions-head { align-items: start; flex-direction: column; gap: .2rem; }
+      .questions-head p { margin-bottom: 0; }
+      .question-grid { gap: .5rem; margin-top: .6rem; }
+      .question-card { min-height: 7.2rem; padding: .65rem; }
+      .question-card h3 { font-size: clamp(.9rem, 2.6vw, 1.15rem); }
+      .question-card .bubble-toggle { margin-top: .42rem; padding: .45rem .6rem; font-size: .75rem; }
+      .question-card .bubble-pop { padding: .5rem .6rem; font-size: .78rem; }
+      .source-note { max-width: 55%; }
+      .shortcut { display: none; }
+      .presenter-panel { width: min(28rem, 76%); max-height: 70%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage-shell">
+    <div class="stage" aria-label="Interactive teaching deck: John Pointed to Jesus">
+      <section class="slide hero active" data-slide="1" aria-label="Curiosity hook" aria-hidden="false">
+        <div class="hero-copy">
+          <div class="eyebrow">The Gospel Project: Kids · Unit 21</div>
+          <h1 tabindex="-1">John pointed to Jesus.</h1>
+          <p>Who did John want people to believe in?</p>
+          <div class="lesson-pill">A story about Jesus, the Messiah</div>
+        </div>
+        <div class="hero-art">
+          <img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="Illustration of John, Jesus, and a group of people by the water" width="973" height="648">
+        </div>
+        <div class="hero-question reveal">
+          <button class="bubble-toggle" aria-expanded="false" aria-controls="hook-answer">What do you notice in the picture?</button>
+          <div id="hook-answer" class="bubble-pop" hidden>The illustration shows John, Jesus, and people together by the water.</div>
+        </div>
+        <p class="source-note">The Gospel Project: Kids · John Pointed to Jesus</p>
+      </section>
+
+      <section class="slide scene-slide" data-slide="2" aria-label="Look at the story picture" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Look closely</div>
+            <h2 tabindex="-1">John and Jesus by the water</h2>
+            <p>The lesson picture shows John, Jesus, and people together by the water.</p>
+            <div class="fact-card"><strong>What do you see?</strong><span>Look for John, Jesus, and the people gathered nearby.</span></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="scene-answer">Who is in the scene?</button>
+              <div id="scene-answer" class="bubble-pop" hidden>John and Jesus are both shown in the lesson illustration.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="John and Jesus are shown near the water while people watch" width="973" height="648" style="object-position: 58% center"><span class="caption-chip">One story picture</span></div>
+        </div>
+        <p class="source-note">The picture is an illustration from the Ministry Grid lesson page.</p>
+      </section>
+
+      <section class="slide message-slide" data-slide="3" aria-label="John points people to Jesus" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">John's message</div>
+            <h2 tabindex="-1">John pointed people to Jesus.</h2>
+            <p>The lesson overview says John wanted people to believe in Jesus as the Messiah.</p>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="message-answer">Who did John point people to?</button>
+              <div id="message-answer" class="bubble-pop" hidden>John pointed people to Jesus.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="John stands with people while Jesus is shown at the water" width="973" height="648" style="object-position: 36% center"><span class="caption-chip">John's message points to Jesus</span></div>
+        </div>
+        <p class="source-note">Summary from the Ministry Grid session overview.</p>
+      </section>
+
+      <section class="slide messiah-slide" data-slide="4" aria-label="Jesus is the Messiah" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">The lesson's big truth</div>
+            <h2 tabindex="-1">Jesus is the Messiah.</h2>
+            <p>John wanted people to know who Jesus is and believe in Him.</p>
+            <div class="fact-card"><strong>Messiah</strong><span>The name the lesson overview uses for Jesus.</span></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="messiah-answer">What did John want people to believe?</button>
+              <div id="messiah-answer" class="bubble-pop" hidden>That Jesus is the Messiah.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="Jesus is pictured at the water as John stands nearby" width="973" height="648" style="object-position: 67% center"><span class="caption-chip">Jesus is the Messiah</span></div>
+        </div>
+        <p class="source-note">Wording follows the lesson overview; no Bible reference was visible there.</p>
+      </section>
+
+      <section class="slide belief-slide" data-slide="5" aria-label="Believing in Jesus" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Believe in Jesus</div>
+            <h2 tabindex="-1">Trust Jesus, the Messiah.</h2>
+            <p>The lesson overview connects believing in Jesus with receiving eternal life.</p>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="belief-answer">What does the lesson connect with believing in Jesus?</button>
+              <div id="belief-answer" class="bubble-pop" hidden>Receiving eternal life.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="Jesus stands in the water as people gather nearby" width="973" height="648" style="object-position: 76% 52%"><span class="caption-chip">Believe in Jesus</span></div>
+        </div>
+        <p class="source-note">Summary from the Ministry Grid session overview.</p>
+      </section>
+
+      <section class="slide sharing-slide" data-slide="6" aria-label="Believers can point others to Jesus" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Pass the good news along</div>
+            <h2 tabindex="-1">We can point others to Jesus.</h2>
+            <p>The overview says people who believe in Jesus can point others to believe in Him too.</p>
+            <div class="fact-card"><strong>One simple message</strong><span>“Jesus is the Messiah.”</span></div>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="sharing-answer">What can believers do for others?</button>
+              <div id="sharing-answer" class="bubble-pop" hidden>Point them to Jesus.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="People are gathered around John and Jesus in the story illustration" width="973" height="648" style="object-position: 30% center"><span class="caption-chip">Point others to Jesus</span></div>
+        </div>
+        <p class="source-note">Summary from the Ministry Grid session overview.</p>
+      </section>
+
+      <section class="slide application-slide" data-slide="7" aria-label="Pointing people to Jesus" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">A child-friendly wondering</div>
+            <h2 tabindex="-1">How can we point someone to Jesus?</h2>
+            <p>We can share that we believe Jesus is the Messiah and invite someone to learn about Him.</p>
+            <div class="reveal">
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="application-answer">Do we need a long speech?</button>
+              <div id="application-answer" class="bubble-pop" hidden>No. This is a simple example for children: tell someone that Jesus is the Messiah you believe in.</div>
+            </div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="A group listens as John points people toward Jesus in the story illustration" width="973" height="648" style="object-position: 43% center"><span class="caption-chip">A simple way to share</span></div>
+        </div>
+        <p class="source-note">The sharing example is a teaching suggestion based on the overview.</p>
+      </section>
+
+      <section class="slide truth-slide" data-slide="8" aria-label="Remember the lesson truth" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Remember this</div>
+            <h2 tabindex="-1">Jesus is the Messiah.</h2>
+            <p>John pointed people to believe in Jesus. People who believe can point others to Him too.</p>
+            <div class="truth-card"><small>Today's takeaway</small><strong>Believe in Jesus. Point others to Him.</strong></div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="The story illustration brings John, Jesus, and the gathered people into one scene" width="973" height="648" style="object-position: 55% center"><span class="caption-chip">John pointed to Jesus</span></div>
+        </div>
+        <p class="source-note">The official Big Picture answer and key passage reference were not visible in the accessible overview.</p>
+      </section>
+
+      <section class="slide questions-slide" data-slide="9" aria-label="Five-minute discussion questions" aria-hidden="true">
+        <div class="questions-head">
+          <div><div class="eyebrow">Five-minute question time</div><h2 tabindex="-1">Let's talk about it.</h2></div>
+          <p>Tap a question to reveal a short answer cue.</p>
+        </div>
+        <div class="question-grid">
+          <article class="question-card reveal"><div><span class="number">1</span><h3>Who did John point people to?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q1-answer">Reveal answer cue</button><div id="q1-answer" class="bubble-pop" hidden>Jesus.</div></article>
+          <article class="question-card reveal"><div><span class="number">2</span><h3>Who is Jesus in this lesson?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q2-answer">Reveal answer cue</button><div id="q2-answer" class="bubble-pop" hidden>Jesus is the Messiah.</div></article>
+          <article class="question-card reveal"><div><span class="number">3</span><h3>What do believers receive?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q3-answer">Reveal answer cue</button><div id="q3-answer" class="bubble-pop" hidden>The lesson overview says believers receive eternal life.</div></article>
+          <article class="question-card reveal"><div><span class="number">4</span><h3>What can believers do for others?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q4-answer">Reveal answer cue</button><div id="q4-answer" class="bubble-pop" hidden>Point them to Jesus.</div></article>
+        </div>
+        <p class="source-note">Answer cues follow the visible Ministry Grid lesson overview.</p>
+      </section>
+
+      <section class="slide prayer-slide" data-slide="10" aria-label="Read-aloud prayer" aria-hidden="true">
+        <div class="split">
+          <div class="copy">
+            <div class="eyebrow">Let's pray</div>
+            <h2 tabindex="-1">Thank You for Jesus.</h2>
+            <div class="prayer-card"><p>God, thank You for Jesus, the Messiah. Help us believe in Him and share with others that we can trust Him too. Thank You for the eternal life You give to those who believe. Amen.</p></div>
+          </div>
+          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="John, Jesus, and the people appear together in the lesson illustration" width="973" height="648" style="object-position: 52% center"><span class="caption-chip">Jesus is the Messiah</span></div>
+        </div>
+        <p class="source-note">A short prayer based on the lesson overview's message.</p>
+      </section>
+
+      <div class="shortcut" aria-hidden="true">Arrow keys navigate · Space next · Home / End</div>
+      <nav class="nav" aria-label="Slide navigation">
+        <button id="prev" type="button" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span id="counter" class="counter">1 / 10</span>
+        <button id="next" type="button" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </nav>
+      <div class="progress" aria-hidden="true" style="width:10%"></div>
+      <div id="slide-live" class="sr-only" aria-live="polite" aria-atomic="true">Slide 1 of 10.</div>
+
+      <button id="presenter-toggle" class="presenter-toggle" type="button" aria-expanded="false" aria-controls="presenter-panel" hidden>Leader notes</button>
+      <aside id="presenter-panel" class="presenter-panel" aria-labelledby="presenter-title" aria-hidden="true" hidden>
+        <h2 id="presenter-title">Leader notes</h2>
+        <div class="presenter-note" data-note="1"><h3>Slide 1 · About 1 minute</h3><p>Invite children to wonder who John wanted people to believe in. Treat the question as a conversation starter, not a test.</p><p><strong>Source:</strong> Ministry Grid session overview.</p></div>
+        <div class="presenter-note" data-note="2" hidden><h3>Slide 2 · About 1 minute</h3><p>Invite children to point out John, Jesus, and the people in the illustration. The image is an illustration; the overview's text says John pointed people to Jesus.</p><p><strong>Activity idea:</strong> Let each child name one thing they notice in the scene.</p></div>
+        <div class="presenter-note" data-note="3" hidden><h3>Slide 3 · About 1 minute 15 seconds</h3><p>Keep the main idea simple: John pointed people to believe in Jesus as the Messiah.</p><p><strong>Source:</strong> Ministry Grid session overview.</p></div>
+        <div class="presenter-note" data-note="4" hidden><h3>Slide 4 · About 1 minute 15 seconds</h3><p>Repeat the lesson wording that Jesus is the Messiah. The overview does not show the Bible passage reference or a fuller definition.</p><p><strong>Bible reference:</strong> Not visible in the accessible overview.</p></div>
+        <div class="presenter-note" data-note="5" hidden><h3>Slide 5 · About 1 minute 15 seconds</h3><p>Connect the overview's two ideas: people believe in Jesus, and they receive eternal life.</p><p><strong>Source:</strong> Ministry Grid session overview.</p></div>
+        <div class="presenter-note" data-note="6" hidden><h3>Slide 6 · About 1 minute 15 seconds</h3><p>The overview says people who believe in Jesus can point others to believe in Him too.</p><p><strong>Application:</strong> Ask what a child might say to a friend who wants to learn more about Jesus.</p></div>
+        <div class="presenter-note" data-note="7" hidden><h3>Slide 7 · About 1 minute 15 seconds</h3><p>This sharing example is a teaching suggestion based on the overview, not a quotation from the Bible or leader guide.</p><p><strong>Misconception to address:</strong> A child may think sharing requires a long speech. A simple, honest sentence is enough to begin a conversation.</p></div>
+        <div class="presenter-note" data-note="8" hidden><h3>Slide 8 · About 1 minute 45 seconds</h3><p>Review the summary truth: Jesus is the Messiah; believers can point others to Him.</p><p><strong>Passage and key passage:</strong> Not displayed in the accessible overview. The younger leader guide and poster downloads were listed, but their contents were not readable during review.</p></div>
+        <div class="presenter-note" data-note="9" hidden><h3>Slide 9 · Five minutes</h3><p>Take one question at a time. Open an answer cue only if it helps the conversation; there is no need to score or hurry children.</p><p><strong>Likely misconceptions:</strong> “John wanted people to believe in him” — the overview says John pointed people to Jesus. “People receive eternal life by telling others” — the overview connects eternal life with believing in Jesus, then says believers can point others to Him.</p></div>
+        <div class="presenter-note" data-note="10" hidden><h3>Slide 10 · About 30 seconds</h3><p>Read the prayer slowly. The prayer uses only the lesson overview's themes: Jesus as Messiah, believing in Him, eternal life, and pointing others to Jesus.</p><p><strong>Optional follow-up:</strong> Ask each child for one person they can encourage this week, without asking them to share anything private.</p></div>
+        <button id="presenter-close" class="presenter-close" type="button">Close notes</button>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const previous = document.querySelector("#prev");
+      const next = document.querySelector("#next");
+      const counter = document.querySelector("#counter");
+      const live = document.querySelector("#slide-live");
+      const progress = document.querySelector(".progress");
+      const presenterToggle = document.querySelector("#presenter-toggle");
+      const presenterPanel = document.querySelector("#presenter-panel");
+      const presenterClose = document.querySelector("#presenter-close");
+      const presenterNotes = Array.from(document.querySelectorAll(".presenter-note"));
+      let current = 0;
+
+      const readSlideFromHash = () => {
+        const match = window.location.hash.match(/^#slide=(\d+)$/);
+        return match ? Number(match[1]) - 1 : 0;
+      };
+
+      const closeReveals = () => {
+        document.querySelectorAll(".bubble-toggle[aria-expanded='true']").forEach((button) => {
+          const panel = document.getElementById(button.getAttribute("aria-controls"));
+          button.setAttribute("aria-expanded", "false");
+          if (panel) panel.hidden = true;
+        });
+      };
+
+      const setSlide = (index, options = {}) => {
+        const { writeHash = true, replaceHash = false, focusHeading = true } = options;
+        const safeIndex = Number.isFinite(index) ? Math.trunc(index) : 0;
+        current = Math.max(0, Math.min(safeIndex, slides.length - 1));
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === current);
+          slide.setAttribute("aria-hidden", i === current ? "false" : "true");
+        });
+        closeReveals();
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+        presenterNotes.forEach((note) => { note.hidden = Number(note.dataset.note) !== current + 1; });
+        live.textContent = `Slide ${current + 1} of ${slides.length}.`;
+
+        const canonicalHash = `#slide=${current + 1}`;
+        if ((writeHash || replaceHash) && window.location.hash !== canonicalHash) {
+          if (replaceHash) window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}${canonicalHash}`);
+          else window.location.hash = canonicalHash;
+        }
+        if (focusHeading) {
+          const heading = slides[current].querySelector("h1, h2");
+          if (heading) heading.focus({ preventScroll: true });
+        }
+      };
+
+      document.querySelectorAll(".bubble-toggle").forEach((button) => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        if (!panel) return;
+        button.addEventListener("click", () => {
+          const open = button.getAttribute("aria-expanded") !== "true";
+          button.setAttribute("aria-expanded", String(open));
+          panel.hidden = !open;
+        });
+      });
+
+      previous.addEventListener("click", () => setSlide(current - 1));
+      next.addEventListener("click", () => setSlide(current + 1));
+
+      const syncSlideFromLocation = () => {
+        const target = Math.max(0, Math.min(readSlideFromHash(), slides.length - 1));
+        if (target !== current) setSlide(target, { writeHash: false, replaceHash: true });
+        else if (window.location.hash !== `#slide=${current + 1}`) setSlide(target, { writeHash: false, replaceHash: true });
+      };
+      window.addEventListener("hashchange", syncSlideFromLocation);
+      window.addEventListener("popstate", syncSlideFromLocation);
+
+      document.addEventListener("keydown", (event) => {
+        const target = event.target;
+        if (target && target.closest && target.closest("input, textarea, select, [contenteditable='true']")) return;
+        if ((event.key === "Enter" || event.key === " ") && target && target.closest && target.closest("button")) return;
+        if (event.key === "ArrowLeft") { event.preventDefault(); setSlide(current - 1); }
+        if (event.key === "ArrowRight" || event.key === " ") { event.preventDefault(); setSlide(current + 1); }
+        if (event.key === "Home") { event.preventDefault(); setSlide(0); }
+        if (event.key === "End") { event.preventDefault(); setSlide(slides.length - 1); }
+      });
+
+      const presenterEnabled = new URLSearchParams(window.location.search).get("presenter") === "1";
+      presenterToggle.hidden = !presenterEnabled;
+      presenterPanel.hidden = true;
+      if (presenterEnabled) {
+        presenterToggle.addEventListener("click", () => {
+          const open = presenterPanel.hidden;
+          presenterPanel.hidden = !open;
+          presenterPanel.setAttribute("aria-hidden", String(!open));
+          presenterToggle.setAttribute("aria-expanded", String(open));
+        });
+        presenterClose.addEventListener("click", () => {
+          presenterPanel.hidden = true;
+          presenterPanel.setAttribute("aria-hidden", "true");
+          presenterToggle.setAttribute("aria-expanded", "false");
+          presenterToggle.focus();
+        });
+      }
+
+      setSlide(readSlideFromHash(), { replaceHash: true });
+    })();
+  </script>
+</body>
+</html>
