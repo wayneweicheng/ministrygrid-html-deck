@@ -312,49 +312,104 @@
     .truth-slide .art-panel { border: .3rem solid rgba(255, 255, 255, .24); }
     .truth-slide .art-panel .poster { object-position: 55% center; }
 
-    .questions-slide { background: #fff5e7; }
-    .questions-head {
+    .quiz-slide { background: #fff5e7; }
+    .quiz-head {
       display: flex;
       align-items: end;
       justify-content: space-between;
       gap: 1.2rem;
     }
-    .questions-head h2 { max-width: 10ch; margin-bottom: .1rem; }
-    .questions-head p { max-width: 23rem; margin-bottom: .5rem; font-weight: 800; }
-    .question-grid {
+    .quiz-head h2 { max-width: none; margin-bottom: .1rem; font-size: clamp(2.65rem, 4.3vw, 4.6rem); }
+    .quiz-head p { max-width: 24rem; margin-bottom: .5rem; font-weight: 800; }
+    .quiz-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(.75rem, 1.35vw, 1.3rem);
-      margin-top: 1.2rem;
+      grid-template-columns: 1.25fr .9fr;
+      gap: clamp(1rem, 2vw, 2rem);
+      height: calc(100% - 8.5rem);
+      margin-top: .85rem;
     }
-    .question-card {
-      min-height: 10rem;
-      padding: 1rem 1.1rem;
-      border-radius: 1.2rem;
+    .quiz-card {
+      display: flex;
+      min-height: 0;
+      flex-direction: column;
+      padding: clamp(1rem, 2vw, 1.8rem);
+      border: .12rem solid rgba(16, 36, 42, .08);
+      border-radius: 1.5rem;
       background: var(--white);
-      box-shadow: 0 .5rem 1.1rem rgba(16, 36, 42, .1);
+      box-shadow: 0 .6rem 1.35rem rgba(16, 36, 42, .11);
     }
-    .question-card:nth-child(2) { background: var(--teal-soft); }
-    .question-card:nth-child(3) { background: var(--rose-soft); }
-    .question-card:nth-child(4) { background: var(--gold-soft); }
-    .question-card .number {
-      display: inline-grid;
+    .quiz-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .7rem;
+      margin-bottom: .75rem;
+      color: var(--green-deep);
+      font-size: clamp(.82rem, 1.15vw, 1.08rem);
+      font-weight: 950;
+    }
+    .quiz-score { padding: .42rem .68rem; border-radius: 999px; color: var(--ink); background: var(--gold-soft); white-space: nowrap; }
+    .quiz-question { margin: 0 0 .85rem; color: var(--ink); font-size: clamp(1.65rem, 2.9vw, 3rem); line-height: 1.04; }
+    .quiz-options { display: grid; gap: clamp(.45rem, .8vw, .75rem); }
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      width: 100%;
+      min-height: 3.65rem;
+      padding: .68rem .9rem;
+      border: .14rem solid rgba(16, 36, 42, .15);
+      border-radius: 1rem;
+      cursor: pointer;
+      color: var(--ink);
+      background: #fffdf9;
+      font-size: clamp(1rem, 1.55vw, 1.5rem);
+      font-weight: 850;
+      line-height: 1.15;
+      text-align: left;
+      touch-action: manipulation;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .quiz-option:hover:not(:disabled) { transform: translateY(-.08rem); border-color: var(--green); background: var(--green-soft); }
+    .quiz-option:disabled { cursor: default; opacity: .76; }
+    .quiz-option.is-wrong { border-color: var(--rose); background: var(--rose-soft); opacity: 1; }
+    .quiz-option.is-correct { border-color: var(--green-deep); background: var(--green-soft); opacity: 1; }
+    .quiz-letter {
+      display: grid;
+      flex: 0 0 2.15rem;
+      width: 2.15rem;
+      height: 2.15rem;
       place-items: center;
-      width: 2rem;
-      height: 2rem;
-      margin-right: .4rem;
       border-radius: 50%;
       color: var(--white);
       background: var(--green-deep);
-      font-size: .95rem;
+      font-size: 1rem;
       font-weight: 950;
-      vertical-align: .15em;
     }
-    .question-card:nth-child(3) .number { background: var(--rose); }
-    .question-card:nth-child(4) .number { color: var(--ink); background: var(--gold); }
-    .question-card h3 { display: inline; font-size: clamp(1.05rem, 1.55vw, 1.5rem); letter-spacing: -.02em; }
-    .question-card .bubble-toggle { margin-top: .72rem; min-height: 3rem; padding: .6rem .8rem; border-radius: .75rem; font-size: clamp(.74rem, 1vw, .95rem); }
-    .question-card .bubble-pop { margin-top: .5rem; padding: .62rem .75rem; font-size: clamp(.78rem, 1.05vw, 1rem); }
+    .quiz-feedback { min-height: 1.6em; margin: .7rem 0 .4rem; color: var(--ink-soft); font-size: clamp(.9rem, 1.2vw, 1.15rem); font-weight: 800; }
+    .quiz-controls { display: flex; justify-content: flex-end; margin-top: auto; }
+    .quiz-next, .quiz-replay {
+      min-width: 48px;
+      min-height: 3rem;
+      padding: .7rem 1rem;
+      border: 0;
+      border-radius: .9rem;
+      cursor: pointer;
+      color: var(--white);
+      background: var(--green-deep);
+      font-size: clamp(.95rem, 1.2vw, 1.15rem);
+      font-weight: 950;
+      touch-action: manipulation;
+    }
+    .quiz-next:hover:not(:disabled), .quiz-replay:hover { background: var(--teal); }
+    .quiz-next:disabled { cursor: default; opacity: .45; }
+    .quiz-art-panel { position: relative; min-height: 0; overflow: hidden; border-radius: 1.5rem; background: var(--green-soft); box-shadow: 0 .6rem 1.35rem rgba(16, 36, 42, .12); }
+    .quiz-art-panel img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .quiz-art-caption { position: absolute; right: 1rem; bottom: 1rem; left: 1rem; padding: .7rem .9rem; border-radius: .8rem; color: var(--white); background: rgba(16, 36, 42, .86); font-size: clamp(.8rem, 1.15vw, 1.05rem); font-weight: 900; }
+    .quiz-complete { display: flex; min-height: 0; flex: 1; flex-direction: column; justify-content: center; align-items: flex-start; }
+    .quiz-complete h3 { margin-bottom: .7rem; color: var(--green-deep); font-size: clamp(2rem, 3.5vw, 3.6rem); }
+    .quiz-complete p { max-width: 38rem; margin-bottom: .8rem; }
+    .quiz-chant { padding: .8rem 1rem; border-left: .4rem solid var(--gold); border-radius: 0 .8rem .8rem 0; color: var(--ink); background: var(--cream); font-size: clamp(1.1rem, 1.8vw, 1.7rem); font-weight: 950; }
 
     .prayer-slide { background: #eff7f0; }
     .prayer-slide .split { grid-template-columns: 1.05fr .95fr; }
@@ -516,13 +571,24 @@
       .hero-copy { width: 76%; padding-top: 9%; }
       .hero-art { width: 67%; opacity: .8; }
       .hero-question { left: 5%; bottom: 14%; width: 55%; }
-      .questions-head { align-items: start; flex-direction: column; gap: .2rem; }
-      .questions-head p { margin-bottom: 0; }
-      .question-grid { gap: .5rem; margin-top: .6rem; }
-      .question-card { min-height: 7.2rem; padding: .65rem; }
-      .question-card h3 { font-size: clamp(.9rem, 2.6vw, 1.15rem); }
-      .question-card .bubble-toggle { margin-top: .42rem; padding: .45rem .6rem; font-size: .75rem; }
-      .question-card .bubble-pop { padding: .5rem .6rem; font-size: .78rem; }
+      .quiz-head { align-items: start; flex-direction: column; gap: .2rem; }
+      .quiz-head h2 { font-size: clamp(2rem, 6.7vw, 3.4rem); }
+      .quiz-head p { margin-bottom: 0; }
+      .quiz-layout { grid-template-columns: 1fr .7fr; gap: .6rem; height: calc(100% - 7.5rem); margin-top: .5rem; }
+      .quiz-card { padding: .7rem; border-radius: .9rem; }
+      .quiz-meta { margin-bottom: .35rem; font-size: .68rem; }
+      .quiz-score { padding: .25rem .42rem; }
+      .quiz-question { margin-bottom: .4rem; font-size: clamp(1rem, 3.4vw, 1.35rem); }
+      .quiz-options { gap: .28rem; }
+      .quiz-option { min-height: 2.4rem; gap: .4rem; padding: .32rem .45rem; border-radius: .55rem; font-size: clamp(.65rem, 1.7vw, .82rem); }
+      .quiz-letter { flex-basis: 1.4rem; width: 1.4rem; height: 1.4rem; font-size: .72rem; }
+      .quiz-feedback { min-height: 1.2em; margin: .28rem 0; font-size: .64rem; }
+      .quiz-next, .quiz-replay { min-height: 2.1rem; padding: .4rem .6rem; border-radius: .6rem; font-size: .7rem; }
+      .quiz-art-panel { border-radius: .9rem; }
+      .quiz-art-caption { right: .4rem; bottom: .4rem; left: .4rem; padding: .38rem; border-radius: .5rem; font-size: .58rem; }
+      .quiz-complete h3 { font-size: 1.2rem; }
+      .quiz-complete p { margin-bottom: .3rem; font-size: .7rem; }
+      .quiz-chant { padding: .42rem .5rem; font-size: .72rem; }
       .source-note { max-width: 55%; }
       .shortcut { display: none; }
       .presenter-panel { width: min(28rem, 76%); max-height: 70%; }
@@ -591,7 +657,7 @@
             <div class="eyebrow">The lesson's big truth</div>
             <h2 tabindex="-1">Jesus is the Messiah.</h2>
             <p>John wanted people to know who Jesus is and believe in Him.</p>
-            <div class="fact-card"><strong>Messiah</strong><span>The name the lesson overview uses for Jesus.</span></div>
+            <div class="fact-card"><strong>Messiah</strong><span>God's promised rescuer.</span></div>
             <div class="reveal">
               <button class="bubble-toggle" aria-expanded="false" aria-controls="messiah-answer">What did John want people to believe?</button>
               <div id="messiah-answer" class="bubble-pop" hidden>That Jesus is the Messiah.</div>
@@ -599,7 +665,7 @@
           </div>
           <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="Jesus is pictured at the water as John stands nearby" width="973" height="648" style="object-position: 67% center"><span class="caption-chip">Jesus is the Messiah</span></div>
         </div>
-        <p class="source-note">Wording follows the lesson overview; no Bible reference was visible there.</p>
+        <p class="source-note">Child-friendly definition adapted from the shared teaching plan; no Bible reference was visible in the lesson overview.</p>
       </section>
 
       <section class="slide belief-slide" data-slide="5" aria-label="Believing in Jesus" aria-hidden="true">
@@ -635,20 +701,21 @@
         <p class="source-note">Summary from the Ministry Grid session overview.</p>
       </section>
 
-      <section class="slide application-slide" data-slide="7" aria-label="Pointing people to Jesus" aria-hidden="true">
+      <section class="slide application-slide" data-slide="7" aria-label="Be a signpost activity" aria-hidden="true">
         <div class="split">
           <div class="copy">
-            <div class="eyebrow">A child-friendly wondering</div>
-            <h2 tabindex="-1">How can we point someone to Jesus?</h2>
-            <p>We can share that we believe Jesus is the Messiah and invite someone to learn about Him.</p>
+            <div class="eyebrow">Two-minute movement game</div>
+            <h2 tabindex="-1">Be a signpost!</h2>
+            <p>A sign points the way. John pointed people to Jesus.</p>
+            <div class="fact-card"><strong>Try it together</strong><span>Choose a John, a Jesus, and a crowd. John points; everyone echoes, “John pointed to Jesus!” Then swap roles.</span></div>
             <div class="reveal">
-              <button class="bubble-toggle" aria-expanded="false" aria-controls="application-answer">Do we need a long speech?</button>
-              <div id="application-answer" class="bubble-pop" hidden>No. This is a simple example for children: tell someone that Jesus is the Messiah you believe in.</div>
+              <button class="bubble-toggle" aria-expanded="false" aria-controls="application-answer">What could I say to a friend?</button>
+              <div id="application-answer" class="bubble-pop" hidden>“Jesus is the Messiah. Would you like to learn about Him with me?”</div>
             </div>
           </div>
-          <div class="art-panel"><img class="poster" src="assets/john-pointed-to-jesus-story.png" alt="A group listens as John points people toward Jesus in the story illustration" width="973" height="648" style="object-position: 43% center"><span class="caption-chip">A simple way to share</span></div>
+          <div class="art-panel"><img class="poster" src="assets/signpost-activity.jpg" alt="Three children play a signpost game; one holds a blank wooden arrow and points the way" width="1672" height="941"><span class="caption-chip">Point the way to Jesus</span></div>
         </div>
-        <p class="source-note">The sharing example is a teaching suggestion based on the overview.</p>
+        <p class="source-note">Signpost activity and example wording adapted from the shared teaching plan.</p>
       </section>
 
       <section class="slide truth-slide" data-slide="8" aria-label="Remember the lesson truth" aria-hidden="true">
@@ -664,18 +731,31 @@
         <p class="source-note">The official Big Picture answer and key passage reference were not visible in the accessible overview.</p>
       </section>
 
-      <section class="slide questions-slide" data-slide="9" aria-label="Five-minute discussion questions" aria-hidden="true">
-        <div class="questions-head">
-          <div><div class="eyebrow">Five-minute question time</div><h2 tabindex="-1">Let's talk about it.</h2></div>
-          <p>Tap a question to reveal a short answer cue.</p>
+      <section class="slide quiz-slide" data-slide="9" aria-label="Four-question team quiz" aria-hidden="true">
+        <div class="quiz-head">
+          <div><div class="eyebrow">Team quiz · about three minutes</div><h2 tabindex="-1">Let's play!</h2></div>
+          <p>Point, stand, or choose together. Every question is a team retry.</p>
         </div>
-        <div class="question-grid">
-          <article class="question-card reveal"><div><span class="number">1</span><h3>Who did John point people to?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q1-answer">Reveal answer cue</button><div id="q1-answer" class="bubble-pop" hidden>Jesus.</div></article>
-          <article class="question-card reveal"><div><span class="number">2</span><h3>Who is Jesus in this lesson?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q2-answer">Reveal answer cue</button><div id="q2-answer" class="bubble-pop" hidden>Jesus is the Messiah.</div></article>
-          <article class="question-card reveal"><div><span class="number">3</span><h3>What do believers receive?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q3-answer">Reveal answer cue</button><div id="q3-answer" class="bubble-pop" hidden>The lesson overview says believers receive eternal life.</div></article>
-          <article class="question-card reveal"><div><span class="number">4</span><h3>What can believers do for others?</h3></div><button class="bubble-toggle" aria-expanded="false" aria-controls="q4-answer">Reveal answer cue</button><div id="q4-answer" class="bubble-pop" hidden>Point them to Jesus.</div></article>
+        <div class="quiz-layout">
+          <div class="quiz-card">
+            <div id="quiz-content">
+              <div class="quiz-meta"><span id="quiz-number">Question 1 of 4</span><span id="quiz-score" class="quiz-score" aria-live="polite">Team stars: 0 / 4</span></div>
+              <h3 id="quiz-question" class="quiz-question"></h3>
+              <div id="quiz-options" class="quiz-options" role="group" aria-labelledby="quiz-question"></div>
+              <p id="quiz-feedback" class="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">Choose an answer together.</p>
+              <div class="quiz-controls"><button id="quiz-next" class="quiz-next" type="button" disabled>Next question</button></div>
+            </div>
+            <div id="quiz-complete" class="quiz-complete" role="status" aria-live="polite" hidden>
+              <div class="eyebrow">Quiz complete</div>
+              <h3>Great teamwork!</h3>
+              <p id="quiz-finish-score">Your team earned 4 stars.</p>
+              <p class="quiz-chant">Leader: “Who did John point to?”<br>Everyone: “Jesus!”<br>All together: “John pointed to Jesus!”</p>
+              <button id="quiz-replay" class="quiz-replay" type="button">Play again</button>
+            </div>
+          </div>
+          <div class="quiz-art-panel"><img src="assets/signpost-activity.jpg" alt="Children smiling as they play a game with a blank wooden arrow sign" width="1672" height="941"><span class="quiz-art-caption">It’s not about me. It’s about Jesus!</span></div>
         </div>
-        <p class="source-note">Answer cues follow the visible Ministry Grid lesson overview.</p>
+        <p class="source-note">Quiz questions adapted from the shared teaching plan; lesson answers align with the Ministry Grid overview.</p>
       </section>
 
       <section class="slide prayer-slide" data-slide="10" aria-label="Read-aloud prayer" aria-hidden="true">
@@ -709,12 +789,12 @@
         <div class="presenter-note" data-note="1"><h3>Slide 1 · About 1 minute</h3><p>Invite children to wonder who John wanted people to believe in. Treat the question as a conversation starter, not a test.</p><p><strong>Source:</strong> Ministry Grid session overview.</p></div>
         <div class="presenter-note" data-note="2" hidden><h3>Slide 2 · About 1 minute</h3><p>Invite children to point out John, Jesus, and the people in the illustration. The image is an illustration; the overview's text says John pointed people to Jesus.</p><p><strong>Activity idea:</strong> Let each child name one thing they notice in the scene.</p></div>
         <div class="presenter-note" data-note="3" hidden><h3>Slide 3 · About 1 minute 15 seconds</h3><p>Keep the main idea simple: John pointed people to believe in Jesus as the Messiah.</p><p><strong>Source:</strong> Ministry Grid session overview.</p></div>
-        <div class="presenter-note" data-note="4" hidden><h3>Slide 4 · About 1 minute 15 seconds</h3><p>Repeat the lesson wording that Jesus is the Messiah. The overview does not show the Bible passage reference or a fuller definition.</p><p><strong>Bible reference:</strong> Not visible in the accessible overview.</p></div>
+        <div class="presenter-note" data-note="4" hidden><h3>Slide 4 · About 1 minute 15 seconds</h3><p>Explain Messiah in child-friendly language as God's promised rescuer, then return to the lesson's main idea: John wanted people to believe in Jesus.</p><p><strong>Source note:</strong> This short definition came from the shared teaching plan; the Ministry Grid overview does not provide a fuller definition or show the Bible passage reference.</p></div>
         <div class="presenter-note" data-note="5" hidden><h3>Slide 5 · About 1 minute 15 seconds</h3><p>Connect the overview's two ideas: people believe in Jesus, and they receive eternal life.</p><p><strong>Source:</strong> Ministry Grid session overview.</p></div>
         <div class="presenter-note" data-note="6" hidden><h3>Slide 6 · About 1 minute 15 seconds</h3><p>The overview says people who believe in Jesus can point others to believe in Him too.</p><p><strong>Application:</strong> Ask what a child might say to a friend who wants to learn more about Jesus.</p></div>
-        <div class="presenter-note" data-note="7" hidden><h3>Slide 7 · About 1 minute 15 seconds</h3><p>This sharing example is a teaching suggestion based on the overview, not a quotation from the Bible or leader guide.</p><p><strong>Misconception to address:</strong> A child may think sharing requires a long speech. A simple, honest sentence is enough to begin a conversation.</p></div>
+        <div class="presenter-note" data-note="7" hidden><h3>Slide 7 · About two minutes</h3><p>Use the “Be a signpost!” idea from the shared teaching plan. Invite a child to be John, another to be Jesus, and the rest to be the crowd. John points; the group echoes, “John pointed to Jesus!” Switch roles if time allows.</p><p><strong>Inclusive option:</strong> Children can stay seated and point, gesture, or say the line together. The activity is a teaching suggestion, not a quotation from the Bible or leader guide.</p></div>
         <div class="presenter-note" data-note="8" hidden><h3>Slide 8 · About 1 minute 45 seconds</h3><p>Review the summary truth: Jesus is the Messiah; believers can point others to Him.</p><p><strong>Passage and key passage:</strong> Not displayed in the accessible overview. The younger leader guide and poster downloads were listed, but their contents were not readable during review.</p></div>
-        <div class="presenter-note" data-note="9" hidden><h3>Slide 9 · Five minutes</h3><p>Take one question at a time. Open an answer cue only if it helps the conversation; there is no need to score or hurry children.</p><p><strong>Likely misconceptions:</strong> “John wanted people to believe in him” — the overview says John pointed people to Jesus. “People receive eternal life by telling others” — the overview connects eternal life with believing in Jesus, then says believers can point others to Him.</p></div>
+        <div class="presenter-note" data-note="9" hidden><h3>Slide 9 · About three minutes</h3><p>Read one question at a time. Children may point, stand, or answer as a group. A wrong choice invites a retry and never removes a star; award one team star for each correct answer.</p><p><strong>Finish together:</strong> Ask, “Who did John point to?” and let everyone answer, “Jesus!” Then say, “John pointed to Jesus!”</p><p><strong>Quiz wording:</strong> The four questions and choices were adapted from the shared teaching plan. The lesson-related answers align with the visible Ministry Grid overview.</p></div>
         <div class="presenter-note" data-note="10" hidden><h3>Slide 10 · About 30 seconds</h3><p>Read the prayer slowly. The prayer uses only the lesson overview's themes: Jesus as Messiah, believing in Him, eternal life, and pointing others to Jesus.</p><p><strong>Optional follow-up:</strong> Ask each child for one person they can encourage this week, without asking them to share anything private.</p></div>
         <button id="presenter-close" class="presenter-close" type="button">Close notes</button>
       </aside>
@@ -783,6 +863,113 @@
           panel.hidden = !open;
         });
       });
+
+      const quizNumber = document.querySelector("#quiz-number");
+      const quizScore = document.querySelector("#quiz-score");
+      const quizQuestion = document.querySelector("#quiz-question");
+      const quizOptions = document.querySelector("#quiz-options");
+      const quizFeedback = document.querySelector("#quiz-feedback");
+      const quizNext = document.querySelector("#quiz-next");
+      const quizContent = document.querySelector("#quiz-content");
+      const quizComplete = document.querySelector("#quiz-complete");
+      const quizFinishScore = document.querySelector("#quiz-finish-score");
+      const quizReplay = document.querySelector("#quiz-replay");
+      const quizQuestions = [
+        {
+          question: "Who did John want people to believe in?",
+          choices: ["John", "Jesus", "The Roman emperor"],
+          answer: 1,
+          correct: "Yes! John wanted people to believe in Jesus. Your team earns a star."
+        },
+        {
+          question: "What does Messiah mean?",
+          choices: ["A great soldier", "God's promised rescuer", "A fisherman"],
+          answer: 1,
+          correct: "That's right! Messiah means God's promised rescuer. Your team earns a star."
+        },
+        {
+          question: "What does the lesson say believers receive?",
+          choices: ["Lots of toys", "A golden crown today", "Eternal life"],
+          answer: 2,
+          correct: "That's right! The lesson says believers receive eternal life. Your team earns a star."
+        },
+        {
+          question: "How can we point others to Jesus?",
+          choices: ["Kindly tell them about Jesus", "Tell them to follow us instead", "Never talk about Jesus"],
+          answer: 0,
+          correct: "Yes! We can kindly tell others about Jesus. Your team earns a star."
+        }
+      ];
+      let quizIndex = 0;
+      let quizStars = 0;
+      let quizAnswered = false;
+
+      const renderQuiz = (focusFirstChoice = false) => {
+        const item = quizQuestions[quizIndex];
+        quizAnswered = false;
+        quizNumber.textContent = `Question ${quizIndex + 1} of ${quizQuestions.length}`;
+        quizScore.textContent = `Team stars: ${quizStars} / ${quizQuestions.length}`;
+        quizQuestion.textContent = item.question;
+        quizFeedback.textContent = "Choose an answer together.";
+        quizNext.disabled = true;
+        quizNext.textContent = quizIndex === quizQuestions.length - 1 ? "Finish quiz" : "Next question";
+        quizOptions.replaceChildren();
+
+        item.choices.forEach((choice, choiceIndex) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "quiz-option";
+          const letter = document.createElement("span");
+          letter.className = "quiz-letter";
+          letter.setAttribute("aria-hidden", "true");
+          letter.textContent = String.fromCharCode(65 + choiceIndex);
+          const label = document.createElement("span");
+          label.textContent = choice;
+          button.append(letter, label);
+          button.addEventListener("click", () => {
+            if (quizAnswered) return;
+            if (choiceIndex !== item.answer) {
+              button.classList.add("is-wrong");
+              button.disabled = true;
+              quizFeedback.textContent = "Good try! Choose another answer together. No stars are lost.";
+              return;
+            }
+            quizAnswered = true;
+            quizStars += 1;
+            quizScore.textContent = `Team stars: ${quizStars} / ${quizQuestions.length}`;
+            quizFeedback.textContent = item.correct;
+            quizOptions.querySelectorAll("button").forEach((option) => { option.disabled = true; });
+            button.classList.add("is-correct");
+            quizNext.disabled = false;
+            quizNext.focus();
+          });
+          quizOptions.append(button);
+        });
+        if (focusFirstChoice) quizOptions.querySelector("button")?.focus();
+      };
+
+      quizNext.addEventListener("click", () => {
+        if (!quizAnswered) return;
+        if (quizIndex === quizQuestions.length - 1) {
+          quizContent.hidden = true;
+          quizComplete.hidden = false;
+          quizNumber.textContent = "Quiz complete · 4 questions";
+          quizFinishScore.textContent = `Your team earned ${quizStars} of ${quizQuestions.length} stars. Fantastic teamwork!`;
+          quizReplay.focus();
+          return;
+        }
+        quizIndex += 1;
+        renderQuiz(true);
+      });
+
+      quizReplay.addEventListener("click", () => {
+        quizIndex = 0;
+        quizStars = 0;
+        quizComplete.hidden = true;
+        quizContent.hidden = false;
+        renderQuiz(true);
+      });
+      renderQuiz();
 
       previous.addEventListener("click", () => setSlide(current - 1));
       next.addEventListener("click", () => setSlide(current + 1));
